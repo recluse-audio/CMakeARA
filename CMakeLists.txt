@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.24.1)
 
 # This is the name of your plugin
 # This cannot have spaces (but PRODUCT_NAME can)
-set(PROJECT_NAME "CMake_ARA")
+set(PROJECT_NAME "CMakeARA")
 
 # Set the plugin formats you'll be building here.
 # Valid formats: AAX Unity VST AU AUv3 Standalone
@@ -62,7 +62,7 @@ juce_add_plugin("${PROJECT_NAME}"
     PLUGIN_CODE Recl                            # A unique four-character plugin id with at least one upper-case character
     FORMATS "${FORMATS}"
     PRODUCT_NAME "${PROJECT_NAME}"        # The name of the final executable, which can differ from the target name
-    IS_PLUGIN_ARA_EFFECT TRUE
+    IS_ARA_EFFECT TRUE
 )
 
 juce_generate_juce_header(${PROJECT_NAME})
@@ -85,8 +85,6 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_Library/PlugIn
 )
 
-add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
-add_compile_definitions(JucePlugin_Enable_ARA=1)
 
 
 
