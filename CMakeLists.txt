@@ -63,7 +63,12 @@ juce_add_plugin("${PROJECT_NAME}"
     FORMATS "${FORMATS}"
     PRODUCT_NAME "${PROJECT_NAME}"        # The name of the final executable, which can differ from the target name
     IS_ARA_EFFECT TRUE
+    IS_PLUGIN_ARA_EFFECT TRUE
+
 )
+
+add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
+add_compile_definitions(JucePlugin_Enable_ARA=1)
 
 juce_generate_juce_header(${PROJECT_NAME})
 
@@ -86,20 +91,16 @@ target_include_directories(${PROJECT_NAME}
 )
 
 
-
-
-
-
-
-
-
-
 # Manually list all .h and .cpp files for the plugin
 set(SourceFiles
     Source/PluginEditor.h
     Source/PluginProcessor.h
     Source/ARA/ARA_DocumentController.h
     Source/ARA/ARA_PlaybackRenderer.h
+    Source/ARA_View/PlaybackRegionView.h
+    Source/ARA_View/PlaybackRegionView.cpp
+    Source/WaveCache/WaveformCache.h
+    Source/WaveCache/WaveformCache.cpp
     Source/PluginEditor.cpp
     Source/PluginProcessor.cpp
     Source/ARA/ARA_DocumentController.cpp
@@ -139,8 +140,8 @@ foreach(target ${FORMATS} "All")
 
             # MacOS only: Sets the default executable that Xcode will open on build
             # For this exact path to to work, manually build the AudioPluginHost.xcodeproj in the JUCE subdir
-            XCODE_SCHEME_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app"
-
+            # XCODE_SCHEME_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app"
+            XCODE_SCHEME_EXECUTABLE "/Applications/Studio One 6.app"
             # Let us build the target in Xcode
             XCODE_GENERATE_SCHEME ON)
     endif()
@@ -155,12 +156,6 @@ target_compile_definitions("${PROJECT_NAME}"
     JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0)
-
-
-
-
-
-
 
 
 

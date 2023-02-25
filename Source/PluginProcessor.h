@@ -6,14 +6,14 @@
 #include "ipps.h"
 #endif
 
-class AudioPluginAudioProcessor : public juce::AudioProcessor
+class PluginProcessor : public juce::AudioProcessor
 #if JucePlugin_Enable_ARA
  , public juce::AudioProcessorARAExtension
 #endif
 {
 public:
-    AudioPluginAudioProcessor();
-    ~AudioPluginAudioProcessor() override;
+    PluginProcessor();
+    ~PluginProcessor() override;
 
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -42,5 +42,5 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };

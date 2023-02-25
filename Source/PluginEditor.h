@@ -2,21 +2,33 @@
 
 #include "PluginProcessor.h"
 
+class PlaybackRegionView;
+class ARA_DocumentController;
+
+class WaveformCache;
 //==============================================================================
-class AudioPluginAudioProcessorEditor  : public juce::AudioProcessorEditor
+class PluginEditor  : public juce::AudioProcessorEditor
+, public juce::AudioProcessorEditorARAExtension
+, public juce::ARADocument::Listener
 {
 public:
-    explicit AudioPluginAudioProcessorEditor (AudioPluginAudioProcessor&);
-    ~AudioPluginAudioProcessorEditor() override;
+    explicit PluginEditor (PluginProcessor&);
+    ~PluginEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-
+	
+	juce::ARADocument* getARADocument();
+	ARA_DocumentController* getARADocumentController();
+	void rebuildFromDocument();
+	WaveformCache* getWaveformCache();
 private:
+	std::unique_ptr<WaveformCache> waveCache;
+	std::unique_ptr<PlaybackRegionView> regionView;
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    AudioPluginAudioProcessor& processorRef;
+    PluginProcessor& mProcessor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginEditor)
 };
