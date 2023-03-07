@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include <JuceHeader.h>
+#include <../Util/Juce_Header.h>
 
 class PluginEditor;
 class WaveformCache;

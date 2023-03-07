@@ -21,7 +21,8 @@ public:
 	
 	juce::ARADocument* getARADocument();
 	ARA_DocumentController* getARADocumentController();
-	void rebuildFromDocument();
+	// Resets regionView to display the most recent PlaybackRegion
+	void refreshRegionView();
 	WaveformCache* getWaveformCache();
 private:
 	std::unique_ptr<WaveformCache> waveCache;

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <juce_audio_processors/juce_audio_processors.h>
+#include <../Util/Juce_Header.h>
 
 //==============================================================================
 /**
@@ -29,6 +29,7 @@ protected:
 
 	bool doRestoreObjectsFromStream (juce::ARAInputStream& input, const juce::ARARestoreObjectsFilter* filter) noexcept override;
 	bool doStoreObjectsToStream (juce::ARAOutputStream& output, const juce::ARAStoreObjectsFilter* filter) noexcept override;
+	
 
 private:
 	//==============================================================================

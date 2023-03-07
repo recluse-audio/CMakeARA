@@ -13,6 +13,7 @@ PluginEditor::PluginEditor (PluginProcessor& p)
     juce::ignoreUnused (mProcessor);
 
 	waveCache = std::make_unique<WaveformCache>();
+	refreshRegionView();
 	
 	setResizable(true, true);
     setSize (400, 300);
@@ -38,6 +39,8 @@ void PluginEditor::paint (juce::Graphics& g)
 
 void PluginEditor::resized()
 {
+	if(regionView.get() != nullptr)
+		regionView->setBounds(10, 5, this->getWidth()-20, this->getHeight()-10);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
@@ -74,4 +77,14 @@ ARA_DocumentController* PluginEditor::getARADocumentController()
 WaveformCache* PluginEditor::getWaveformCache()
 {
 	return waveCache.get();
+}
+
+void PluginEditor::refreshRegionView()
+{
+	regionView.reset();
+	auto sequence = getARADocument()->getRegionSequences().back();
+	auto region = sequence->getPlaybackRegions().back();
+	auto audioSource = region->getAudioModification()->getAudioSource();
+	regionView = std::make_unique<PlaybackRegionView>(waveCache->getOrCreateThumbnail(audioSource), region);
+	addAndMakeVisible(regionView.get());
 }

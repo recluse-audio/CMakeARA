@@ -2,16 +2,16 @@
 # 3.24.1 is also bundled in CLion as of 2023
 cmake_minimum_required(VERSION 3.24.1)
 
-# This is the name of your plugin
-# This cannot have spaces (but PRODUCT_NAME can)
+# This is the name of your plugin (no spaces allowed)
 set(PROJECT_NAME "CMakeARA")
 
-# Set the plugin formats you'll be building here.
+# defines SourceFiles
+include(cmake/SourceFiles.cmake)   
+
 # Valid formats: AAX Unity VST AU AUv3 Standalone
 set(FORMATS AU VST3 AUv3)
 
 # Reads in VERSION file and sticks in it CURRENT_VERSION variable
-# Be sure the file has no newlines
 file(STRINGS VERSION CURRENT_VERSION)
 
 # For simplicity, the name of the project is also the name of the target
@@ -38,9 +38,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS YES)
 option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Show all module sources in IDE projects" ON)
 
 # JUCE is setup as a submodule in the /JUCE folder
-# Locally, you'll need to run `git submodule update --init --recursive` once
-# and `git submodule update --remote --merge` to keep it up to date
-# On Github Actions, it's managed by actions/checkout
 add_subdirectory(submodules/JUCE)
 
 juce_set_ara_sdk_path("submodules/ARA_SDK")
@@ -91,23 +88,8 @@ target_include_directories(${PROJECT_NAME}
 )
 
 
-# Manually list all .h and .cpp files for the plugin
-set(SourceFiles
-    Source/PluginEditor.h
-    Source/PluginProcessor.h
-    Source/ARA/ARA_DocumentController.h
-    Source/ARA/ARA_PlaybackRenderer.h
-    Source/ARA_View/PlaybackRegionView.h
-    Source/ARA_View/PlaybackRegionView.cpp
-    Source/WaveCache/WaveformCache.h
-    Source/WaveCache/WaveformCache.cpp
-    Source/PluginEditor.cpp
-    Source/PluginProcessor.cpp
-    Source/ARA/ARA_DocumentController.cpp
-    Source/ARA/ARA_PlaybackRenderer.cpp    
-    )
-
 set(ARASource submodules/JUCE/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp)
+
 
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 target_sources("${PROJECT_NAME}" PRIVATE ${ARASource})
@@ -209,12 +191,6 @@ enable_testing()
 # CONFIGURE_DEPENDS / Clion's CMake integration makes globbing absolutely fine
 file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.h")
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
-
-
-
-
-
-
 
 
 
