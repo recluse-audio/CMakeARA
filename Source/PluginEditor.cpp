@@ -66,7 +66,7 @@ ARA_DocumentController* PluginEditor::getARADocumentController()
 	
 	if (auto* editorView = this->getARAEditorView())
 	{
-		docController = ARADocumentControllerSpecialisation::getSpecialisedDocumentController<ARA_DocumentController>(editorView->getDocumentController());
+		docController = juce::ARADocumentControllerSpecialisation::getSpecialisedDocumentController<ARA_DocumentController>(editorView->getDocumentController());
 		return docController;
 		
 	}
@@ -82,9 +82,13 @@ WaveformCache* PluginEditor::getWaveformCache()
 void PluginEditor::refreshRegionView()
 {
 	regionView.reset();
+	
 	auto sequence = getARADocument()->getRegionSequences().back();
 	auto region = sequence->getPlaybackRegions().back();
 	auto audioSource = region->getAudioModification()->getAudioSource();
+	
+	
 	regionView = std::make_unique<PlaybackRegionView>(waveCache->getOrCreateThumbnail(audioSource), region);
-	addAndMakeVisible(regionView.get());
+	//mRegion = std::make_unique<TimelineRegion>(
+	//addAndMakeVisible(regionView.get());
 }

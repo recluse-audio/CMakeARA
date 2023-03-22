@@ -5,8 +5,21 @@ set(SourceFiles
     Source/ARA/ARA_PlaybackRenderer.h
     Source/ARA_View/PlaybackRegionView.cpp
     Source/ARA_View/PlaybackRegionView.h
-    Source/MultiTrackTimeline/TimelineRegion.cpp
-    Source/MultiTrackTimeline/TimelineRegion.h
+    Source/MultiTrackTimeline/Timeline_AudioModification.cpp
+    Source/MultiTrackTimeline/Timeline_AudioModification.h
+    Source/MultiTrackTimeline/Timeline_AudioSource.cpp
+    Source/MultiTrackTimeline/Timeline_AudioSource.h
+    Source/MultiTrackTimeline/Timeline_Document.h
+    Source/MultiTrackTimeline/Timeline_DocumentController.cpp
+    Source/MultiTrackTimeline/Timeline_DocumentController.h
+    Source/MultiTrackTimeline/Timeline_PlaybackRegion.cpp
+    Source/MultiTrackTimeline/Timeline_PlaybackRegion.h
+    Source/MultiTrackTimeline/Timeline_PlaybackRenderer.cpp
+    Source/MultiTrackTimeline/Timeline_PlaybackRenderer.h
+    Source/MultiTrackTimeline/Timeline_RegionSequence.cpp
+    Source/MultiTrackTimeline/Timeline_RegionSequence.h
+    Source/MultiTrackTimeline/Timeline_Renderer.cpp
+    Source/MultiTrackTimeline/Timeline_Renderer.h
     Source/PluginEditor.cpp
     Source/PluginEditor.h
     Source/PluginProcessor.cpp
@@ -14,5 +27,4 @@ set(SourceFiles
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp
     Source/WaveCache/WaveformCache.h
-    Source/newHuh.h
 )

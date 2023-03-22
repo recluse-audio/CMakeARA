@@ -20,7 +20,7 @@ void PlaybackRegionView::paint (juce::Graphics& g)
 	auto bounds = this->getLocalBounds();
 
 	// Draw full audio source
-	g.setColour (Colours::whitesmoke.darker().withAlpha(0.3f));
+	g.setColour (juce::Colours::whitesmoke.darker().withAlpha(0.3f));
 	audioThumbnail.drawChannels (g, bounds, 0, sourceDuration, 1.0f);
 }
 

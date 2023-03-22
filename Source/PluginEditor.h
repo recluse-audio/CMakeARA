@@ -4,7 +4,6 @@
 
 class PlaybackRegionView;
 class ARA_DocumentController;
-
 class WaveformCache;
 //==============================================================================
 class PluginEditor  : public juce::AudioProcessorEditor

@@ -8,7 +8,7 @@ def generate_source_files_list(root_folder, output_file):
                 source_files_list.append(os.path.join(folder, filename))
     source_files_list.sort()
     output = 'set(SourceFiles\n    {}\n)'.format('\n    '.join(source_files_list))
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w+') as f:
         f.write(output)
 
 root_folder = 'Source'
