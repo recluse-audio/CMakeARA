@@ -1,5 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
-#include "MultiTrackTimeline/Timeline_AudioSource.h"
+#include "Timeline/Timeline_AudioSource.h"
 #include "Util/Juce_Header.h"
 
 TEST_CASE("AudioSource::getDurationInSamples()")

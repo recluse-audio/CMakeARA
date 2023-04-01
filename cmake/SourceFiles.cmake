@@ -1,29 +1,45 @@
 set(SourceFiles
+    Source/ARA/ARA_AudioSource.cpp
+    Source/ARA/ARA_AudioSource.h
     Source/ARA/ARA_DocumentController.cpp
     Source/ARA/ARA_DocumentController.h
+    Source/ARA/ARA_PlaybackRegion.cpp
+    Source/ARA/ARA_PlaybackRegion.h
     Source/ARA/ARA_PlaybackRenderer.cpp
     Source/ARA/ARA_PlaybackRenderer.h
     Source/ARA_View/PlaybackRegionView.cpp
     Source/ARA_View/PlaybackRegionView.h
-    Source/MultiTrackTimeline/Timeline_AudioModification.cpp
-    Source/MultiTrackTimeline/Timeline_AudioModification.h
-    Source/MultiTrackTimeline/Timeline_AudioSource.cpp
-    Source/MultiTrackTimeline/Timeline_AudioSource.h
-    Source/MultiTrackTimeline/Timeline_Document.h
-    Source/MultiTrackTimeline/Timeline_DocumentController.cpp
-    Source/MultiTrackTimeline/Timeline_DocumentController.h
-    Source/MultiTrackTimeline/Timeline_PlaybackRegion.cpp
-    Source/MultiTrackTimeline/Timeline_PlaybackRegion.h
-    Source/MultiTrackTimeline/Timeline_PlaybackRenderer.cpp
-    Source/MultiTrackTimeline/Timeline_PlaybackRenderer.h
-    Source/MultiTrackTimeline/Timeline_RegionSequence.cpp
-    Source/MultiTrackTimeline/Timeline_RegionSequence.h
-    Source/MultiTrackTimeline/Timeline_Renderer.cpp
-    Source/MultiTrackTimeline/Timeline_Renderer.h
     Source/PluginEditor.cpp
     Source/PluginEditor.h
     Source/PluginProcessor.cpp
     Source/PluginProcessor.h
+    Source/TestTimeline/Test_AudioModification.cpp
+    Source/TestTimeline/Test_AudioModification.h
+    Source/TestTimeline/Test_AudioSource.cpp
+    Source/TestTimeline/Test_AudioSource.h
+    Source/TestTimeline/Test_Document.h
+    Source/TestTimeline/Test_DocumentController.cpp
+    Source/TestTimeline/Test_DocumentController.h
+    Source/TestTimeline/Test_PlaybackRegion.cpp
+    Source/TestTimeline/Test_PlaybackRegion.h
+    Source/TestTimeline/Test_PlaybackRenderer.cpp
+    Source/TestTimeline/Test_PlaybackRenderer.h
+    Source/Timeline/Timeline_AudioModification.cpp
+    Source/Timeline/Timeline_AudioModification.h
+    Source/Timeline/Timeline_AudioSource.cpp
+    Source/Timeline/Timeline_AudioSource.h
+    Source/Timeline/Timeline_Document.cpp
+    Source/Timeline/Timeline_Document.h
+    Source/Timeline/Timeline_DocumentController.cpp
+    Source/Timeline/Timeline_DocumentController.h
+    Source/Timeline/Timeline_PlaybackRegion.cpp
+    Source/Timeline/Timeline_PlaybackRegion.h
+    Source/Timeline/Timeline_PlaybackRenderer.cpp
+    Source/Timeline/Timeline_PlaybackRenderer.h
+    Source/Timeline/Timeline_RegionSequence.cpp
+    Source/Timeline/Timeline_RegionSequence.h
+    Source/Timeline/Timeline_Renderer.cpp
+    Source/Timeline/Timeline_Renderer.h
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp
     Source/WaveCache/WaveformCache.h
