@@ -23,32 +23,42 @@ class PlaybackRegion
 {
 public:
 
-	// Position info of the playback region in samples
-	struct PositionInfo
+	// See 'getRenderInfo'
+	struct RenderRanges
 	{
-		juce::int64 startInTimeline = 0;
-		juce::int64 startInAudioSource = 0;
-		juce::int64 duration;
+		juce::Range<juce::int64> blockRangeToRender;
+		juce::Range<juce::int64> audioSourceRangeToRead;
 	};
 	
-	explicit PlaybackRegion(PlaybackRegion::PositionInfo posInfo,
-							Timeline::AudioSource& audioSource);
+	explicit PlaybackRegion(Timeline::AudioSource& audioSource);
 	~PlaybackRegion();
 	
 	
-	virtual juce::Range<juce::int64> getRangeInTimeline() const;
+	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;
 	
-	juce::Range<juce::int64> getRangeInAudioSource() const;
+	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
 
+	// RenderRanges contain two juce::Range<juce::int64> ranges.
+	// These tell you what portion of a process block is within a playback region, and what chunk of an audio source should be read and then rendered
+	PlaybackRegion::RenderRanges getRenderRanges(juce::Range<juce::int64> blockRange);
+	
+	/** Give a block range, this tells you which portion overlaps with a playback region */
+	static juce::Range<juce::int64> calculateBlockRangeToRender(juce::Range<juce::int64> blockRange,
+																juce::Range<juce::int64> regionRangeInTimeline);
 	
 	/**
 	    This function takes the range of the start / end position of a process block
 		and returns the range of an audio source should be read for this region given
 		the timeline position of the process block
 	*/
-	juce::Range<juce::int64> getRangeToReadInAudioSource(juce::Range<juce::int64> blockRange);
+	static juce::Range<juce::int64> calculateRangeToReadInAudioSource(juce::Range<juce::int64> blockRangeInTimeline,
+																juce::Range<juce::int64> regionRangeInTimeline,
+																	  juce::Range<juce::int64> regionRangeInSource);
 	
-	
+	/** Calculates the offset*/
+	static juce::int64 calculateAudioSourceReadOffset(juce::int64 regionStartInTimeline,
+													  juce::int64 regionStartInAudioSource);
+
 private:
 	juce::Range<juce::int64> mRangeInTimeline;
 	juce::Range<juce::int64> mRangeInAudioSource;

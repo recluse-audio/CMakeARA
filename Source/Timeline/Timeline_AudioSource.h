@@ -16,18 +16,42 @@ class AudioSource
 {
 
 public:
-	AudioSource(juce::AudioBuffer<float> bufferSource);
+	AudioSource();
 	~AudioSource();
 	
+	//
+	virtual bool readFromAudioSource(juce::AudioBuffer<float>& buffer, juce::Range<juce::int64> rangeInAudioSourceToRead) = 0;
 	// Sub-classes will override this to ask their different type of source how many samples
 	// This (kind of a base) class asks its buffer how many samples it has
-	virtual juce::int64 getDurationInSamples() const;
-	
+	virtual juce::int64 getDurationInSamples() const = 0;
 
-	// TODO: Might need to getNumChannels()?
 	
+	/** Fills the buffer, You can specify a range with a length that is shorter than the length of the buffer to partially fill it, but it won't attempt to write to sample indices that aren't there */
+	static bool readRange(juce::AudioBuffer<float>& bufferToWriteTo,
+						  juce::AudioBuffer<float>& bufferToReadFrom,
+						  juce::Range<juce::int64> rangeToRead );
+	
+	//
+	static bool readSameChannelNum(juce::AudioBuffer<float>& bufferToWriteTo,
+								   juce::AudioBuffer<float>& bufferToReadFrom,
+								   juce::Range<juce::int64> readRange);
+	
+	//
+	static bool readMonoWriteStereo(juce::AudioBuffer<float>& bufferToWriteTo,
+								   juce::AudioBuffer<float>& bufferToReadFrom,
+									juce::Range<juce::int64> readRange);
+	
+	//
+	static bool readStereoWriteMono(juce::AudioBuffer<float>& bufferToWriteTo,
+								   juce::AudioBuffer<float>& bufferToReadFrom,
+									juce::Range<juce::int64> readRange);
+	
+	// TODO: Might need to getNumChannels()?
+	// Returns the range, but only the part that overlaps with an audio buffer
+	static juce::Range<juce::int64> getValidRange(juce::Range<juce::int64> rangeToRead,
+										   juce::AudioBuffer<float>& bufferToReadFrom);
+
 private:
-	std::unique_ptr<juce::AudioBuffer<float>> mBufferSource;
 	
 };
 
