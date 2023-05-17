@@ -6,7 +6,7 @@ using Int64Range = juce::Range<juce::int64>;
 
 TEST_CASE("Test the testing tool functions")
 {
-	auto source = std::make_unique<Test_AudioSource>();
+	auto source = std::make_unique<Test::AudioSource>();
 	source->generateWithAllOnes(1, 100);
 	auto buffer = source->getBuffer();
 	CHECK(buffer->getNumSamples() == 100);
@@ -14,7 +14,7 @@ TEST_CASE("Test the testing tool functions")
 
 TEST_CASE("Writes To incoming buffer")
 {
-	Test_AudioSource source;
+	Test::AudioSource source;
 	source.generateWithAllOnes(1, 100);
 	CHECK(source.getDurationInSamples() == 100);
 	
@@ -61,7 +61,7 @@ TEST_CASE("Testing reading with different channel layouts for source and output 
 	Int64Range readRange(0, 19);
 	
 	// make sure this static is working
-	Test_AudioSource::generateWithAllOnes(bufferToReadFrom);
+	Test::AudioSource::generateWithAllOnes(bufferToReadFrom);
 	CHECK(bufferToReadFrom.getNumSamples() == 20);
 	CHECK(bufferToReadFrom.getRMSLevel(0, 0, 19) == 1.f);
 	
@@ -73,7 +73,7 @@ TEST_CASE("Testing reading with different channel layouts for source and output 
 		bufferToWriteTo.setSize(2, 20);
 		CHECK(bufferToWriteTo.getRMSLevel(0, 0, bufferToWriteTo.getNumSamples()) == 0.f);
 		bufferToReadFrom.setSize(2, 20);
-		Test_AudioSource::generateWithAllOnes(bufferToReadFrom);
+		Test::AudioSource::generateWithAllOnes(bufferToReadFrom);
 		
 		auto sameChannelNum = Timeline::AudioSource::readSameChannelNum(bufferToWriteTo, bufferToReadFrom, readRange);
 		auto readMonoWriteStereo = Timeline::AudioSource::readMonoWriteStereo(bufferToWriteTo, bufferToReadFrom, readRange);
@@ -112,7 +112,7 @@ TEST_CASE("Testing reading with different channel layouts for source and output 
 		
 		// Mono buffer, fill with ones
 		bufferToReadFrom.setSize(1, numSamples);
-		Test_AudioSource::generateWithAllOnes(bufferToReadFrom);
+		Test::AudioSource::generateWithAllOnes(bufferToReadFrom);
 		
 		// Test each read function to be sure they don't read when they aren't supposed to
 		auto sameChannelNum = Timeline::AudioSource::readSameChannelNum(bufferToWriteTo, bufferToReadFrom, readRange);
@@ -153,8 +153,8 @@ TEST_CASE("Testing reading with different channel layouts for source and output 
 		
 		// Mono buffer, fill with ones
 		bufferToReadFrom.setSize(2, numSamples);
-		Test_AudioSource::generateStereoSineWithPhaseVariance(bufferToReadFrom);
-		//Test_AudioSource::generateWithAllOnes(bufferToReadFrom);
+		Test::AudioSource::generateStereoSineWithPhaseVariance(bufferToReadFrom);
+		//Test::AudioSource::generateWithAllOnes(bufferToReadFrom);
 		
 		// Test each read function to be sure they don't read when they aren't supposed to
 		auto sameChannelNum = Timeline::AudioSource::readSameChannelNum(bufferToWriteTo, bufferToReadFrom, readRange);
@@ -215,7 +215,7 @@ TEST_CASE("Test generating sine wave")
 	juce::AudioBuffer<float> sineWaveBuffer(1, 128);
 	sineWaveBuffer.clear();
 	
-	Test_AudioSource::generateSine(sineWaveBuffer);
+	Test::AudioSource::generateSine(sineWaveBuffer);
 	auto sineWaveRMS = sineWaveBuffer.getRMSLevel(0, 0, 128);
 	auto halfPower = std::sqrt(0.5f); // sine wave rms is equal to this
 	auto errorTolerance = 0.0001f;

@@ -95,18 +95,29 @@ target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 target_sources("${PROJECT_NAME}" PRIVATE ${ARASource})
 
 
-# No, we don't want our source buried in extra nested folders
-set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
+set_target_properties("${PROJECT_NAME}" PROPERTIES 
+    OSX_ARCHITECTURES "arm64;x86_64"    
+    FOLDER ""
+)
 
 # The Xcode source tree should uhhh, still look like the source tree, yo
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
 # Setup our binary data as a target
-juce_add_binary_data(Assets SOURCES pamplejuce.png)
+set(ASSETS "pamplejuce.png")
 
-# Required for Linux happiness:
-# See https://forum.juce.com/t/loading-pytorch-model-using-binarydata/39997/2
-set_target_properties(Assets PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+juce_add_binary_data(BinaryData 
+    NAMESPACE
+        BinaryData
+    SOURCES 
+        ${ASSETS}
+)
+
+set_target_properties(BinaryData PROPERTIES
+    OSX_ARCHITECTURES "arm64;x86_64"    # Universal Binary
+    FOLDER "Targets"                    # place the BinaryData section into the "Targets" group for the IDE project
+)
+
 
 # Clean up folder organization on Xcode.
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
@@ -117,6 +128,8 @@ set_target_properties(Assets PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 foreach(target ${FORMATS} "All")
     if(TARGET ${PROJECT_NAME}_${target})
         set_target_properties(${PROJECT_NAME}_${target} PROPERTIES
+            OSX_ARCHITECTURES "arm64;x86_64"    # Universal Binary
+
             # Tuck the actual plugin targets into a folder where they won't bother us
             FOLDER "Targets"
 
@@ -128,7 +141,6 @@ foreach(target ${FORMATS} "All")
             XCODE_GENERATE_SCHEME ON)
     endif()
 endforeach()
-set_target_properties(Assets PROPERTIES FOLDER "Targets")
 
 
 
@@ -162,7 +174,7 @@ set(JUCE_DEPENDENCIES
 
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
-        Assets
+        BinaryData
         ${JUCE_DEPENDENCIES}
     PUBLIC
         juce::juce_recommended_config_flags
@@ -215,8 +227,18 @@ target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain "${PROJECT_NAME}" ${JUCE_DEPENDENCIES})
 
 # Make an Xcode Scheme for the test executable so we can run tests in the IDE
-set_target_properties(Tests PROPERTIES XCODE_GENERATE_SCHEME ON)
+set_target_properties(Catch2 PROPERTIES 
+    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
+)
 
+set_target_properties(Catch2WithMain PROPERTIES
+    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
+)
+
+set_target_properties(Tests PROPERTIES
+    OSX_ARCHITECTURES "x86_64"      # Intel-only
+    XCODE_GENERATE_SCHEME ON        # Make an Xcode Scheme for the test executable so we can run tests in the IDE
+)
 # Organize the test source in the Tests/ folder in the IDE
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
 
