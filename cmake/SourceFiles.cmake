@@ -24,14 +24,14 @@ set(SourceFiles
     Source/TestTimeline/Test_PlaybackRegion.h
     Source/TestTimeline/Test_PlaybackRenderer.cpp
     Source/TestTimeline/Test_PlaybackRenderer.h
-    Source/Timeline/AudioMod_Processor/AudioMod.cpp
-    Source/Timeline/AudioMod_Processor/AudioMod.h
-    Source/Timeline/AudioMod_Processor/AudioMod_AudioProcessor.cpp
-    Source/Timeline/AudioMod_Processor/AudioMod_AudioProcessor.h
-    Source/Timeline/AudioMod_Processor/AudioMod_UndoAction.cpp
-    Source/Timeline/AudioMod_Processor/AudioMod_UndoAction.h
+    Source/TestUtils/TestUtils.cpp
+    Source/TestUtils/TestUtils.h
     Source/Timeline/Timeline_AudioModification.cpp
     Source/Timeline/Timeline_AudioModification.h
+    Source/Timeline/Timeline_AudioProcessor/Timeline_ModificationProcessor.cpp
+    Source/Timeline/Timeline_AudioProcessor/Timeline_ModificationProcessor.h
+    Source/Timeline/Timeline_AudioProcessor/Timeline_UndoAction.cpp
+    Source/Timeline/Timeline_AudioProcessor/Timeline_UndoAction.h
     Source/Timeline/Timeline_AudioSource.cpp
     Source/Timeline/Timeline_AudioSource.h
     Source/Timeline/Timeline_Document.cpp

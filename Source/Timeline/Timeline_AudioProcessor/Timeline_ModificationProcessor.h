@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    AudioMod_AudioProcessor.h
+    AudioMod_ModificationProcessor.h
     Created: 10 Dec 2022 1:53:14pm
     Author:  Ryan Devens
 
@@ -11,6 +11,8 @@
 #pragma once
 #include "../Util/Juce_Header.h"
 
+namespace Timeline
+{
 /**
  This class is used to handle the Audio Processor business used by an Audio Mod
  such that it might be able to utilize an APVTS
@@ -18,12 +20,12 @@
  Have your AudioModification sub-class inherit from this if you want to use an APVTS with it
  
 */
-class AudioMod_AudioProcessor : public juce::AudioProcessor
+class ModificationProcessor : public juce::AudioProcessor
 , public juce::ValueTree::Listener
 {
 public:
-    AudioMod_AudioProcessor(juce::UndoManager& undoManagerRef);
-    ~AudioMod_AudioProcessor();
+	ModificationProcessor(juce::UndoManager& undoManagerRef);
+    ~ModificationProcessor();
     
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -68,3 +70,5 @@ private:
 	juce::AudioProcessorValueTreeState valueTreeState;
 	void valueTreePropertyChanged (juce::ValueTree& tree, const juce::Identifier& property) override;
 };
+
+}

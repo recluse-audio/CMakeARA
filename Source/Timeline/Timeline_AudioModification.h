@@ -1,7 +1,6 @@
 #pragma once
 #include "Util/Juce_Header.h"
 
-class AudioMod_AudioProcessor;
 
 
 /**
@@ -13,33 +12,34 @@ namespace Timeline
 
 class AudioSource;
 class PlaybackRegion;
+class ModificationProcessor;
 
 class AudioModification
 {
 public:
-	AudioModification();
+	// have to pass undoManager ref here to get benefits of valueTreeState :/
+	AudioModification(juce::UndoManager& undoManagerRef);
 	~AudioModification();
 	
-	void generateRandomColor();
+	static juce::Colour generateRandomColour();
 	
-	juce::Colour getColor() const;
+	juce::Colour getColour() const;
 	
 	juce::AudioProcessorValueTreeState& getValueTreeState();
-
 	float getParameterValue(juce::Identifier paramID) const;
-	
-	void setSelected(bool shouldBeSelected);
-	
-	// Return your custom ARA::AudioSource that also inherits from Timeline::AudioSource
-	// Or, return your Test::AudioSource that also inherits from Timeline::AudioSource
-	virtual Timeline::AudioSource* getAudioSource() = 0;
-	
-	// Return a vector of your custom ARA::PlaybackRegion that also inherits from Timeline::PlaybackRegion
-	// Or, return your Test::PlaybackRegion that also inherits from Timeline::PlaybackRegion
-	virtual std::vector<Timeline::PlaybackRegion*> getPlaybackRegions() = 0;
+		
+//	// Return your custom ARA::AudioSource that also inherits from Timeline::AudioSource
+//	// Or, return your Test::AudioSource that also inherits from Timeline::AudioSource
+//	virtual Timeline::AudioSource* getAudioSource() = 0;
+//
+//	// Return a vector of your custom ARA::PlaybackRegion that also inherits from Timeline::PlaybackRegion
+//	// Or, return your Test::PlaybackRegion that also inherits from Timeline::PlaybackRegion
+//	virtual const std::vector<Timeline::PlaybackRegion*>& getPlaybackRegions() = 0;
 	
 private:
-	std::unique_ptr<AudioMod_AudioProcessor> processor;
+	std::unique_ptr<Timeline::ModificationProcessor> mProcessor;
+	juce::Colour modColour;
+
 };
 
 }
