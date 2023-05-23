@@ -45,21 +45,19 @@ public:
 	PlaybackRegion::RenderRanges getRenderRanges(juce::Range<juce::int64> blockRange);
 	
 	/** This function is for getting the position within the blockRange (not timeline) to write to  */
-	static juce::Range<juce::int64> calculateRangeToRenderInBlock(juce::Range<juce::int64> fullBlockRangeInTimeline,
-																juce::Range<juce::int64> rangeToRenderInTimeline);
+	static juce::Range<juce::int64> calculateRangeToRenderInBlock(Int64Range fullBlockRangeInTimeline,
+																  Int64Range rangeToRenderInTimeline);
 	
 	/** Give a block range, this tells you which portion overlaps with a playback region */
-	static juce::Range<juce::int64> calculateRangeToRenderInTimeline(juce::Range<juce::int64> blockRange,
-																juce::Range<juce::int64> regionRangeInTimeline);
+	static juce::Range<juce::int64> calculateRangeToRenderInTimeline(Int64Range blockRange,
+																	 Int64Range regionRangeInTimeline);
 	
 	/**
 	    This function takes the range of the start / end position of a process block
 		and returns the range of an audio source should be read for this region given
 		the timeline position of the process block
 	*/
-	static juce::Range<juce::int64> calculateRangeToReadInAudioSource(juce::Range<juce::int64> blockRangeInTimeline,
-																juce::Range<juce::int64> regionRangeInTimeline,
-																	  juce::Range<juce::int64> regionRangeInSource);
+	static juce::Range<juce::int64> calculateRangeToReadInAudioSource(Int64Range blockRangeInTimeline, Int64Range regionRangeInTimeline, Int64Range regionRangeInSource);
 	
 	/** Calculates the offset*/
 	static juce::int64 calculateAudioSourceReadOffset(juce::int64 regionStartInTimeline,

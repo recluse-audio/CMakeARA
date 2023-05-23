@@ -103,8 +103,16 @@ TEST_CASE("Simulating how the PlaybackRenderer will get the correct render range
 	blockRangeInTimeline.setEnd(3);
 	
 	auto renderRanges = playbackRegion.getRenderRanges(blockRangeInTimeline);
+	auto rangeInBlock = renderRanges.rangeInBlock;
 	auto rangeInTimeline = renderRanges.rangeInTimeline;
 	auto rangeInAudioSource = renderRanges.rangeInAudioSource;
 	
-	//CHECK(rangeInBlock.getStart() == 2);
+	CHECK(rangeInBlock.getStart() == 1);
+	CHECK(rangeInBlock.getEnd() == 2);
+	
+	CHECK(rangeInTimeline.getStart() == 2);
+	CHECK(rangeInTimeline.getEnd() == 3);
+	
+	CHECK(rangeInAudioSource.getStart() == 1);
+	CHECK(rangeInAudioSource.getEnd() == 2);
 }
