@@ -1,8 +1,8 @@
 
 #pragma once
 #include "Util/Juce_Header.h"
-#include "Timeline/Timeline_PlaybackRegion.h"
-#include "Timeline/Timeline_AudioSource.h"
+#include "Timeline/Objects/Timeline_PlaybackRegion.h"
+#include "Timeline/Objects/Timeline_AudioSource.h"
 
 namespace Test
 {

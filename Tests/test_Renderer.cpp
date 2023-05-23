@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include "Util/Juce_Header.h"
-#include "Timeline/Timeline_PlaybackRenderer.h"
+#include "Timeline//Objects/Timeline_PlaybackRenderer.h"
 
 // save some typing
 using Int64Range = juce::Range<juce::int64>;

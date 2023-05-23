@@ -1,7 +1,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include "Util/Juce_Header.h"
-#include "Timeline/Timeline_PlaybackRegion.h"
+#include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "TestTimeline/Test_PlaybackRegion.h"
 #include "TestTimeline/Test_AudioSource.h"
 

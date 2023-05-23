@@ -1,7 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
-#include "Timeline/Timeline_AudioModification.h"
 #include "Util/Juce_Header.h"
 #include "TestUtils/TestUtils.h"
+#include "Timeline/Objects/Timeline_AudioModification.h"
+
 
 using Int64Range = juce::Range<juce::int64>;
 

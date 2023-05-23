@@ -81,7 +81,6 @@ juce::Range<juce::int64> PlaybackRegion::calculateRangeToReadInAudioSource(juce:
 	rangeToRead.setStart(rangeToReadStart);
 	rangeToRead.setEnd(rangeToReadEnd);
 	
-
 	return rangeToRead;
 }
 

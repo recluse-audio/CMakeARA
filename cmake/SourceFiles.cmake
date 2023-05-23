@@ -1,14 +1,16 @@
 set(SourceFiles
-    Source/ARA/ARA_AudioSource.cpp
-    Source/ARA/ARA_AudioSource.h
-    Source/ARA/ARA_DocumentController.cpp
-    Source/ARA/ARA_DocumentController.h
-    Source/ARA/ARA_PlaybackRegion.cpp
-    Source/ARA/ARA_PlaybackRegion.h
-    Source/ARA/ARA_PlaybackRenderer.cpp
-    Source/ARA/ARA_PlaybackRenderer.h
-    Source/ARA_View/PlaybackRegionView.cpp
-    Source/ARA_View/PlaybackRegionView.h
+    Source/ARA/Objects/ARA_AudioSource.cpp
+    Source/ARA/Objects/ARA_AudioSource.h
+    Source/ARA/Objects/ARA_DocumentController.cpp
+    Source/ARA/Objects/ARA_DocumentController.h
+    Source/ARA/Objects/ARA_PlaybackRegion.cpp
+    Source/ARA/Objects/ARA_PlaybackRegion.h
+    Source/ARA/Objects/ARA_PlaybackRenderer.cpp
+    Source/ARA/Objects/ARA_PlaybackRenderer.h
+    Source/ARA/Views/PlaybackRegionView.cpp
+    Source/ARA/Views/PlaybackRegionView.h
+    Source/MainView.cpp
+    Source/MainView.h
     Source/PluginEditor.cpp
     Source/PluginEditor.h
     Source/PluginProcessor.cpp
@@ -26,26 +28,32 @@ set(SourceFiles
     Source/TestTimeline/Test_PlaybackRenderer.h
     Source/TestUtils/TestUtils.cpp
     Source/TestUtils/TestUtils.h
-    Source/Timeline/Timeline_AudioModification.cpp
-    Source/Timeline/Timeline_AudioModification.h
-    Source/Timeline/Timeline_AudioProcessor/Timeline_ModificationProcessor.cpp
-    Source/Timeline/Timeline_AudioProcessor/Timeline_ModificationProcessor.h
-    Source/Timeline/Timeline_AudioProcessor/Timeline_UndoAction.cpp
-    Source/Timeline/Timeline_AudioProcessor/Timeline_UndoAction.h
-    Source/Timeline/Timeline_AudioSource.cpp
-    Source/Timeline/Timeline_AudioSource.h
-    Source/Timeline/Timeline_Document.cpp
-    Source/Timeline/Timeline_Document.h
-    Source/Timeline/Timeline_DocumentController.cpp
-    Source/Timeline/Timeline_DocumentController.h
-    Source/Timeline/Timeline_PlaybackRegion.cpp
-    Source/Timeline/Timeline_PlaybackRegion.h
-    Source/Timeline/Timeline_PlaybackRenderer.cpp
-    Source/Timeline/Timeline_PlaybackRenderer.h
-    Source/Timeline/Timeline_RegionSequence.cpp
-    Source/Timeline/Timeline_RegionSequence.h
-    Source/Timeline/Timeline_Renderer.cpp
-    Source/Timeline/Timeline_Renderer.h
+    Source/Timeline/Objects/Timeline_AudioModification.cpp
+    Source/Timeline/Objects/Timeline_AudioModification.h
+    Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_ModificationProcessor.cpp
+    Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_ModificationProcessor.h
+    Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_UndoAction.cpp
+    Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_UndoAction.h
+    Source/Timeline/Objects/Timeline_AudioSource.cpp
+    Source/Timeline/Objects/Timeline_AudioSource.h
+    Source/Timeline/Objects/Timeline_Document.cpp
+    Source/Timeline/Objects/Timeline_Document.h
+    Source/Timeline/Objects/Timeline_DocumentController.cpp
+    Source/Timeline/Objects/Timeline_DocumentController.h
+    Source/Timeline/Objects/Timeline_PlaybackRegion.cpp
+    Source/Timeline/Objects/Timeline_PlaybackRegion.h
+    Source/Timeline/Objects/Timeline_PlaybackRenderer.cpp
+    Source/Timeline/Objects/Timeline_PlaybackRenderer.h
+    Source/Timeline/Objects/Timeline_RegionSequence.cpp
+    Source/Timeline/Objects/Timeline_RegionSequence.h
+    Source/Timeline/Objects/Timeline_Renderer.cpp
+    Source/Timeline/Objects/Timeline_Renderer.h
+    Source/Timeline/Views/DocumentView.cpp
+    Source/Timeline/Views/DocumentView.h
+    Source/Timeline/Views/PlaybackRegionView.cpp
+    Source/Timeline/Views/PlaybackRegionView.h
+    Source/Timeline/Views/RegionSequenceView.cpp
+    Source/Timeline/Views/RegionSequenceView.h
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp
     Source/WaveCache/WaveformCache.h

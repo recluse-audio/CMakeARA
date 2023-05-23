@@ -1,8 +1,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include "WaveCache/WaveformCache.h"
-#include "ARA_View/PlaybackRegionView.h"
-#include "ARA/ARA_DocumentController.h"
+#include "ARA/Views/PlaybackRegionView.h"
+#include "ARA/Objects/ARA_DocumentController.h"
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
