@@ -34,3 +34,16 @@ juce::AudioProcessorValueTreeState& AudioModification::getValueTreeState()
 	return mProcessor->getValueTreeState();
 }
 
+void AudioModification::setParameterValue(juce::Identifier paramID, float value)
+{
+	auto param = mProcessor->getValueTreeState().getParameter(paramID);
+	param->setValue(value);
+
+}
+
+float AudioModification::getParameterValue(juce::Identifier paramID) const
+{
+	auto parameter = mProcessor->getValueTreeState().getParameter(paramID);
+	auto paramValue = parameter->getValue();
+	return paramValue;
+}

@@ -6,6 +6,7 @@
 /**
 	This class represents a shared parameter state or "modification" that is shared by one or more playback regions.
 	Also can exist with no regions and wait for regions to be assigned to it.
+ 
 */
 namespace Timeline
 {
@@ -26,8 +27,11 @@ public:
 	juce::Colour getColour() const;
 	
 	juce::AudioProcessorValueTreeState& getValueTreeState();
+	// This is risky to call if the same parameter is attached to automation or GUI
+	void setParameterValue(juce::Identifier paramID, float value);
 	float getParameterValue(juce::Identifier paramID) const;
 		
+	
 //	// Return your custom ARA::AudioSource that also inherits from Timeline::AudioSource
 //	// Or, return your Test::AudioSource that also inherits from Timeline::AudioSource
 //	virtual Timeline::AudioSource* getAudioSource() = 0;

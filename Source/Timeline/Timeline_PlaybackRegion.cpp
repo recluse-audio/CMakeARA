@@ -3,20 +3,40 @@
 
 using namespace Timeline;
 
-PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::int64> blockRange)
+PlaybackRegion::PlaybackRegion()
+{
+	
+}
+
+PlaybackRegion::~PlaybackRegion()
+{
+	
+}
+
+PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::int64> blockRangeInTimeline)
 {
 	auto regionRangeInTimeline = getRangeInTimeline();
 	auto regionRangeInAudioSource = getRangeInAudioSource();
 	
 	RenderRanges renderRanges;
-	renderRanges.blockRangeToRender = calculateBlockRangeToRender(blockRange, regionRangeInTimeline);
-	renderRanges.audioSourceRangeToRead = calculateRangeToReadInAudioSource(blockRange, regionRangeInTimeline, regionRangeInAudioSource);
+	renderRanges.rangeInTimeline = calculateRangeToRenderInTimeline(blockRangeInTimeline, regionRangeInTimeline);
+	renderRanges.rangeInAudioSource = calculateRangeToReadInAudioSource(blockRangeInTimeline, regionRangeInTimeline, regionRangeInAudioSource);
 	
 	return renderRanges;
 }
 
-/** Give a block range, this tells you which portion overlaps with a playback region */
-juce::Range<juce::int64> PlaybackRegion::calculateBlockRangeToRender(juce::Range<juce::int64> blockRange,
+
+
+//=============================
+juce::Range<juce::int64> PlaybackRegion::calculateRangeToRenderInBlock(juce::Range<juce::int64> fullBlockRangeInTimeline, juce::Range<juce::int64> rangeToRenderInTimeline)
+{
+	auto startInBlock = rangeToRenderInTimeline.getStart() - fullBlockRangeInTimeline.getStart();
+	auto range = fullBlockRangeInTimeline.getIntersectionWith(rangeToRenderInTimeline).movedToStartAt(startInBlock);
+	return range;
+}
+
+//=============================
+juce::Range<juce::int64> PlaybackRegion::calculateRangeToRenderInTimeline(juce::Range<juce::int64> blockRange,
 															juce::Range<juce::int64> regionRangeInTimeline)
 {
 	auto rangeToRead = blockRange;
@@ -34,11 +54,7 @@ juce::Range<juce::int64> PlaybackRegion::calculateBlockRangeToRender(juce::Range
 
 
 
-/**
-	This function takes the range of the start / end position of a process block
-	and returns the range of an audio source should be read for this region given
-	the timeline position of the process block
-*/
+//=========================
 juce::Range<juce::int64> PlaybackRegion::calculateRangeToReadInAudioSource(juce::Range<juce::int64> blockRangeInTimeline,
 															juce::Range<juce::int64> regionRangeInTimeline,
 															juce::Range<juce::int64> regionRangeInSource)
@@ -50,7 +66,7 @@ juce::Range<juce::int64> PlaybackRegion::calculateRangeToReadInAudioSource(juce:
 	if(regionRangeInTimeline.getLength() != regionRangeInSource.getLength())
 		return rangeToRead;
 	
-	rangeToRead = calculateBlockRangeToRender(blockRangeInTimeline, regionRangeInTimeline);
+	rangeToRead = calculateRangeToRenderInTimeline(blockRangeInTimeline, regionRangeInTimeline);
 
 	auto readOffset = calculateAudioSourceReadOffset(regionRangeInTimeline.getStart(), regionRangeInSource.getStart());
 	auto rangeToReadStart = blockRangeInTimeline.getStart() + readOffset;
