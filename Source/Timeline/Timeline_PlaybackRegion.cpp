@@ -20,6 +20,8 @@ PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::i
 	
 	RenderRanges renderRanges;
 	renderRanges.rangeInTimeline = calculateRangeToRenderInTimeline(blockRangeInTimeline, regionRangeInTimeline);
+	renderRanges.rangeInBlock = calculateRangeToRenderInBlock(blockRangeInTimeline, renderRanges.rangeInTimeline);
+
 	renderRanges.rangeInAudioSource = calculateRangeToReadInAudioSource(blockRangeInTimeline, regionRangeInTimeline, regionRangeInAudioSource);
 	
 	return renderRanges;
@@ -69,8 +71,8 @@ juce::Range<juce::int64> PlaybackRegion::calculateRangeToReadInAudioSource(juce:
 	rangeToRead = calculateRangeToRenderInTimeline(blockRangeInTimeline, regionRangeInTimeline);
 
 	auto readOffset = calculateAudioSourceReadOffset(regionRangeInTimeline.getStart(), regionRangeInSource.getStart());
-	auto rangeToReadStart = blockRangeInTimeline.getStart() + readOffset;
-	auto rangeToReadEnd = rangeToReadStart + blockRangeInTimeline.getLength();
+	auto rangeToReadStart = rangeToRead.getStart() + readOffset;
+	auto rangeToReadEnd = rangeToReadStart + rangeToRead.getLength();
 	
 	// don't read past end of audio source / playback region
 	if(rangeToReadEnd > regionRangeInSource.getEnd())
