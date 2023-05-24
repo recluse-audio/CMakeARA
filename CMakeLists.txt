@@ -9,7 +9,7 @@ set(PROJECT_NAME "CMakeARA")
 include(cmake/SourceFiles.cmake)   
 
 # Valid formats: AAX Unity VST AU AUv3 Standalone
-set(FORMATS AU VST3 AUv3)
+set(FORMATS AU VST3 AUv3 Standalone)
 
 # Reads in VERSION file and sticks in it CURRENT_VERSION variable
 file(STRINGS VERSION CURRENT_VERSION)

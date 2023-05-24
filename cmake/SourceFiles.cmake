@@ -9,12 +9,19 @@ set(SourceFiles
     Source/ARA/Objects/ARA_PlaybackRenderer.h
     Source/ARA/Views/PlaybackRegionView.cpp
     Source/ARA/Views/PlaybackRegionView.h
-    Source/MainView.cpp
-    Source/MainView.h
+    Source/EditorState.h
+    Source/MainView/MainView.cpp
+    Source/MainView/MainView.h
     Source/PluginEditor.cpp
     Source/PluginEditor.h
     Source/PluginProcessor.cpp
     Source/PluginProcessor.h
+    Source/Sections/InspectSection.cpp
+    Source/Sections/InspectSection.h
+    Source/Sections/NavigationSection.cpp
+    Source/Sections/NavigationSection.h
+    Source/Sections/TimelineSection.cpp
+    Source/Sections/TimelineSection.h
     Source/TestTimeline/Test_AudioModification.cpp
     Source/TestTimeline/Test_AudioModification.h
     Source/TestTimeline/Test_AudioSource.cpp
@@ -48,13 +55,23 @@ set(SourceFiles
     Source/Timeline/Objects/Timeline_RegionSequence.h
     Source/Timeline/Objects/Timeline_Renderer.cpp
     Source/Timeline/Objects/Timeline_Renderer.h
+    Source/Timeline/Sections/TimeRulerSection.cpp
+    Source/Timeline/Sections/TimeRulerSection.h
+    Source/Timeline/Sections/TrackHeadersSection.cpp
+    Source/Timeline/Sections/TrackHeadersSection.h
+    Source/Timeline/Sections/TracksSection.cpp
+    Source/Timeline/Sections/TracksSection.h
+    Source/Timeline/Sections/ZoomControlsSection.cpp
+    Source/Timeline/Sections/ZoomControlsSection.h
     Source/Timeline/Views/DocumentView.cpp
     Source/Timeline/Views/DocumentView.h
     Source/Timeline/Views/PlaybackRegionView.cpp
     Source/Timeline/Views/PlaybackRegionView.h
     Source/Timeline/Views/RegionSequenceView.cpp
     Source/Timeline/Views/RegionSequenceView.h
+    Source/Util/Colors.h
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp
     Source/WaveCache/WaveformCache.h
+    Source/ZoomState.h
 )

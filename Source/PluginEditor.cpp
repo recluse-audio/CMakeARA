@@ -1,26 +1,32 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "EditorState.h"
 #include "WaveCache/WaveformCache.h"
 #include "ARA/Views/PlaybackRegionView.h"
 #include "ARA/Objects/ARA_DocumentController.h"
-
+#include "MainView/MainView.h"
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
 : AudioProcessorEditor (&p)
 , AudioProcessorEditorARAExtension(&p)
 , mProcessor (p)
 {
+	mEditorState = std::make_unique<EditorState>(*this);
+	
     juce::ignoreUnused (mProcessor);
 
 	waveCache = std::make_unique<WaveformCache>();
-	refreshRegionView();
+	mMainView = std::make_unique<MainView>();
+	addAndMakeVisible(mMainView.get());
 	
 	setResizable(true, true);
-    setSize (400, 300);
+	mMainView->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
+    this->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
 }
 
 PluginEditor::~PluginEditor()
 {
+	mMainView.reset();
 }
 
 //==============================================================================
@@ -37,14 +43,18 @@ void PluginEditor::paint (juce::Graphics& g)
 		g.drawFittedText ("NOT ARA Plugin!", getLocalBounds(), juce::Justification::centred, 1);
 }
 
+
+//=================================
 void PluginEditor::resized()
 {
-	if(regionView.get() != nullptr)
-		regionView->setBounds(10, 5, this->getWidth()-20, this->getHeight()-10);
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+	auto scaleFactor = (float)getWidth() / mEditorState->mDefaultWidth;
+	mEditorState->setEditorScaleFactor(scaleFactor);
+	mMainView->setTransform(mEditorState->getScaleTransform());
+
 }
 
+
+//=================================
 juce::ARADocument* PluginEditor::getARADocument()
 {
 	juce::ARADocument* araDocument = nullptr;
@@ -79,16 +89,3 @@ WaveformCache* PluginEditor::getWaveformCache()
 	return waveCache.get();
 }
 
-void PluginEditor::refreshRegionView()
-{
-	regionView.reset();
-	
-	auto sequence = getARADocument()->getRegionSequences().back();
-	auto region = sequence->getPlaybackRegions().back();
-	auto audioSource = region->getAudioModification()->getAudioSource();
-	
-	
-	regionView = std::make_unique<PlaybackRegionView>(waveCache->getOrCreateThumbnail(audioSource), region);
-	//mRegion = std::make_unique<TimelineRegion>(
-	//addAndMakeVisible(regionView.get());
-}

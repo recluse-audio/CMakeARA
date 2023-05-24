@@ -45,8 +45,7 @@ public:
 	PlaybackRegion::RenderRanges getRenderRanges(juce::Range<juce::int64> blockRange);
 	
 	/** This function is for getting the position within the blockRange (not timeline) to write to  */
-	static juce::Range<juce::int64> calculateRangeToRenderInBlock(Int64Range fullBlockRangeInTimeline,
-																  Int64Range rangeToRenderInTimeline);
+	static juce::Range<juce::int64> calculateRangeToRenderInBlock(Int64Range fullBlockRangeInTimeline, Int64Range rangeToRenderInTimeline);
 	
 	/** Give a block range, this tells you which portion overlaps with a playback region */
 	static juce::Range<juce::int64> calculateRangeToRenderInTimeline(Int64Range blockRange,

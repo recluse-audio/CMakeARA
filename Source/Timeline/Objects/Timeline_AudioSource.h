@@ -2,6 +2,8 @@
 #pragma once
 #include "Util/Juce_Header.h"
 
+
+
 namespace Timeline
 {
 
@@ -14,8 +16,9 @@ namespace Timeline
  */
 class AudioSource
 {
-
 public:
+	// save some typing
+	using Int64Range = juce::Range<juce::int64>;
 	AudioSource();
 	~AudioSource();
 	
@@ -29,26 +32,26 @@ public:
 	/** Fills the buffer, You can specify a range with a length that is shorter than the length of the buffer to partially fill it, but it won't attempt to write to sample indices that aren't there */
 	static bool readRange(juce::AudioBuffer<float>& bufferToWriteTo,
 						  juce::AudioBuffer<float>& bufferToReadFrom,
-						  juce::Range<juce::int64> rangeToRead );
+						  Int64Range rangeToRead );
 	
 	//
 	static bool readSameChannelNum(juce::AudioBuffer<float>& bufferToWriteTo,
 								   juce::AudioBuffer<float>& bufferToReadFrom,
-								   juce::Range<juce::int64> readRange);
+								   Int64Range readRange);
 	
 	//
 	static bool readMonoWriteStereo(juce::AudioBuffer<float>& bufferToWriteTo,
-								   juce::AudioBuffer<float>& bufferToReadFrom,
-									juce::Range<juce::int64> readRange);
+								    juce::AudioBuffer<float>& bufferToReadFrom,
+									Int64Range readRange);
 	
 	//
 	static bool readStereoWriteMono(juce::AudioBuffer<float>& bufferToWriteTo,
-								   juce::AudioBuffer<float>& bufferToReadFrom,
-									juce::Range<juce::int64> readRange);
+								    juce::AudioBuffer<float>& bufferToReadFrom,
+									Int64Range readRange);
 	
 	// TODO: Might need to getNumChannels()?
 	// Returns the range, but only the part that overlaps with an audio buffer
-	static juce::Range<juce::int64> getValidRange(juce::Range<juce::int64> rangeToRead,
+	static juce::Range<juce::int64> getValidRange(Int64Range rangeToRead,
 										   juce::AudioBuffer<float>& bufferToReadFrom);
 
 private:

@@ -45,11 +45,6 @@ juce::Range<juce::int64> PlaybackRegion::calculateRangeToRenderInTimeline(juce::
 	
 	rangeToRead = rangeToRead.getIntersectionWith(regionRangeInTimeline);
 	
-	// Don't waste our time if no overlap with region
-	if(rangeToRead.isEmpty())
-		return rangeToRead;
-	
-	
 	return rangeToRead;
 	
 }
