@@ -55,12 +55,12 @@ set(SourceFiles
     Source/Timeline/Objects/Timeline_RegionSequence.h
     Source/Timeline/Objects/Timeline_Renderer.cpp
     Source/Timeline/Objects/Timeline_Renderer.h
+    Source/Timeline/Sections/DocumentSection.cpp
+    Source/Timeline/Sections/DocumentSection.h
+    Source/Timeline/Sections/SequenceHeadersSection.cpp
+    Source/Timeline/Sections/SequenceHeadersSection.h
     Source/Timeline/Sections/TimeRulerSection.cpp
     Source/Timeline/Sections/TimeRulerSection.h
-    Source/Timeline/Sections/TrackHeadersSection.cpp
-    Source/Timeline/Sections/TrackHeadersSection.h
-    Source/Timeline/Sections/TracksSection.cpp
-    Source/Timeline/Sections/TracksSection.h
     Source/Timeline/Sections/ZoomControlsSection.cpp
     Source/Timeline/Sections/ZoomControlsSection.h
     Source/Timeline/Views/DocumentView.cpp
@@ -69,6 +69,15 @@ set(SourceFiles
     Source/Timeline/Views/PlaybackRegionView.h
     Source/Timeline/Views/RegionSequenceView.cpp
     Source/Timeline/Views/RegionSequenceView.h
+    Source/Timeline/Views/SequenceHeaderView.cpp
+    Source/Timeline/Views/SequenceHeaderView.h
+    Source/Timeline/Views/TimeRulerView.cpp
+    Source/Timeline/Views/TimeRulerView.h
+    Source/Timeline/widgets/SequenceHeader.cpp
+    Source/Timeline/widgets/SequenceHeader.h
+    Source/Timeline/widgets/TimeRuler.cpp
+    Source/Timeline/widgets/TimeRuler.h
+    Source/Timeline/widgets/ZoomControls.h
     Source/Util/Colors.h
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp

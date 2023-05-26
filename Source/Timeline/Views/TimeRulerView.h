@@ -1,15 +1,15 @@
+
 #pragma once
 #include <Util/Juce_Header.h>
 
-class TrackHeadersSection : public juce::Component
+class TimeRulerView : public juce::Component
 {
 public:
-	TrackHeadersSection();
-	~TrackHeadersSection();
+	TimeRulerView();
+	~TimeRulerView();
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;
 private:
 	
 };
-
