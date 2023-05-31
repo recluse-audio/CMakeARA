@@ -2,6 +2,7 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
+class PlaybackRegionView;
 
 class DocumentView : public juce::Component
 {
@@ -13,5 +14,5 @@ public:
 	void resized() override;
 	
 private:
-
+	std::unique_ptr<PlaybackRegionView> mPlaybackRegionView;
 };

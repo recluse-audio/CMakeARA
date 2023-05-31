@@ -1,15 +1,18 @@
 #include "DocumentView.h"
 #include "Util/Colors.h"
-
+#include "PlaybackRegionView.h"
 
 DocumentView::DocumentView()
 {
+	mPlaybackRegionView = std::make_unique<PlaybackRegionView>();
+	addAndMakeVisible(mPlaybackRegionView.get());
+	
 	setSize(1000, 1000);
 }
 
 DocumentView::~DocumentView()
 {
-	
+	mPlaybackRegionView.reset();
 }
 
 void DocumentView::paint(juce::Graphics &g)
@@ -37,5 +40,6 @@ void DocumentView::paint(juce::Graphics &g)
 
 void DocumentView::resized()
 {
-
+	if(mPlaybackRegionView)
+		mPlaybackRegionView->setBounds(0, 0, 100, 80);
 }
