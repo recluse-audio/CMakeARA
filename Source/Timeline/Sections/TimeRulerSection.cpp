@@ -2,13 +2,16 @@
 #include "Util/Colors.h"
 #include "../Views/TimeRulerView.h"
 
+
+using namespace Timeline;
+
 TimeRulerSection::TimeRulerSection()
 {
 	mTimeRuler = std::make_unique<TimeRulerView>();
 	mTimeRuler->setSize(1000, 30);
 	mViewport = std::make_unique<juce::Viewport>();
 	mViewport->setViewedComponent(mTimeRuler.get());
-	mViewport->setScrollBarsShown(false, true);
+	mViewport->setScrollBarsShown(false, false);
 	addAndMakeVisible(mViewport.get());
 }
 
@@ -30,4 +33,10 @@ void TimeRulerSection::resized()
 {
 	auto bounds = this->getLocalBounds();
 	mViewport->setBounds(bounds);
+}
+
+//============
+void TimeRulerSection::setViewPosition(int x, int y)
+{
+	mViewport->setViewPosition(x, y);
 }

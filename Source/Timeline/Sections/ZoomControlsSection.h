@@ -1,6 +1,10 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
+namespace Timeline
+{
+
+
 class ZoomControlsSection : public juce::Component
 {
 public:
@@ -12,3 +16,5 @@ public:
 private:
 	
 };
+
+}

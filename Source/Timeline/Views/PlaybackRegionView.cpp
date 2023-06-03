@@ -2,6 +2,7 @@
 #include "PlaybackRegionView.h"
 #include "Util/Colors.h"
 
+using namespace Timeline;
 
 PlaybackRegionView::PlaybackRegionView()
 {
@@ -13,6 +14,7 @@ PlaybackRegionView::~PlaybackRegionView()
 	
 }
 
+//=================
 void PlaybackRegionView::paint(juce::Graphics &g)
 {
 	g.fillAll(Colors::getColor(Colors::ColorID::playbackRegionBkgd));
@@ -21,7 +23,15 @@ void PlaybackRegionView::paint(juce::Graphics &g)
 	
 }
 
+//=================
 void PlaybackRegionView::resized()
 {
 
+}
+
+//==================
+void PlaybackRegionView::updateZoomState(ZoomState *zoomState)
+{
+	auto regionHeight = zoomState->getSequenceHeight() - 2;
+	auto pixPerSecond = zoomState->getPixelsPerSecond();
 }

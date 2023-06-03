@@ -11,11 +11,11 @@ MainView::MainView()
 	mNavigationSection = std::make_unique<NavigationSection>();
 	addAndMakeVisible(mNavigationSection.get());
 	
-	mTimelineSection = std::make_unique<TimelineSection>();
-	addAndMakeVisible(mTimelineSection.get());
-	
 	mInspectSection = std::make_unique<InspectSection>();
 	addAndMakeVisible(mInspectSection.get());
+	
+	mTimelineSection = std::make_unique<TimelineSection>();
+	addAndMakeVisible(mTimelineSection.get());
 }
 
 
@@ -40,6 +40,7 @@ void MainView::paint(juce::Graphics &g)
 void MainView::resized()
 {
 	mNavigationSection->setBounds(0, 0, 100, 300);
-	mTimelineSection->setBounds(100, 0, 700, 270);
 	mInspectSection->setBounds(100, 270, 700, 30);
+	mTimelineSection->setBounds(100, 0, 700, 270);
+
 }

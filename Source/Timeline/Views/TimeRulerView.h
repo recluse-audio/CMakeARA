@@ -2,6 +2,10 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
+namespace Timeline
+{
+
+
 class TimeRulerView : public juce::Component
 {
 public:
@@ -13,3 +17,5 @@ public:
 private:
 	
 };
+
+}

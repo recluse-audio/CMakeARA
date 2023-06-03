@@ -1,6 +1,9 @@
 #include "ZoomControlsSection.h"
 #include "Util/Colors.h"
 
+
+using namespace Timeline;
+
 ZoomControlsSection::ZoomControlsSection()
 {
 	

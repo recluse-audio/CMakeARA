@@ -73,6 +73,9 @@ set(SourceFiles
     Source/Timeline/Views/SequenceHeaderView.h
     Source/Timeline/Views/TimeRulerView.cpp
     Source/Timeline/Views/TimeRulerView.h
+    Source/Timeline/ZoomState/ZoomState.cpp
+    Source/Timeline/ZoomState/ZoomState.h
+    Source/Timeline/ZoomState/ZoomStateListener.h
     Source/Timeline/widgets/SequenceHeader.cpp
     Source/Timeline/widgets/SequenceHeader.h
     Source/Timeline/widgets/TimeRuler.cpp
@@ -82,5 +85,4 @@ set(SourceFiles
     Source/Util/Juce_Header.h
     Source/WaveCache/WaveformCache.cpp
     Source/WaveCache/WaveformCache.h
-    Source/ZoomState.h
 )

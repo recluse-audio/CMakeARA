@@ -2,6 +2,10 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
+namespace Timeline
+{
+
+
 class SequenceHeaderView : public juce::Component
 {
 public:
@@ -14,3 +18,4 @@ private:
 	
 };
 
+}

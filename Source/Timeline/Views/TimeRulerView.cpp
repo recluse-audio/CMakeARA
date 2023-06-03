@@ -2,6 +2,7 @@
 #include "Util/Colors.h"
 
 
+using namespace Timeline;
 
 TimeRulerView::TimeRulerView()
 {

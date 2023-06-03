@@ -1,4 +1,5 @@
 
+#include "Juce_Header.h"
 /**
 	All colors in plug-in defined here.
  */
@@ -13,12 +14,14 @@ public:
 		timelineBkgd,
 		inspectBkgd,
 		playbackRegionBkgd,
+		regionSequenceBkgd,
 		
 		emptySectionOutline,
 		navigationOutline,
 		timelineOutline,
 		inspectOutline,
 		playbackRegionOutline,
+		regionSequenceOutline,
 
 		endOfList
 	};
@@ -33,6 +36,7 @@ public:
 			juce::Colour(0xff123d4a), 	// timelineBkgd
 			juce::Colour(0xff2d748a),	// inspectBkgd
 			juce::Colour(0xff2d748a),	// playbackRegionBkgd
+			juce::Colour(0x33dac9c9), 	// regionSequenceBkgd
 
 			
 			
@@ -41,6 +45,7 @@ public:
 			juce::Colour(0xffbaae6e),	// timelineOutline
 			juce::Colour(0xffbaae6e),	// inspectOutline
 			juce::Colour(0xffdac9c9),	// playbackRegionOutline
+			juce::Colour(0xfffefefe),   // regionSequenceOutline
 			
 			
 			juce::Colour(0xff000000),   // endOfList

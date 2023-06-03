@@ -2,10 +2,14 @@
 #include "Util/Colors.h"
 #include "../Views/DocumentView.h"
 
+
+using namespace Timeline;
+
 DocumentSection::DocumentSection()
 {
 	mDocumentView = std::make_unique<DocumentView>();
 	mDocumentView->setSize(1000, 1000);
+	
 	mViewport = std::make_unique<juce::Viewport>();
 	mViewport->setViewedComponent(mDocumentView.get());
 	mViewport->setScrollBarsShown(true, true);
@@ -32,3 +36,9 @@ void DocumentSection::resized()
 	mViewport->setBounds(bounds);
 }
 
+
+//===============
+juce::Viewport* DocumentSection::getViewport()
+{
+	return mViewport.get();
+}

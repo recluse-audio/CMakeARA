@@ -2,13 +2,16 @@
 #include "Util/Colors.h"
 #include "../Views/SequenceHeaderView.h"
 
+
+using namespace Timeline;
+
 SequenceHeadersSection::SequenceHeadersSection()
 {
 	mSequenceHeaderView = std::make_unique<SequenceHeaderView>();
 	mSequenceHeaderView->setSize(100, 1000);
 	mViewport = std::make_unique<juce::Viewport>();
 	mViewport->setViewedComponent(mSequenceHeaderView.get());
-	mViewport->setScrollBarsShown(true, false);
+	mViewport->setScrollBarsShown(false, false);
 	addAndMakeVisible(mViewport.get());
 }
 
@@ -30,4 +33,10 @@ void SequenceHeadersSection::resized()
 {
 	auto bounds = this->getLocalBounds();
 	mViewport->setBounds(bounds);
+}
+
+//============
+void SequenceHeadersSection::setViewPosition(int x, int y)
+{
+	mViewport->setViewPosition(x, y);
 }

@@ -2,7 +2,11 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
-class PlaybackRegionView;
+namespace Timeline
+{
+
+
+class RegionSequenceView;
 
 class DocumentView : public juce::Component
 {
@@ -14,5 +18,7 @@ public:
 	void resized() override;
 	
 private:
-	std::unique_ptr<PlaybackRegionView> mPlaybackRegionView;
+	std::unique_ptr<RegionSequenceView> mRegionSequenceView;
 };
+
+}

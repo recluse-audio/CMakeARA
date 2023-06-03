@@ -1,6 +1,8 @@
 #include "SequenceHeaderView.h"
 #include "Util/Colors.h"
 
+using namespace Timeline;
+
 SequenceHeaderView::SequenceHeaderView()
 {
 	

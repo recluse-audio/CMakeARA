@@ -1,18 +1,20 @@
 #include "DocumentView.h"
 #include "Util/Colors.h"
-#include "PlaybackRegionView.h"
+#include "RegionSequenceView.h"
+
+using namespace Timeline;
 
 DocumentView::DocumentView()
 {
-	mPlaybackRegionView = std::make_unique<PlaybackRegionView>();
-	addAndMakeVisible(mPlaybackRegionView.get());
+	mRegionSequenceView = std::make_unique<RegionSequenceView>();
+	addAndMakeVisible(mRegionSequenceView.get());
 	
 	setSize(1000, 1000);
 }
 
 DocumentView::~DocumentView()
 {
-	mPlaybackRegionView.reset();
+	mRegionSequenceView.reset();
 }
 
 void DocumentView::paint(juce::Graphics &g)
@@ -40,6 +42,6 @@ void DocumentView::paint(juce::Graphics &g)
 
 void DocumentView::resized()
 {
-	if(mPlaybackRegionView)
-		mPlaybackRegionView->setBounds(0, 0, 100, 80);
+	auto bounds = getLocalBounds();
+	mRegionSequenceView->setBounds(0, 0, bounds.getWidth(), 80);
 }
