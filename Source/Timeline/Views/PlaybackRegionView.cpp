@@ -1,17 +1,17 @@
 
 #include "PlaybackRegionView.h"
 #include "Util/Colors.h"
+#include "../Objects/Timeline_PlaybackRegion.h"
 
 using namespace Timeline;
 
-PlaybackRegionView::PlaybackRegionView()
+PlaybackRegionView::PlaybackRegionView(Timeline::PlaybackRegion& pRegion) : mPlaybackRegion(pRegion)
 {
-	setSize(100,100);
+
 }
 
 PlaybackRegionView::~PlaybackRegionView()
 {
-	
 }
 
 //=================
@@ -34,4 +34,17 @@ void PlaybackRegionView::updateZoomState(ZoomState *zoomState)
 {
 	auto regionHeight = zoomState->getSequenceHeight() - 2;
 	auto pixPerSecond = zoomState->getPixelsPerSecond();
+	
+	_updateSize(regionHeight, pixPerSecond);
+}
+
+//==================
+void PlaybackRegionView::_updateSize(double regionHeight, double pixPerSecond)
+{
+	if(mPlaybackRegion.get())
+	{
+		auto regionWidth = mPlaybackRegion.getRangeInTimeline().getLength() * pixPerSecond;
+		this->setSize(regionWidth, regionHeight);
+	}
+	
 }

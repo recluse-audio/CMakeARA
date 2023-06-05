@@ -18,16 +18,28 @@ ZoomState::~ZoomState()
 //==============
 void ZoomState::setSequenceHeight(double sequenceHeight)
 {
+	// Keep within limits of min/max zoom
 	auto validHeight = getValidHeight(sequenceHeight);
 	mSequenceHeight = validHeight;
+	
+	// update zoom factor accordingly
+	mHeightFactor = mSequenceHeight / baseSequenceHeight;
+	
+	// tell ZoomStateListeners to 'updateZoomState()'
 	sendChangeMessage();
 }
 
 //==============
 void ZoomState::setPixelsPerSecond(double pixPerSecond)
 {
+	// Keep within limits of min/max zoom
 	auto validPix = getValidPixelsPerSecond(pixPerSecond);
 	mPixelsPerSecond = validPix;
+	
+	// update zoom factor accordingly
+	mWidthFactor = mPixelsPerSecond / basePixelsPerSecond;
+	
+	// tell ZoomStateListeners to 'updateZoomState()'
 	sendChangeMessage();
 
 }
@@ -35,8 +47,14 @@ void ZoomState::setPixelsPerSecond(double pixPerSecond)
 //==============
 void ZoomState::setHeightZoomFactor(double zoomFactor)
 {
+	// Keep within limits of min/max zoom
 	auto validZoom = juce::jlimit(minZoom, maxZoom, zoomFactor);
 	mHeightFactor = validZoom;
+	
+	// update mSequenceHeight accordingly
+	mSequenceHeight = baseSequenceHeight * mHeightFactor;
+	
+	// tell ZoomStateListeners to updateZoomState
 	sendChangeMessage();
 }
 
@@ -45,6 +63,9 @@ void ZoomState::setWidthZoomFactor(double zoomFactor)
 {
 	auto validZoom = juce::jlimit(minZoom, maxZoom, zoomFactor);
 	mWidthFactor = validZoom;
+	
+	mPixelsPerSecond = basePixelsPerSecond * mWidthFactor;
+	
 	sendChangeMessage();
 
 }

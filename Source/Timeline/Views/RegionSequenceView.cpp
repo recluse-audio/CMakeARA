@@ -7,8 +7,7 @@ using namespace Timeline;
 
 RegionSequenceView::RegionSequenceView()
 {
-	mPlaybackRegionView = std::make_unique<PlaybackRegionView>();
-	addAndMakeVisible(mPlaybackRegionView.get());
+
 	
 	setSize(100,100);
 }
@@ -28,11 +27,12 @@ void RegionSequenceView::paint(juce::Graphics &g)
 
 void RegionSequenceView::resized()
 {
-	auto bounds = this->getLocalBounds();
+
 	
-	auto regionPixelBuffer = 1; 	// Make playback region fit within region sequence
-	auto regionHeight = bounds.getHeight() - (regionPixelBuffer * 2);
-	
-	mPlaybackRegionView->setBounds(0, regionPixelBuffer, 100, regionHeight);
 }
 
+
+void RegionSequenceView::addPlaybackRegionView(Timeline::PlaybackRegionView *pView)
+{
+	
+}

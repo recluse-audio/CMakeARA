@@ -19,8 +19,8 @@ public:
 	void paint(juce::Graphics& g) override;
 	void resized() override;
 	
+	void addPlaybackRegionView(Timeline::PlaybackRegionView* pView);
 private:
-	std::unique_ptr<Timeline::PlaybackRegionView> mPlaybackRegionView;
 };
 
 }
