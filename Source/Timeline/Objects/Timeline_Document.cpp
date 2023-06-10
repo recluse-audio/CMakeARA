@@ -5,22 +5,16 @@
 using namespace Timeline;
 
 Document::Document(Timeline::DocumentController* doc)
-: docController(doc)
 {
 	
 }
 
 Document::~Document()
 {
-	docController = nullptr;
 }
 
 Timeline::DocumentController* Document::getDocumentController()
 {
-	return docController;
 }
 
-void Document::addAudioSource(Timeline::AudioSource source)
-{
-	//audioSources.push_back(source);
-}
+

@@ -16,6 +16,7 @@ MainView::MainView()
 	
 	mTimelineSection = std::make_unique<TimelineSection>();
 	addAndMakeVisible(mTimelineSection.get());
+
 }
 
 
@@ -44,3 +45,4 @@ void MainView::resized()
 	mTimelineSection->setBounds(100, 0, 700, 270);
 
 }
+

@@ -7,6 +7,7 @@
 namespace Timeline
 {
 
+class PlaybackRegion;
 
 class RegionSequence
 {
@@ -14,6 +15,7 @@ public:
 	RegionSequence(){}
 	~RegionSequence(){}
 	
+	virtual std::vector<Timeline::PlaybackRegion*> getPlaybackRegions() = 0;
 private:
 	
 	

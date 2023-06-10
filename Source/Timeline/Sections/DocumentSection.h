@@ -1,6 +1,7 @@
 
 #pragma once
 #include <Util/Juce_Header.h>
+#include "ViewportSection.h"
 
 namespace Timeline
 {
@@ -8,20 +9,17 @@ namespace Timeline
 
 class DocumentView;
 
-class DocumentSection : public juce::Component
+class DocumentSection : public Timeline::ViewportSection
 {
 public:
-	DocumentSection();
+	DocumentSection(Timeline::ZoomState& zoomState);
 	~DocumentSection();
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;
-	
-	// This is the "master" viewport.  timeruler and sequence headers need to follow this
-	juce::Viewport* getViewport();
+
 	
 private:
-	std::unique_ptr<juce::Viewport> mViewport;
 	std::unique_ptr<Timeline::DocumentView> mDocumentView;
 };
 

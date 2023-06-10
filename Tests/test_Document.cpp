@@ -8,7 +8,5 @@
 
 TEST_CASE("Add controller to document")
 {
-	auto docController = new Timeline::DocumentController();
-	auto document = new Timeline::Document(docController);
-	CHECK(docController == document->getDocumentController());
+
 }

@@ -14,8 +14,10 @@ public:
 	void paint(juce::Graphics& g) override;
 	void resized() override;
 	
+	
 private:
 	std::unique_ptr<NavigationSection> 	mNavigationSection;
 	std::unique_ptr<TimelineSection> 	mTimelineSection;
 	std::unique_ptr<InspectSection> 	mInspectSection;
+	
 };

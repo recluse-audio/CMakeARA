@@ -2,8 +2,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include "Util/Juce_Header.h"
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
-#include "TestTimeline/Test_PlaybackRegion.h"
-#include "TestTimeline/Test_AudioSource.h"
+#include "Test_Timeline/Test_PlaybackRegion.h"
+#include "Test_Timeline/Test_AudioSource.h"
 
 // save some typing
 using Int64Range = juce::Range<juce::int64>;

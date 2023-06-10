@@ -1,16 +1,18 @@
 #pragma once
 #include <Util/Juce_Header.h>
+#include "ViewportSection.h"
 
 namespace Timeline
 {
 
+class ZoomState;
 
 class SequenceHeaderView;
 
-class SequenceHeadersSection : public juce::Component
+class SequenceHeadersSection : public Timeline::ViewportSection
 {
 public:
-	SequenceHeadersSection();
+	SequenceHeadersSection(Timeline::ZoomState& zoomState);
 	~SequenceHeadersSection();
 	
 	void paint(juce::Graphics& g) override;
@@ -20,7 +22,6 @@ public:
 	void setViewPosition(int x, int y);
 	
 private:
-	std::unique_ptr<juce::Viewport> mViewport;
 	std::unique_ptr<SequenceHeaderView> mSequenceHeaderView;
 	
 	

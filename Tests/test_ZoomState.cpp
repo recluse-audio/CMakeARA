@@ -1,14 +1,14 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include "Util/Juce_Header.h"
-#include "TestUtils/TestUtils.h"
+#include "Test_Utils/TestUtils.h"
 
 #include "Timeline/ZoomState/ZoomState.h"
 #include "Timeline/ZoomState/ZoomStateListener.h"
 
 #include "Timeline/Views/PlaybackRegionView.h"
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
-#include "TestTimeline/Test_PlaybackRegion.h"
+#include "Test_Timeline/Test_PlaybackRegion.h"
 
 
 TEST_CASE("Test setting zoom state by pixel")

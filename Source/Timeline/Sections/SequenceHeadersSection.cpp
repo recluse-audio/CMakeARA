@@ -1,15 +1,17 @@
 #include "SequenceHeadersSection.h"
 #include "Util/Colors.h"
 #include "../Views/SequenceHeaderView.h"
+#include "../ZoomState/ZoomState.h"
 
 
 using namespace Timeline;
 
-SequenceHeadersSection::SequenceHeadersSection()
+SequenceHeadersSection::SequenceHeadersSection(Timeline::ZoomState& zoomState)
+: Timeline::ViewportSection(zoomState)
 {
 	mSequenceHeaderView = std::make_unique<SequenceHeaderView>();
 	mSequenceHeaderView->setSize(100, 1000);
-	mViewport = std::make_unique<juce::Viewport>();
+	
 	mViewport->setViewedComponent(mSequenceHeaderView.get());
 	mViewport->setScrollBarsShown(false, false);
 	addAndMakeVisible(mViewport.get());

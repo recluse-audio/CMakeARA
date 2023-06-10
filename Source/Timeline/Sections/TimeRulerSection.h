@@ -1,5 +1,6 @@
 #pragma once
 #include <Util/Juce_Header.h>
+#include "ViewportSection.h"
 
 namespace Timeline
 {
@@ -10,10 +11,10 @@ class TimeRulerView;
 /**
 	Holds viewport and scrolls across TimeRulerView
 */
-class TimeRulerSection : public juce::Component
+class TimeRulerSection : public Timeline::ViewportSection
 {
 public:
-	TimeRulerSection();
+	TimeRulerSection(Timeline::ZoomState& zoomState);
 	~TimeRulerSection();
 	
 	void paint(juce::Graphics& g) override;
@@ -22,7 +23,6 @@ public:
 	// Calls juce::Viewport function of the same name
 	void setViewPosition(int x, int y);
 private:
-	std::unique_ptr<juce::Viewport> mViewport;
 	std::unique_ptr<TimeRulerView> mTimeRuler;
 };
 

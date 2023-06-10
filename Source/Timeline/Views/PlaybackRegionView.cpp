@@ -7,7 +7,7 @@ using namespace Timeline;
 
 PlaybackRegionView::PlaybackRegionView(Timeline::PlaybackRegion& pRegion) : mPlaybackRegion(pRegion)
 {
-
+	setSize(100, 100);
 }
 
 PlaybackRegionView::~PlaybackRegionView()
@@ -41,10 +41,9 @@ void PlaybackRegionView::updateZoomState(ZoomState *zoomState)
 //==================
 void PlaybackRegionView::_updateSize(double regionHeight, double pixPerSecond)
 {
-	if(mPlaybackRegion.get())
-	{
-		auto regionWidth = mPlaybackRegion.getRangeInTimeline().getLength() * pixPerSecond;
-		this->setSize(regionWidth, regionHeight);
-	}
+
+	auto regionWidth = mPlaybackRegion.getRangeInTimeline().getLength() * pixPerSecond;
+	this->setSize(regionWidth, regionHeight);
+	
 	
 }

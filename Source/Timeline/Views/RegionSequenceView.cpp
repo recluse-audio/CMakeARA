@@ -1,15 +1,19 @@
 
 #include "RegionSequenceView.h"
 #include "PlaybackRegionView.h"
+
 #include "Util/Colors.h"
+
+#include "../Objects/Timeline_RegionSequence.h"
+#include "../Objects/Timeline_PlaybackRegion.h"
+
 
 using namespace Timeline;
 
-RegionSequenceView::RegionSequenceView()
+RegionSequenceView::RegionSequenceView(Timeline::RegionSequence& sequence) : mRegionSequence(sequence)
 {
-
 	
-	setSize(100,100);
+	setSize(1000,100);
 }
 
 RegionSequenceView::~RegionSequenceView()
@@ -32,7 +36,23 @@ void RegionSequenceView::resized()
 }
 
 
-void RegionSequenceView::addPlaybackRegionView(Timeline::PlaybackRegionView *pView)
+
+
+void RegionSequenceView::updateZoomState(Timeline::ZoomState *zoomState)
 {
 	
+}
+
+void RegionSequenceView::setZoomStateToFollow(Timeline::ZoomState *zoomState)
+{
+	zoomState->addChangeListener(this);
+
+}
+
+void RegionSequenceView::createPlaybackRegionView(Timeline::PlaybackRegion* pRegion)
+{
+	auto regionView = std::make_unique<Timeline::PlaybackRegionView>(*pRegion);
+	this->addAndMakeVisible(*regionView.get());
+	mPlaybackRegionViews.add(std::move(regionView));
+	resized();
 }

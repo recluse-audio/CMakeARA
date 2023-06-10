@@ -1,20 +1,24 @@
 #include "DocumentView.h"
-#include "Util/Colors.h"
 #include "RegionSequenceView.h"
+#include "PlaybackRegionView.h"
+
+#include "../Objects/Timeline_PlaybackRegion.h"
+#include "../Objects/Timeline_RegionSequence.h"
+//#include "../../../Tests/test_DocumentController.cpp"
+
+#include "Util/Colors.h"
 
 using namespace Timeline;
 
 DocumentView::DocumentView()
 {
-	mRegionSequenceView = std::make_unique<RegionSequenceView>();
-	addAndMakeVisible(mRegionSequenceView.get());
+
 	
 	setSize(1000, 1000);
 }
 
 DocumentView::~DocumentView()
 {
-	mRegionSequenceView.reset();
 }
 
 void DocumentView::paint(juce::Graphics &g)
@@ -42,6 +46,44 @@ void DocumentView::paint(juce::Graphics &g)
 
 void DocumentView::resized()
 {
-	auto bounds = getLocalBounds();
-	mRegionSequenceView->setBounds(0, 0, bounds.getWidth(), 80);
+	auto sequenceHeight = 100;
+	for(int i = 0; i < mRegionSequences.size(); i++)
+	{
+		mRegionSequences[i]->setTopLeftPosition(0, i * sequenceHeight);
+	}
 }
+
+//===========================
+void DocumentView::addRegionSequence(Timeline::RegionSequence& pSequence)
+{
+	auto sequenceView = std::make_unique<Timeline::RegionSequenceView>(pSequence);
+	this->addAndMakeVisible(*sequenceView.get());
+	mRegionSequences.add(std::move(sequenceView));
+	resized();
+}
+
+
+//============================
+void DocumentView::addRegionSequences(std::vector<Timeline::RegionSequence*> sequences)
+{
+	for(auto regionSequence : sequences)
+	{
+		addRegionSequence(*regionSequence);
+	}
+}
+
+
+//=============================
+void DocumentView::resetTimeline()
+{
+	mRegionSequences.clear();
+}
+ 
+
+
+//===============================
+void DocumentView::updateZoomState(Timeline::ZoomState* zoomState)
+{
+	
+}
+

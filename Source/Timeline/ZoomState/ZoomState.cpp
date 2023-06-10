@@ -1,5 +1,6 @@
 
 #include "ZoomState.h"
+#include "ZoomStateListener.h"
 
 using namespace Timeline;
 
@@ -118,3 +119,8 @@ double ZoomState::getValidPixelsPerSecond(double pixPerSecond)
 
 
 
+//=============
+void ZoomState::addZoomStateListener(Timeline::ZoomStateListener* listener)
+{
+	this->addChangeListener(listener);
+}

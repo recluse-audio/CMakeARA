@@ -27,8 +27,9 @@ public:
 	}
 	
 	virtual void updateZoomState(Timeline::ZoomState* zoomState) = 0;
-	
 
+
+	
 	
 private:
 	

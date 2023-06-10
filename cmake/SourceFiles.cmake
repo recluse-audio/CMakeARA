@@ -22,19 +22,20 @@ set(SourceFiles
     Source/Sections/NavigationSection.h
     Source/Sections/TimelineSection.cpp
     Source/Sections/TimelineSection.h
-    Source/TestTimeline/Test_AudioModification.cpp
-    Source/TestTimeline/Test_AudioModification.h
-    Source/TestTimeline/Test_AudioSource.cpp
-    Source/TestTimeline/Test_AudioSource.h
-    Source/TestTimeline/Test_Document.h
-    Source/TestTimeline/Test_DocumentController.cpp
-    Source/TestTimeline/Test_DocumentController.h
-    Source/TestTimeline/Test_PlaybackRegion.cpp
-    Source/TestTimeline/Test_PlaybackRegion.h
-    Source/TestTimeline/Test_PlaybackRenderer.cpp
-    Source/TestTimeline/Test_PlaybackRenderer.h
-    Source/TestUtils/TestUtils.cpp
-    Source/TestUtils/TestUtils.h
+    Source/Test_Timeline/Test_AudioModification.cpp
+    Source/Test_Timeline/Test_AudioModification.h
+    Source/Test_Timeline/Test_AudioSource.cpp
+    Source/Test_Timeline/Test_AudioSource.h
+    Source/Test_Timeline/Test_Document.h
+    Source/Test_Timeline/Test_DocumentController.cpp
+    Source/Test_Timeline/Test_DocumentController.h
+    Source/Test_Timeline/Test_PlaybackRegion.cpp
+    Source/Test_Timeline/Test_PlaybackRegion.h
+    Source/Test_Timeline/Test_PlaybackRenderer.cpp
+    Source/Test_Timeline/Test_PlaybackRenderer.h
+    Source/Test_Timeline/Test_RegionSequence.h
+    Source/Test_Utils/TestUtils.cpp
+    Source/Test_Utils/TestUtils.h
     Source/Timeline/Objects/Timeline_AudioModification.cpp
     Source/Timeline/Objects/Timeline_AudioModification.h
     Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_ModificationProcessor.cpp
@@ -61,6 +62,8 @@ set(SourceFiles
     Source/Timeline/Sections/SequenceHeadersSection.h
     Source/Timeline/Sections/TimeRulerSection.cpp
     Source/Timeline/Sections/TimeRulerSection.h
+    Source/Timeline/Sections/ViewportSection.cpp
+    Source/Timeline/Sections/ViewportSection.h
     Source/Timeline/Sections/ZoomControlsSection.cpp
     Source/Timeline/Sections/ZoomControlsSection.h
     Source/Timeline/Views/DocumentView.cpp

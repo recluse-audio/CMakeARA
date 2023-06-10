@@ -4,6 +4,8 @@
 
 namespace Timeline
 {
+
+class ZoomStateListener;
 /**
 	This class represents the current zoom state of a Timeline.
 	It has several functions that handle converting seconds to pixels based on how zoom level
@@ -32,6 +34,8 @@ public:
 	double getHeightZoomFactor();
 	double getWidthZoomFactor();
 	
+	/** Preferred way of adding ZoomStateListener, as opposed to generic change listener*/
+	void addZoomStateListener(Timeline::ZoomStateListener* listener);
 	
 private:
 	// gets a height within the range of the min/max zoom
