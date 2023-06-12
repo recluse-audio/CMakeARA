@@ -12,12 +12,14 @@ class PlaybackRegion;
 class RegionSequence
 {
 public:
-	RegionSequence(){}
-	~RegionSequence(){}
+	RegionSequence();
+	~RegionSequence();
+
+	void addPlaybackRegion(Timeline::PlaybackRegion* pRegion);
+	std::vector<Timeline::PlaybackRegion*> getPlaybackRegions();
 	
-	virtual std::vector<Timeline::PlaybackRegion*> getPlaybackRegions() = 0;
 private:
-	
+	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;
 	
 };
 

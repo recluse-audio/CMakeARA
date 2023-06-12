@@ -16,17 +16,3 @@ DocumentController::~DocumentController()
 	
 }
 
-void DocumentController::addAudioSource(Timeline::AudioSource* source)
-{
-	mDocument->audioSources.push_back(source);
-}
-
-void DocumentController::addRegionSequence(Timeline::RegionSequence* sequence)
-{
-	mDocument->regionSequences.push_back(sequence);
-}
-
-void DocumentController::addPlaybackRegion(Timeline::PlaybackRegion *region)
-{
-	mDocument->playbackRegions.push_back(region);
-}

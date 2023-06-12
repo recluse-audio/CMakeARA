@@ -12,7 +12,6 @@ ViewportSection::ViewportSection(Timeline::ZoomState& zoomState) : mZoomState(zo
 
 ViewportSection::~ViewportSection()
 {
-	
 }
 
 juce::Viewport* ViewportSection::getViewport()

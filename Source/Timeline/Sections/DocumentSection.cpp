@@ -20,8 +20,7 @@ DocumentSection::DocumentSection(Timeline::ZoomState& zoomState)
 //===============
 DocumentSection::~DocumentSection()
 {
-	mViewport.reset();
-	mDocumentView.reset();
+
 }
 
 //===============

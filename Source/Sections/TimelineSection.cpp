@@ -43,10 +43,8 @@ TimelineSection::TimelineSection()
 //==============
 TimelineSection::~TimelineSection()
 {
-	mTimeRulerSection.reset();
-	mSequenceHeadersSection.reset();
-	mDocumentSection.reset();
-	mZoomControlsSection.reset();
+	mDocumentSection->getViewport()->getHorizontalScrollBar().removeListener(this);
+	mDocumentSection->getViewport()->getVerticalScrollBar().removeListener(this);
 }
 
 

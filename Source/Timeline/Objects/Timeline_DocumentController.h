@@ -10,9 +10,10 @@ class RegionSequence;
 class PlaybackRegion;
 
 /*
- Unlike the Timeline::AudioSource/PlaybackRegion/AudioMod etc. this is not meant to be inherited from by an ARADocumentSpecialisation
+ Unlike the Timeline::AudioSource/PlaybackRegion/AudioMod etc. this is not meant to be inherited from by an ARADocumentSpecialisation, but rather owned by it.
  
- The goal is to have Timeline::Document match the structure of the ARA::Document in terms of 
+	Our ARADocumentSpecialisation will 
+
  */
 class DocumentController
 {
@@ -20,9 +21,7 @@ public:
 	DocumentController();
 	~DocumentController();
 	
-	void addAudioSource(Timeline::AudioSource* source);
 	void addRegionSequence(Timeline::RegionSequence* sequence);
-	void addPlaybackRegion(Timeline::PlaybackRegion* region);
 	
 private:
 	std::unique_ptr<Timeline::Document> mDocument;

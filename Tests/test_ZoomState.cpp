@@ -264,8 +264,7 @@ TEST_CASE("PlaybackRegionView can size correctly")
 	auto regionBounds = regionView->getLocalBounds();
 	CHECK(regionBounds.getWidth() == testPixPer);
 
-	regionView.reset(nullptr);
-	testRegion.reset();
+
 
 	/** Needed for ChangeListener callback to work (cleanup) */
 	juce::MessageManager::deleteInstance();

@@ -4,17 +4,22 @@
 
 using namespace Timeline;
 
-Document::Document(Timeline::DocumentController* doc)
+Document::Document()
 {
 	
 }
 
 Document::~Document()
 {
+	mRegionSequences.clear();
 }
 
-Timeline::DocumentController* Document::getDocumentController()
+void Document::addRegionSequence(Timeline::RegionSequence *pSequence)
 {
+	//mRegionSequences.push_back(pSequence);
 }
 
-
+std::vector<Timeline::RegionSequence*> Document::getRegionSequences()
+{
+	return mRegionSequences;
+}

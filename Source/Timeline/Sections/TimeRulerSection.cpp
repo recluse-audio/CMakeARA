@@ -18,8 +18,6 @@ TimeRulerSection::TimeRulerSection(Timeline::ZoomState& zoomState)
 
 TimeRulerSection::~TimeRulerSection()
 {
-	mViewport.reset();
-	mTimeRuler.reset();
 }
 
 void TimeRulerSection::paint(juce::Graphics& g)

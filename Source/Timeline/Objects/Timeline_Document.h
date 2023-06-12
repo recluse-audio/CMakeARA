@@ -2,7 +2,11 @@
 #include <Util/Juce_Header.h>
 
 /**
-	This class represents the objects in a Timeline.  Region Sequences, Audio Modifications, PlaybackRegions...
+	This class represents an object that will be owned by an ARADocumentControllerSpecialisation.
+	
+	It should remain a minimalist abstraction of the ARA things we need for drawing and interaction.
+ 
+	This assumes Timeline::Objects are organized in the right arrangment.  Timeline::RegionSequences already have the correct PlaybackRegions added.  PlaybackRegions have all the pointers they will need, etc...
 */
 namespace Timeline
 {
@@ -13,22 +17,18 @@ class AudioModification;
 class RegionSequence;
 class PlaybackRegion;
 
-class Document
+class Document final
 {
 public:
-	Document(Timeline::DocumentController* doc);
+	Document();
 	~Document();
 	
-	Timeline::DocumentController* getDocumentController();
-	
-
-	
-	std::vector<Timeline::AudioSource*> audioSources;
-	std::vector<Timeline::RegionSequence*> regionSequences;
-	std::vector<Timeline::PlaybackRegion*> playbackRegions;
+	void addRegionSequence(Timeline::RegionSequence* pSequence);
+	std::vector<Timeline::RegionSequence*> getRegionSequences();
 
 private:
-	
+	std::vector<Timeline::RegionSequence*> mRegionSequences;
+
 	
 };
 

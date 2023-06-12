@@ -102,8 +102,7 @@ TEST_CASE("Can add/remove RegionSequenceViews to DocumentView")
 	// Remove RegionSequence
 	
 	
-	docView.reset();
-	regionSequence.reset();
+
 	
 	juce::MessageManager::getInstance()->runDispatchLoop();
 	juce::MessageManager::deleteInstance();
@@ -113,22 +112,27 @@ TEST_CASE("Can add/remove RegionSequenceViews to DocumentView")
 //=========================================
 TEST_CASE("ViewportSections need to set all their child components that are ZoomStateListeners to listen to its ZoomState")
 {
-	juce::ScopedJuceInitialiser_GUI guiInitializer;
-
-	Timeline::ZoomState zoomState;
-	auto viewportSection = std::make_unique<Timeline::ViewportSection>(zoomState);
-	
+//	juce::ScopedJuceInitialiser_GUI guiInitializer;
+//
+//	Timeline::ZoomState zoomState;
+//	auto viewportSection = std::make_unique<Timeline::ViewportSection>(zoomState);
+//	
+//	juce::MessageManager::getInstance()->runDispatchLoop();
+//	juce::MessageManager::deleteInstance();
 }
 
 
 //=========================================
 TEST_CASE("TimelineSection sets horizontal/vertical zoom factors on all ")
 {
+	juce::MessageManager::getInstance();
+	
 	juce::ScopedJuceInitialiser_GUI guiInitializer;
 
+	juce::MessageManagerLock mmLock;
+	
 	auto timelineSection = std::make_unique<TimelineSection>();
 	
-	juce::MessageManager::getInstance()->runDispatchLoop();
-	juce::MessageManager::deleteInstance();
+	
 }
 

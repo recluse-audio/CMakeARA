@@ -19,8 +19,7 @@ SequenceHeadersSection::SequenceHeadersSection(Timeline::ZoomState& zoomState)
 
 SequenceHeadersSection::~SequenceHeadersSection()
 {
-	mViewport.reset();
-	mSequenceHeaderView.reset();
+
 }
 
 void SequenceHeadersSection::paint(juce::Graphics& g)

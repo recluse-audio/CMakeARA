@@ -16,10 +16,7 @@ class RegionSequence : public Timeline::RegionSequence
 
 public:
 	RegionSequence(){}
-	~RegionSequence()
-	{
-		mPlaybackRegions.clear();
-	}
+
 	
 	void addRegionAtRange(juce::int64 start, juce::int64 end)
 	{
@@ -29,17 +26,8 @@ public:
 		addPlaybackRegion(region.get());
 	}
 
-	std::vector<Timeline::PlaybackRegion*> getPlaybackRegions() override
-	{
-		return mPlaybackRegions;
-	}
+
 	
-	void addPlaybackRegion(Timeline::PlaybackRegion* region)
-	{
-		mPlaybackRegions.push_back(region);
-	}
-	
-	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;
 	
 };
 
