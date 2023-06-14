@@ -25,6 +25,7 @@ public:
 	
 	void addRegionSequence(Timeline::RegionSequence* pSequence);
 	std::vector<Timeline::RegionSequence*> getRegionSequences();
+	
 
 private:
 	std::vector<Timeline::RegionSequence*> mRegionSequences;

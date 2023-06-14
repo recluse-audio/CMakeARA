@@ -17,7 +17,7 @@ public:
 		
 	}
 	
-	~PlaybackRegion(){}
+
 	
 	juce::Range<juce::int64> getRangeInTimeline() const override
 	{

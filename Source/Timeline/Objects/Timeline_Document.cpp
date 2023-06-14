@@ -16,7 +16,7 @@ Document::~Document()
 
 void Document::addRegionSequence(Timeline::RegionSequence *pSequence)
 {
-	//mRegionSequences.push_back(pSequence);
+	mRegionSequences.push_back(pSequence);
 }
 
 std::vector<Timeline::RegionSequence*> Document::getRegionSequences()

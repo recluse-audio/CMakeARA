@@ -17,7 +17,7 @@ void RegionSequence::addPlaybackRegion(Timeline::PlaybackRegion *pRegion)
 	mPlaybackRegions.push_back(pRegion);
 }
 
-std::vector<Timeline::PlaybackRegion*> RegionSequence::getPlaybackRegions()
+std::vector<Timeline::PlaybackRegion*> const& RegionSequence::getPlaybackRegions()
 {
 	return mPlaybackRegions;
 }

@@ -9,14 +9,14 @@ namespace Timeline
 
 class PlaybackRegion;
 
-class RegionSequence
+class RegionSequence : public juce::DynamicObject
 {
 public:
 	RegionSequence();
 	~RegionSequence();
 
 	void addPlaybackRegion(Timeline::PlaybackRegion* pRegion);
-	std::vector<Timeline::PlaybackRegion*> getPlaybackRegions();
+	std::vector<Timeline::PlaybackRegion*> const& getPlaybackRegions();
 	
 private:
 	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;

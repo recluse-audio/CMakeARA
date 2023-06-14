@@ -2,6 +2,7 @@
 #pragma once
 #include "Util/Juce_Header.h"
 #include "Timeline/Objects/Timeline_RegionSequence.h"
+#include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "Test_Timeline/Test_PlaybackRegion.h"
 
 
@@ -16,7 +17,7 @@ class RegionSequence : public Timeline::RegionSequence
 
 public:
 	RegionSequence(){}
-
+	
 	
 	void addRegionAtRange(juce::int64 start, juce::int64 end)
 	{

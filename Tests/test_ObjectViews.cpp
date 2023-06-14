@@ -136,3 +136,25 @@ TEST_CASE("TimelineSection sets horizontal/vertical zoom factors on all ")
 	
 }
 
+
+
+TEST_CASE("Can make juce::var using a RegionSequence")
+{
+	Test::RegionSequence regionSequence;
+	Test::PlaybackRegion playbackRegion;
+
+	std::unique_ptr<Test::PlaybackRegion> clonedRegion(static_cast<Test::PlaybackRegion*>(playbackRegion.clone().get()));
+	
+	juce::var childVar(std::move(clonedRegion.release()));
+	
+	regionSequence.setProperty("Playback Region", childVar);
+	
+	juce::var varSequence(regionSequence.clone());
+
+	// Assert that the juce::var is valid and has the expected property
+	REQUIRE(varSequence.isObject());
+	REQUIRE(varSequence.hasProperty("Playback Region"));
+	REQUIRE(varSequence["Playback Region"].getDynamicObject() == &playbackRegion);
+	
+
+}

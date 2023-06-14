@@ -8,10 +8,7 @@ PlaybackRegion::PlaybackRegion()
 	
 }
 
-PlaybackRegion::~PlaybackRegion()
-{
-	
-}
+
 
 PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::int64> blockRangeInTimeline)
 {
