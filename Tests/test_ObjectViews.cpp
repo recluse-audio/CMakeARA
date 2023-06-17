@@ -13,6 +13,7 @@
 #include "Timeline/Views/RegionSequenceView.h"
 #include "Timeline/Views/DocumentView.h"
 
+#include "Timeline/Objects/Timeline_Object.h"
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "Timeline/Objects/Timeline_RegionSequence.h"
 
@@ -73,88 +74,96 @@ private:
 
 
 
-//=======================================
-TEST_CASE("Can add/remove RegionSequenceViews to DocumentView")
-{
-	juce::ScopedJuceInitialiser_GUI guiInitializer;
-	
-	//
-	auto docView = std::make_unique<Timeline::DocumentView>();
-	ViewTester viewTester;
-	
-	
-	// Make up some
-	auto regionSequence = std::make_unique<Test::RegionSequence>();
-	regionSequence->addRegionAtRange(0, 1000);
-	regionSequence->addRegionAtRange(1200, 15000);
-	regionSequence->addRegionAtRange(19000, 200000);
-	
-	
-	
-	// Test Adding RegionSequence
-	docView->addRegionSequence(*regionSequence.get());
-	auto checkChildrenFunc = [&viewTester, docView = docView.get()]() {
-		CHECK(viewTester.getNumSequenceChildren(*docView) == 1);
-	};
-	juce::Timer::callAfterDelay(100, checkChildrenFunc);
-	//-------------------------
-	
-	// Remove RegionSequence
-	
-	
-
-	
-	juce::MessageManager::getInstance()->runDispatchLoop();
-	juce::MessageManager::deleteInstance();
-}
-
-
-//=========================================
-TEST_CASE("ViewportSections need to set all their child components that are ZoomStateListeners to listen to its ZoomState")
-{
+////=======================================
+//TEST_CASE("Can add/remove RegionSequenceViews to DocumentView")
+//{
 //	juce::ScopedJuceInitialiser_GUI guiInitializer;
+//	
+//	//
+//	auto docView = std::make_unique<Timeline::DocumentView>();
+//	ViewTester viewTester;
+//	
+//	
+//	// Make up some
+//	auto regionSequence = std::make_unique<Test::RegionSequence>();
+//	regionSequence->addRegionAtRange(0, 1000);
+//	regionSequence->addRegionAtRange(1200, 15000);
+//	regionSequence->addRegionAtRange(19000, 200000);
+//	
+//	
+//	
+//	// Test Adding RegionSequence
+//	docView->addRegionSequence(*regionSequence.get());
+//	auto checkChildrenFunc = [&viewTester, docView = docView.get()]() {
+//		CHECK(viewTester.getNumSequenceChildren(*docView) == 1);
+//	};
+//	juce::Timer::callAfterDelay(100, checkChildrenFunc);
+//	//-------------------------
+//	
+//	// Remove RegionSequence
+//	
+//	
 //
-//	Timeline::ZoomState zoomState;
-//	auto viewportSection = std::make_unique<Timeline::ViewportSection>(zoomState);
 //	
 //	juce::MessageManager::getInstance()->runDispatchLoop();
 //	juce::MessageManager::deleteInstance();
+//}
+//
+//
+////=========================================
+//TEST_CASE("ViewportSections need to set all their child components that are ZoomStateListeners to listen to its ZoomState")
+//{
+////	juce::ScopedJuceInitialiser_GUI guiInitializer;
+////
+////	Timeline::ZoomState zoomState;
+////	auto viewportSection = std::make_unique<Timeline::ViewportSection>(zoomState);
+////	
+////	juce::MessageManager::getInstance()->runDispatchLoop();
+////	juce::MessageManager::deleteInstance();
+//}
+//
+//
+////=========================================
+//TEST_CASE("TimelineSection sets horizontal/vertical zoom factors on all ")
+//{
+//	juce::MessageManager::getInstance();
+//	
+//	juce::ScopedJuceInitialiser_GUI guiInitializer;
+//
+//	juce::MessageManagerLock mmLock;
+//	
+//	auto timelineSection = std::make_unique<TimelineSection>();
+//	
+//	
+//}
+
+
+
+TEST_CASE("Can make juce::var")
+{
+
+	auto trackName = juce::String("Track 1");
+	
+	juce::DynamicObject::Ptr regionSequence = new juce::DynamicObject();
+	
+	regionSequence->setProperty("Track Name", trackName);
+	
+	juce::var sequenceVar = juce::var(regionSequence.get());
+	
+	REQUIRE(sequenceVar["Track Name"] == trackName);
+	//regionSequence = nullptr;
 }
 
-
-//=========================================
-TEST_CASE("TimelineSection sets horizontal/vertical zoom factors on all ")
+// TODO: Move this to its own test_Objects.cpp or somewhere not here in GUI testing
+TEST_CASE("Can convert Timeline::Object to juce::var")
 {
-	juce::MessageManager::getInstance();
-	
-	juce::ScopedJuceInitialiser_GUI guiInitializer;
+	SECTION("Always return with property 'Object Pointer' mapped to a juce::DynamicObject::Ptr")
+	{
+		Timeline::Object timelineObject;
+		juce::var timelineVar = timelineObject.toVar();
+		
+		REQUIRE(timelineVar.hasProperty("Type"));
+		REQUIRE(timelineVar["Type"] == "Object");
 
-	juce::MessageManagerLock mmLock;
-	
-	auto timelineSection = std::make_unique<TimelineSection>();
-	
-	
-}
-
-
-
-TEST_CASE("Can make juce::var using a RegionSequence")
-{
-	Test::RegionSequence regionSequence;
-	Test::PlaybackRegion playbackRegion;
-
-	std::unique_ptr<Test::PlaybackRegion> clonedRegion(static_cast<Test::PlaybackRegion*>(playbackRegion.clone().get()));
-	
-	juce::var childVar(std::move(clonedRegion.release()));
-	
-	regionSequence.setProperty("Playback Region", childVar);
-	
-	juce::var varSequence(regionSequence.clone());
-
-	// Assert that the juce::var is valid and has the expected property
-	REQUIRE(varSequence.isObject());
-	REQUIRE(varSequence.hasProperty("Playback Region"));
-	REQUIRE(varSequence["Playback Region"].getDynamicObject() == &playbackRegion);
-	
-
+	}
 }

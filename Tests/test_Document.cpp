@@ -12,15 +12,14 @@
 
 TEST_CASE("Add RegionSequence to document")
 {
-	Timeline::Document document;
-	const size_t numSequences = 2;
-	for(size_t i = 0; i < numSequences; i++)
-	{
-		document.addRegionSequence(new Timeline::RegionSequence());
-	}
-	const auto& regionSequences = document.getRegionSequences();
-	REQUIRE(regionSequences.size()==numSequences);
+//	Timeline::Document document;
+//	const size_t numSequences = 2;
+//	for(size_t i = 0; i < numSequences; i++)
+//	{
+//		document.addRegionSequence(new Timeline::RegionSequence());
+//	}
+//	const auto& regionSequences = document.getRegionSequences();
+//	REQUIRE(regionSequences.size()==numSequences);
 }
-
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Util/Juce_Header.h>
 #include "Timeline_AudioSource.h"
+#include "Timeline_Object.h"
 
 
 // save some typing

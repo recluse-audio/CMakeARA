@@ -48,6 +48,8 @@ set(SourceFiles
     Source/Timeline/Objects/Timeline_Document.h
     Source/Timeline/Objects/Timeline_DocumentController.cpp
     Source/Timeline/Objects/Timeline_DocumentController.h
+    Source/Timeline/Objects/Timeline_Object.cpp
+    Source/Timeline/Objects/Timeline_Object.h
     Source/Timeline/Objects/Timeline_PlaybackRegion.cpp
     Source/Timeline/Objects/Timeline_PlaybackRegion.h
     Source/Timeline/Objects/Timeline_PlaybackRenderer.cpp
