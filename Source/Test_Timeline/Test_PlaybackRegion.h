@@ -18,6 +18,14 @@ public:
 	}
 	
 
+	// Not bothering to set SampleRate properly in Test class
+	juce::Range<double> getRangeInTimelineSeconds() const override
+	{
+		double testSampleRate = 44100;
+		double start = (double) mRangeInTimeline.getStart() / testSampleRate;
+		double end = (double) mRangeInTimeline.getEnd() / testSampleRate;
+		return juce::Range<double>(start, end);
+	}
 	
 	juce::Range<juce::int64> getRangeInTimeline() const override
 	{

@@ -3,16 +3,13 @@
 #include "../Views/DocumentView.h"
 #include "../ZoomState/ZoomState.h"
 
+
 using namespace Timeline;
 
 //===============
 DocumentSection::DocumentSection(Timeline::ZoomState& zoomState)
 : Timeline::ViewportSection(zoomState)
 {
-	mDocumentView = std::make_unique<DocumentView>();
-	mDocumentView->setSize(1000, 1000);
-	
-	mViewport->setViewedComponent(mDocumentView.get());
 	mViewport->setScrollBarsShown(true, true);
 	addAndMakeVisible(mViewport.get());
 }
@@ -40,4 +37,9 @@ void DocumentSection::resized()
 }
 
 
-
+void DocumentSection::loadDocument(Timeline::Document &document)
+{
+	mDocumentView.reset();
+	mDocumentView = std::make_unique<Timeline::DocumentView>(document, mZoomState);
+	mViewport->setViewedComponent(mDocumentView.get());
+}

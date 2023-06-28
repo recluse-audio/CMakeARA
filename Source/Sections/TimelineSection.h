@@ -4,17 +4,18 @@
 // Forward declaration
 namespace Timeline
 {
-	class TimeRulerSection;
-	class SequenceHeadersSection;
-	class DocumentSection;
-	class ZoomControlsSection;
-	class ZoomState;
 
-}
+class TimeRulerSection;
+class SequenceHeadersSection;
+class DocumentSection;
+class ZoomControlsSection;
+class ZoomState;
+class Document;
+
+
 
 class TimelineSection : public juce::Component
 , public juce::ScrollBar::Listener
-, public juce::Button::Listener
 {
 public:
 	TimelineSection();
@@ -24,7 +25,6 @@ public:
 	void resized() override;
 	
 	void scrollBarMoved(juce::ScrollBar* scrollBarThatMoved, double newRangeStart) override;
-	void buttonClicked(juce::Button* b) override;
 	
 	/**
 		CONTRACTED FUNCTIONS:
@@ -33,6 +33,9 @@ public:
 	 */
 	void setHorizontalZoomFactor(double zoomFactor);
 	void setVerticalZoomFactor(double zoomFactor);
+	
+	void loadDocument(Timeline::Document& document);
+
 private:
 	std::unique_ptr<Timeline::ZoomState>				mZoomState;
 	
@@ -42,10 +45,9 @@ private:
 	std::unique_ptr<Timeline::ZoomControlsSection> 		mZoomControlsSection;
 	
 
-	std::unique_ptr<juce::TextButton> mTestButton;
 	
 	
 	
 };
 
-
+}

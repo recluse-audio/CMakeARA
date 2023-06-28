@@ -34,6 +34,7 @@ set(SourceFiles
     Source/Test_Timeline/Test_PlaybackRenderer.cpp
     Source/Test_Timeline/Test_PlaybackRenderer.h
     Source/Test_Timeline/Test_RegionSequence.h
+    Source/Test_Utils/DocumentFactory.h
     Source/Test_Utils/TestUtils.cpp
     Source/Test_Utils/TestUtils.h
     Source/Timeline/Objects/Timeline_AudioModification.cpp
@@ -70,6 +71,8 @@ set(SourceFiles
     Source/Timeline/Sections/ZoomControlsSection.h
     Source/Timeline/Views/DocumentView.cpp
     Source/Timeline/Views/DocumentView.h
+    Source/Timeline/Views/ObjectView.cpp
+    Source/Timeline/Views/ObjectView.h
     Source/Timeline/Views/PlaybackRegionView.cpp
     Source/Timeline/Views/PlaybackRegionView.h
     Source/Timeline/Views/RegionSequenceView.cpp

@@ -6,10 +6,12 @@
 #include "Timeline/Sections/ZoomControlsSection.h"
 
 #include "../Test_Timeline/Test_RegionSequence.h"
+#include "Timeline/Objects/Timeline_Document.h"
 #include "Timeline/Views/DocumentView.h"
 
 #include "Timeline/ZoomState/ZoomState.h"
 
+using namespace Timeline;
 
 //==============
 TimelineSection::TimelineSection()
@@ -31,10 +33,7 @@ TimelineSection::TimelineSection()
 	mDocumentSection->getViewport()->getHorizontalScrollBar().addListener(this);
 	mDocumentSection->getViewport()->getVerticalScrollBar().addListener(this);
 	
-	mTestButton =  std::make_unique<juce::TextButton>("TEST BUTTON");
-	mTestButton->addListener(this);
-	mTestButton->setAlwaysOnTop(true);
-	addAndMakeVisible(mTestButton.get());
+
 	
 	setSize(700, 270);
 }
@@ -64,7 +63,6 @@ void TimelineSection::resized()
 	mTimeRulerSection->setBounds(100, 0, 600, 30);
 	mSequenceHeadersSection->setBounds(0, 30, 100, 270);
 	mDocumentSection->setBounds(100, 30, 600, 270);
-	mTestButton->setBounds(100, 200, 100, 25);
 }
 
 //===============
@@ -82,23 +80,12 @@ void TimelineSection::scrollBarMoved(juce::ScrollBar *scrollBar, double newRange
 	}
 }
 
-//===============
-void TimelineSection::buttonClicked(juce::Button *b)
+
+//=================
+void TimelineSection::loadDocument(Timeline::Document &document)
 {
-	if(b == mTestButton.get())
-	{
-		auto documentView = dynamic_cast<Timeline::DocumentView*>(mDocumentSection->getViewport()->getViewedComponent());
-		
-		// Make up some
-		auto regionSequence = std::make_unique<Test::RegionSequence>();
-		regionSequence->addRegionAtRange(0, 1000);
-		regionSequence->addRegionAtRange(1200, 15000);
-		regionSequence->addRegionAtRange(19000, 200000);
-		
-		documentView->addRegionSequence(*regionSequence.get());
-		
-	}
+	mZoomState->setSampleRate(document.getPlaybackSampleRate());
+	mDocumentSection->loadDocument(document);
+	mZoomState->sendChangeMessage();
+	// mSequenceHeadersSection->loadDocument(document);
 }
-
-
-

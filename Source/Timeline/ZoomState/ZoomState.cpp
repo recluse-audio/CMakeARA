@@ -16,6 +16,10 @@ ZoomState::~ZoomState()
 	
 }
 
+//=====================================
+// SETTERS
+//*************************************
+
 //==============
 void ZoomState::setSequenceHeight(double sequenceHeight)
 {
@@ -27,6 +31,14 @@ void ZoomState::setSequenceHeight(double sequenceHeight)
 	mHeightFactor = mSequenceHeight / baseSequenceHeight;
 	
 	// tell ZoomStateListeners to 'updateZoomState()'
+	sendChangeMessage();
+}
+
+//==============
+void ZoomState::setRegionPadding(double regionPadding)
+{
+	mRegionPadding = regionPadding;
+	
 	sendChangeMessage();
 }
 
@@ -71,16 +83,33 @@ void ZoomState::setWidthZoomFactor(double zoomFactor)
 
 }
 
-//==============
-double ZoomState::getSequenceHeight()
+//=============
+void ZoomState::setSampleRate(double sampleRate)
 {
-	return mSequenceHeight.load();
+	mSampleRate = sampleRate;
+}
+
+
+//=====================================
+// GETTERS
+//*************************************
+
+//==============
+int ZoomState::getSequenceHeight()
+{
+	return (int)mSequenceHeight.load();
 }
 
 //==============
-double ZoomState::getPixelsPerSecond()
+double ZoomState::getRegionPadding()
 {
-	return mPixelsPerSecond.load();
+	return mRegionPadding.load();
+}
+
+//==============
+int ZoomState::getPixelsPerSecond()
+{
+	return (int)mPixelsPerSecond.load();
 }
 
 //==============
@@ -93,6 +122,12 @@ double ZoomState::getHeightZoomFactor()
 double ZoomState::getWidthZoomFactor()
 {
 	return mWidthFactor.load();
+}
+
+//==============
+double ZoomState::getSampleRate()
+{
+	return mSampleRate.load();
 }
 
 
@@ -118,9 +153,14 @@ double ZoomState::getValidPixelsPerSecond(double pixPerSecond)
 }
 
 
-
 //=============
 void ZoomState::addZoomStateListener(Timeline::ZoomStateListener* listener)
 {
 	this->addChangeListener(listener);
+}
+
+//=============
+void ZoomState::removeZoomStateListener(Timeline::ZoomStateListener *listener)
+{
+	this->removeChangeListener(listener);
 }

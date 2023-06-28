@@ -1,6 +1,6 @@
 #pragma once
 #include "Util/Juce_Header.h"
-#include "../ZoomState/ZoomStateListener.h"
+#include "ObjectView.h"
 
 
 namespace Timeline
@@ -14,26 +14,32 @@ class PlaybackRegion;
 	I chose to call it RegionSequence instead of 'TrackView' to preserve consistency with the ARA objects
  */
 class RegionSequenceView : public juce::Component
-, public Timeline::ZoomStateListener
+, public Timeline::ObjectView
 {
 public:
-	RegionSequenceView(Timeline::RegionSequence& sequence);
+	RegionSequenceView(Timeline::RegionSequence& sequence, Timeline::ZoomState& zoomState);
 	~RegionSequenceView();
 	
 	void paint(juce::Graphics& g) override;
-	void resized() override;
-	
-	void updateZoomState(Timeline::ZoomState* zoomState) override;
-	
-	/** Adds this RegionSequenceView and its child PlaybackRegionViews to follow the given ZoomState*/
-	void setZoomStateToFollow(Timeline::ZoomState* zoomState);
 
+
+	// This returns the x position of the right edge of the last PlaybackRegion in this RegionSequence
+	int getEndPositionOfFinalRegion();
 	
 private:
 	Timeline::RegionSequence& mRegionSequence;
 	juce::OwnedArray<Timeline::PlaybackRegionView> mPlaybackRegionViews;
 	
-	void createPlaybackRegionView(Timeline::PlaybackRegion* pRegion);
+	
+	// updates size of RegionSequenceView according to the ZoomState and the positions of its PlaybackRegions
+	void _updateSize() override;
+	
+	void _createChildren() override;
+	
+	// Sets the start position of the 
+	void _positionChildren() override;
+	
+	void _createPlaybackRegionView(Timeline::PlaybackRegion* pRegion);
 
 };
 

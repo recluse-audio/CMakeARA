@@ -3,8 +3,10 @@
 #include "EditorState.h"
 #include "WaveCache/WaveformCache.h"
 #include "ARA/Views/PlaybackRegionView.h"
-#include "ARA/Objects/ARA_DocumentController.h"
+#include "Timeline/Objects/Timeline_Document.h"
 #include "MainView/MainView.h"
+#include "Sections/TimelineSection.h"
+
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
 : AudioProcessorEditor (&p)
@@ -18,6 +20,11 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 	waveCache = std::make_unique<WaveformCache>();
 	mMainView = std::make_unique<MainView>();
 	addAndMakeVisible(mMainView.get());
+	
+	mTestButton =  std::make_unique<juce::TextButton>("TEST BUTTON");
+	mTestButton->addListener(this);
+	mTestButton->setAlwaysOnTop(true);
+	addAndMakeVisible(mTestButton.get());
 	
 	setResizable(true, true);
 	mMainView->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
@@ -51,41 +58,31 @@ void PluginEditor::resized()
 	mEditorState->setEditorScaleFactor(scaleFactor);
 	mMainView->setTransform(mEditorState->getScaleTransform());
 
+	mTestButton->setBoundsRelative(0.05f, 0.9f, 0.05f, 0.08f);
 }
 
 
-//=================================
-juce::ARADocument* PluginEditor::getARADocument()
-{
-	juce::ARADocument* araDocument = nullptr;
-	
-	auto specialisation = this->getARADocumentController();
-	if(specialisation != nullptr)
-	{
-		araDocument = specialisation->getDocument();
-		return araDocument;
-	}
-	
-	jassert(araDocument != nullptr);
-	return araDocument;
-}
 
-ARA_DocumentController* PluginEditor::getARADocumentController()
-{
-	ARA_DocumentController* docController = nullptr;
-	
-	if (auto* editorView = this->getARAEditorView())
-	{
-		docController = juce::ARADocumentControllerSpecialisation::getSpecialisedDocumentController<ARA_DocumentController>(editorView->getDocumentController());
-		return docController;
-		
-	}
-	
-	return docController;
-}
 
 WaveformCache* PluginEditor::getWaveformCache()
 {
 	return waveCache.get();
 }
 
+void PluginEditor::loadDocumentInTimeline(Timeline::Document &document)
+{
+	auto timelineSection = dynamic_cast<Timeline::TimelineSection*>(mMainView->findChildWithID("TimelineSection"));
+	if(timelineSection != nullptr)
+		timelineSection->loadDocument(document);
+}
+
+
+
+void PluginEditor::buttonClicked(juce::Button *b)
+{
+	if(b == mTestButton.get())
+	{
+		auto document = mProcessor.getDocument();
+		loadDocumentInTimeline(document);
+	}
+}

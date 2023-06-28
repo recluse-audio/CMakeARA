@@ -26,10 +26,15 @@ public:
 	void addRegionSequence(Timeline::RegionSequence* pSequence);
 	std::vector<Timeline::RegionSequence*> getRegionSequences();
 	
-
+	void setPlaybackSampleRate(double sampleRate);
+	double getPlaybackSampleRate() const;
+	
+	// Returns the longest sequence duration in seconds
+	double getLongestSequenceInSeconds() const;
+	int getNumSequences() const;
 private:
 	std::vector<Timeline::RegionSequence*> mRegionSequences;
-
+	double mPlaybackSampleRate = 44100;
 	
 };
 

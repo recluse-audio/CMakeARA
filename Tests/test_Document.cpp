@@ -10,16 +10,33 @@
 
 
 
-TEST_CASE("Add RegionSequence to document")
+TEST_CASE("Add sub-class of RegionSequence to Document")
 {
-//	Timeline::Document document;
-//	const size_t numSequences = 2;
-//	for(size_t i = 0; i < numSequences; i++)
-//	{
-//		document.addRegionSequence(new Timeline::RegionSequence());
-//	}
-//	const auto& regionSequences = document.getRegionSequences();
-//	REQUIRE(regionSequences.size()==numSequences);
+	Timeline::Document document;
+	size_t numSequences = 4;
+	for(size_t i = 0; i < numSequences; i++)
+	{
+		auto newSequence = new Test::RegionSequence();
+		document.addRegionSequence(newSequence);
+	}
+
+	auto sequences = document.getRegionSequences();
+	REQUIRE(sequences.size() == numSequences);
+
 }
 
 
+TEST_CASE("Add sub-class of PlaybackRegion to RegionSequence")
+{
+	Timeline::RegionSequence sequence;
+	size_t numRegions = 4;
+	for(size_t i = 0; i < numRegions; i++)
+	{
+		auto newRegion = new Test::PlaybackRegion();
+		sequence.addPlaybackRegion(newRegion);
+	}
+
+	auto regions = sequence.getPlaybackRegions();
+	REQUIRE(regions.size() == numRegions);
+
+}

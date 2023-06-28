@@ -1,7 +1,7 @@
 
 #pragma once
 #include <Util/Juce_Header.h>
-#include "../ZoomState/ZoomStateListener.h"
+#include "ObjectView.h"
 
 namespace Timeline
 {
@@ -13,22 +13,26 @@ class PlaybackRegion;
  
  */
 class PlaybackRegionView : public juce::Component
-, public ZoomStateListener
+, public Timeline::ObjectView
 {
 public:
-	PlaybackRegionView(Timeline::PlaybackRegion& pRegion);
+	PlaybackRegionView(Timeline::PlaybackRegion& pRegion, Timeline::ZoomState& zoomState);
 	~PlaybackRegionView() override;
 	
 	void paint(juce::Graphics& g) override;
-	void resized() override;
-	
-	void updateZoomState(ZoomState* zoomState) override;
 
-private:
-	// resizes
-	void _updateSize(double regionHeight, double pixPerSecond);
+	// You may want to access the PlaybackRegion to determine start/end time
+	const Timeline::PlaybackRegion& getPlaybackRegion() const;
 	
+private:
 	Timeline::PlaybackRegion& mPlaybackRegion;
+
+	// resizes
+	void _updateSize() override;
+	void _createChildren() override;
+	void _positionChildren() override;
+	
+	
 };
 
 }

@@ -5,9 +5,12 @@
 
 using namespace Timeline;
 
-PlaybackRegionView::PlaybackRegionView(Timeline::PlaybackRegion& pRegion) : mPlaybackRegion(pRegion)
+PlaybackRegionView::PlaybackRegionView(Timeline::PlaybackRegion& pRegion, Timeline::ZoomState& zoomState)
+: mPlaybackRegion(pRegion)
+, Timeline::ObjectView(zoomState)
 {
-	setSize(100, 100);
+	refresh();
+
 }
 
 PlaybackRegionView::~PlaybackRegionView()
@@ -23,27 +26,33 @@ void PlaybackRegionView::paint(juce::Graphics &g)
 	
 }
 
-//=================
-void PlaybackRegionView::resized()
-{
 
-}
 
 //==================
-void PlaybackRegionView::updateZoomState(ZoomState *zoomState)
-{
-	auto regionHeight = zoomState->getSequenceHeight() - 2;
-	auto pixPerSecond = zoomState->getPixelsPerSecond();
-	
-	_updateSize(regionHeight, pixPerSecond);
-}
-
-//==================
-void PlaybackRegionView::_updateSize(double regionHeight, double pixPerSecond)
+void PlaybackRegionView::_updateSize()
 {
 
-	auto regionWidth = mPlaybackRegion.getRangeInTimeline().getLength() * pixPerSecond;
+	auto lengthInSeconds = mPlaybackRegion.getRangeInTimeline().getLength() / getZoomState().getSampleRate();
+	auto regionWidth = lengthInSeconds * getZoomState().getPixelsPerSecond();
+	auto regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() / 2);
 	this->setSize(regionWidth, regionHeight);
 	
+}
+
+//====================
+void PlaybackRegionView::_createChildren()
+{
 	
+}
+
+//====================
+void PlaybackRegionView::_positionChildren()
+{
+	
+}
+
+//==================
+const Timeline::PlaybackRegion& PlaybackRegionView::getPlaybackRegion() const
+{
+	return mPlaybackRegion;
 }

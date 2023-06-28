@@ -19,6 +19,12 @@ namespace Timeline
 class ZoomStateListener : public juce::ChangeListener
 {
 public:
+	ZoomStateListener(Timeline::ZoomState& zoomStateToFollow)
+	: mZoomState(zoomStateToFollow)
+	{
+		
+	}
+	
 	void changeListenerCallback(juce::ChangeBroadcaster* source) override
 	{
 		auto zoomState = dynamic_cast<Timeline::ZoomState*>(source);
@@ -28,11 +34,14 @@ public:
 	
 	virtual void updateZoomState(Timeline::ZoomState* zoomState) = 0;
 
-
+	Timeline::ZoomState& getZoomState() const
+	{
+		return mZoomState;
+	}
 	
 	
 private:
-	
+	Timeline::ZoomState& mZoomState;
 	
 };
 

@@ -18,7 +18,7 @@ namespace Timeline
 	Note:  You can give this invalid and negative values.  Problems from this are avoided becuase this class is really just time positions
 	Any inquiries about an invalid range will simply return a range of 0;
 */
-class PlaybackRegion : public juce::DynamicObject
+class PlaybackRegion
 {
 public:
 	// See 'getRenderInfo'
@@ -32,8 +32,9 @@ public:
 	
 	PlaybackRegion();	
 	
+	// In ARA sub-class these will likely simply be the ARA function equivalents formatted as a Range
+	virtual juce::Range<double> getRangeInTimelineSeconds() const = 0;
 	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;
-
 	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
 
 	/**

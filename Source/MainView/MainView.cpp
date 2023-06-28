@@ -14,7 +14,8 @@ MainView::MainView()
 	mInspectSection = std::make_unique<InspectSection>();
 	addAndMakeVisible(mInspectSection.get());
 	
-	mTimelineSection = std::make_unique<TimelineSection>();
+	mTimelineSection = std::make_unique<Timeline::TimelineSection>();
+	mTimelineSection->setComponentID("TimelineSection"); // TODO: Do this in the TimelineSection constructor?
 	addAndMakeVisible(mTimelineSection.get());
 
 }

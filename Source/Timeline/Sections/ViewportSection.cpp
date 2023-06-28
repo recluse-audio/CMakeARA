@@ -12,6 +12,7 @@ ViewportSection::ViewportSection(Timeline::ZoomState& zoomState) : mZoomState(zo
 
 ViewportSection::~ViewportSection()
 {
+	removeZoomStateListeners();
 }
 
 juce::Viewport* ViewportSection::getViewport()
@@ -42,5 +43,23 @@ void ViewportSection::setZoomStateToFollow(Timeline::ZoomState& zoomState)
 		auto childComponent = viewedComponent->getChildComponent(i);
 		if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(childComponent))
 			zoomState.addZoomStateListener(zoomListener);
+	}
+}
+
+
+//=============
+void ViewportSection::removeZoomStateListeners()
+{
+	auto viewedComponent = mViewport->getViewedComponent();
+	
+	// Add viewed component as listener if it is a ZoomStateListener
+	if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(viewedComponent))
+		mZoomState.removeZoomStateListener(zoomListener);
+	
+	for(int i = 0; i < viewedComponent->getNumChildComponents(); i++)
+	{
+		auto childComponent = viewedComponent->getChildComponent(i);
+		if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(childComponent))
+			mZoomState.removeZoomStateListener(zoomListener);
 	}
 }

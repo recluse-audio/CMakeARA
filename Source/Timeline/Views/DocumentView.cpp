@@ -4,23 +4,23 @@
 
 #include "../Objects/Timeline_PlaybackRegion.h"
 #include "../Objects/Timeline_RegionSequence.h"
+#include "../Objects/Timeline_Document.h"
 //#include "../../../Tests/test_DocumentController.cpp"
 
 #include "Util/Colors.h"
 
 using namespace Timeline;
 
-DocumentView::DocumentView()
+DocumentView::DocumentView(Timeline::Document& document, Timeline::ZoomState& zoomState)
+: mDocument(document)
+, Timeline::ObjectView(zoomState)
 {
-
-	
-	setSize(1000, 1000);
+	refresh();
 }
 
-DocumentView::~DocumentView()
-{
-}
 
+
+//==================================
 void DocumentView::paint(juce::Graphics &g)
 {
 	g.fillAll(Colors::getColor(Colors::ColorID::timelineBkgd));
@@ -32,58 +32,67 @@ void DocumentView::paint(juce::Graphics &g)
 	while( xPos < this->getWidth() )
 	{
 		g.drawVerticalLine(xPos, 0, this->getHeight());
-		xPos+=20;
+		xPos += getZoomState().getPixelsPerSecond();
 	}
 	
-	// draw horizontal lines
-	int yPos = 0;
-	while( yPos < this->getHeight() )
-	{
-		g.drawHorizontalLine(yPos, 0, this->getWidth());
-		yPos+=80;
-	}
+
 }
 
-void DocumentView::resized()
+
+//=================================
+void DocumentView::_updateSize()
 {
-	auto sequenceHeight = 100;
+	int numSequences = mDocument.getNumSequences();
+	int extraSequenceSpace = 3; // equivalent to 3 extra sequences
+	auto height = getZoomState().getSequenceHeight() * (numSequences + extraSequenceSpace);
+	
+	auto width = _getLongestSequenceWidth(getZoomState().getPixelsPerSecond());
+	
+	this->setSize(width, height);
+}
+
+
+//=================================
+void DocumentView::_createChildren()
+{
+	auto sequences = mDocument.getRegionSequences();
+	_addRegionSequences(sequences);
+}
+
+
+//=================================
+void DocumentView::_positionChildren()
+{
 	for(int i = 0; i < mRegionSequences.size(); i++)
 	{
-		mRegionSequences[i]->setTopLeftPosition(0, i * sequenceHeight);
+		int yPos = getZoomState().getSequenceHeight() * i;
+		mRegionSequences[i]->setTopLeftPosition(0, yPos);
 	}
 }
 
-//===========================
-void DocumentView::addRegionSequence(Timeline::RegionSequence& pSequence)
+
+//================================
+int DocumentView::_getLongestSequenceWidth(int pixPerSecond)
 {
-	auto sequenceView = std::make_unique<Timeline::RegionSequenceView>(pSequence);
+	int longestWidth = (int)mDocument.getLongestSequenceInSeconds() * pixPerSecond;
+	return longestWidth;
+}
+
+
+//===========================
+void DocumentView::_addRegionSequence(Timeline::RegionSequence& pSequence)
+{
+	auto sequenceView = std::make_unique<Timeline::RegionSequenceView>(pSequence, getZoomState());
 	this->addAndMakeVisible(*sequenceView.get());
 	mRegionSequences.add(std::move(sequenceView));
-	resized();
 }
 
 
 //============================
-void DocumentView::addRegionSequences(std::vector<Timeline::RegionSequence*> sequences)
+void DocumentView::_addRegionSequences(std::vector<Timeline::RegionSequence*> sequences)
 {
 	for(auto regionSequence : sequences)
 	{
-		addRegionSequence(*regionSequence);
+		_addRegionSequence(*regionSequence);
 	}
 }
-
-
-//=============================
-void DocumentView::resetTimeline()
-{
-	mRegionSequences.clear();
-}
- 
-
-
-//===============================
-void DocumentView::updateZoomState(Timeline::ZoomState* zoomState)
-{
-	
-}
-

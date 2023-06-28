@@ -2,8 +2,11 @@
 #include <Util/Juce_Header.h>
 
 class NavigationSection;
-class TimelineSection;
 class InspectSection;
+namespace Timeline
+{
+	class TimelineSection;
+}
 
 class MainView : public juce::Component
 {
@@ -17,7 +20,7 @@ public:
 	
 private:
 	std::unique_ptr<NavigationSection> 	mNavigationSection;
-	std::unique_ptr<TimelineSection> 	mTimelineSection;
+	std::unique_ptr<Timeline::TimelineSection> 	mTimelineSection;
 	std::unique_ptr<InspectSection> 	mInspectSection;
 	
 };

@@ -1,5 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "Timeline/Objects/Timeline_Document.h"
+#include "Test_Utils/DocumentFactory.h"
 
 //==============================================================================
 PluginProcessor::PluginProcessor()
@@ -12,6 +14,8 @@ PluginProcessor::PluginProcessor()
                      #endif
                        )
 {
+	mDocumentFactory = std::make_unique<DocumentFactory>();
+	mDocument = mDocumentFactory->createDocument(3, 4);
 }
 
 PluginProcessor::~PluginProcessor()
@@ -86,8 +90,8 @@ void PluginProcessor::changeProgramName (int index, const juce::String& newName)
 //==============================================================================
 void PluginProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+	mDocument->setPlaybackSampleRate(sampleRate);
+
     juce::ignoreUnused (sampleRate, samplesPerBlock);
 }
 
@@ -183,4 +187,12 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new PluginProcessor();
+}
+
+
+
+//=======================
+Timeline::Document& PluginProcessor::getDocument()
+{
+	return *mDocument.get();
 }

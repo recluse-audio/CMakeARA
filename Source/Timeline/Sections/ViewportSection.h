@@ -27,8 +27,11 @@ public:
 	
 	juce::Viewport* getViewport();
 	
-	// TODO: this is testable behavior
+	// All child components of the viewed component that are ZoomStateListeners will listen to this ZoomState
 	void setZoomStateToFollow(Timeline::ZoomState& zoomState);
+	
+	// Stops child components from listening to the zoom state
+	void removeZoomStateListeners();
 	
 protected:
 	Timeline::ZoomState& mZoomState;

@@ -18,7 +18,7 @@ public:
 	{
 		for(int i = 0; i < 10; i++)
 		{
-			mDynamicObjects.add(std::make_unique<juce::DynamicObject>());
+			//mDynamicObjects.add(std::make_unique<juce::DynamicObject>());
 		}
 	}
 	~Object(){}
@@ -27,7 +27,7 @@ public:
 	//virtual juce::var toVar() = 0;
 	juce::var toVar()
 	{
-		
+		return juce::var();
 	}
 
 
