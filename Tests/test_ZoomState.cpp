@@ -240,7 +240,7 @@ TEST_CASE("PlaybackRegionView can size correctly")
 	testRegion->setRangeInTimeline(0, 1);
 	testRegion->setRangeInAudioSource(0, 1);
 
-	auto regionView = std::make_unique<Timeline::PlaybackRegionView>(*testRegion.get());
+	auto regionView = std::make_unique<Timeline::PlaybackRegionView>(*testRegion.get(), zoomState);
 
 	zoomState.addChangeListener(regionView.get());
 

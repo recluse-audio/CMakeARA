@@ -254,3 +254,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
    add_compile_options (-fcolor-diagnostics)
 endif ()
+
+
+
+add_custom_command(TARGET ${PROJECT_NAME}_Standalone
+                   POST_BUILD
+                   COMMAND open ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_artefacts/Debug/Standalone/${PROJECT_NAME}.app
+                   COMMENT "Launching Standalone app...")
