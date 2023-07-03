@@ -4,8 +4,8 @@
         {
             "name": "Launch Standalone App",
             "type": "cppdbg",
-            //"request": "launch",
-            //"program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app/Contents/MacOS/CMakeARA",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
