@@ -2,16 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Standalone App",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app",
+            "name": "Launch Standalone App",
+            "program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app/Contents/MacOS/CMakeARA",
             "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
-

@@ -5,7 +5,9 @@
             "label": "Echo Workspace Folder",
             "type": "shell",
             "command": "echo",
-            "args": ["${workspaceFolder}"],
+            "args": [
+                "${workspaceFolder}"
+            ],
             "problemMatcher": []
         }
     ]
