@@ -1,4 +1,5 @@
 
+
 #pragma once
 #include "Util/Juce_Header.h"
 
@@ -20,9 +21,11 @@ public:
 	static constexpr auto minZoom = 1.0;
 	static constexpr auto maxZoom = 32.0;
 	static constexpr auto baseSequenceHeight = 60.0;
-	static constexpr auto baseRegionPadding = 2.0; // 2 pixels above/below region in sequence
+	static constexpr auto baseRegionPadding = 1.0; // 
 	static constexpr auto basePixelsPerSecond = 10.0; 	// Atleast 10 pixels per second
 	
+	void zoomIn() {}
+	void zoomOut() {}
 	
 	void setSequenceHeight(double sequenceHeight);
 	void setRegionPadding(double regionPadding);
@@ -52,7 +55,7 @@ private:
 	std::atomic<double> mWidthFactor  { minZoom };
 	std::atomic<double> mHeightFactor { minZoom };
 	std::atomic<double> mSequenceHeight { 60.0 };
-	std::atomic<double> mRegionPadding { 2.0 };
+	std::atomic<double> mRegionPadding { 1.0 };
 	std::atomic<double> mPixelsPerSecond { 10.0 };
 	std::atomic<double> mSampleRate { 44100.0 };
 };

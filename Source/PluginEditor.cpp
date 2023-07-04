@@ -29,6 +29,8 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 	setResizable(true, true);
 	mMainView->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
     this->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
+
+	this->loadDocumentInTimeline(mProcessor.getDocument());
 }
 
 PluginEditor::~PluginEditor()
@@ -63,12 +65,13 @@ void PluginEditor::resized()
 
 
 
-
+//===============
 WaveformCache* PluginEditor::getWaveformCache()
 {
 	return waveCache.get();
 }
 
+//===============
 void PluginEditor::loadDocumentInTimeline(Timeline::Document &document)
 {
 	auto timelineSection = dynamic_cast<Timeline::TimelineSection*>(mMainView->findChildWithID("TimelineSection"));
@@ -76,8 +79,7 @@ void PluginEditor::loadDocumentInTimeline(Timeline::Document &document)
 		timelineSection->loadDocument(document);
 }
 
-
-
+//===============
 void PluginEditor::buttonClicked(juce::Button *b)
 {
 	if(b == mTestButton.get())

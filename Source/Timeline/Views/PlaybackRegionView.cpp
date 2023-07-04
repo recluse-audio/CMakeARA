@@ -34,7 +34,7 @@ void PlaybackRegionView::_updateSize()
 
 	auto lengthInSeconds = mPlaybackRegion.getRangeInTimeline().getLength() / getZoomState().getSampleRate();
 	auto regionWidth = lengthInSeconds * getZoomState().getPixelsPerSecond();
-	auto regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() / 2);
+	auto regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() * 2);
 	this->setSize(regionWidth, regionHeight);
 	
 }

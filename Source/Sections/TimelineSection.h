@@ -19,7 +19,7 @@ class TimelineSection : public juce::Component
 {
 public:
 	TimelineSection();
-	~TimelineSection();
+	~TimelineSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

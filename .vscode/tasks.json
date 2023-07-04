@@ -1,14 +1,22 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "Echo Workspace Folder",
-            "type": "shell",
-            "command": "echo",
-            "args": [
-                "${workspaceFolder}"
-            ],
-            "problemMatcher": []
+      {
+        "label": "Build and Run Catch2 Tests",
+        "type": "shell",
+        "command": [ "cmake --build" ,
+                    "${workspaceFolder}/build --target Tests" ,
+                    "--config Debug && ${workspaceFolder}/build/Tests" 
+                   ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+          "kind": "test",
+          "isDefault": true
         }
+      }
     ]
-}
+  }
+  

@@ -27,7 +27,7 @@ TimelineSection::TimelineSection()
 	mDocumentSection = std::make_unique<Timeline::DocumentSection>(*mZoomState.get());
 	addAndMakeVisible(mDocumentSection.get());
 	
-	mZoomControlsSection = std::make_unique<Timeline::ZoomControlsSection>();
+	mZoomControlsSection = std::make_unique<Timeline::ZoomControlsSection>(*mZoomState.get());
 	addAndMakeVisible(mZoomControlsSection.get());
 	
 	mDocumentSection->getViewport()->getHorizontalScrollBar().addListener(this);
@@ -63,6 +63,7 @@ void TimelineSection::resized()
 	mTimeRulerSection->setBounds(100, 0, 600, 30);
 	mSequenceHeadersSection->setBounds(0, 30, 100, 270);
 	mDocumentSection->setBounds(100, 30, 600, 270);
+	mZoomControlsSection->setBounds(550, 220, 100, 40);
 }
 
 //===============
