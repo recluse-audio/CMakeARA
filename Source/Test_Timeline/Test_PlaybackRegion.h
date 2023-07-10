@@ -3,6 +3,7 @@
 #include "Util/Juce_Header.h"
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "Timeline/Objects/Timeline_AudioSource.h"
+#include "Timeline/Objects/Timeline_AudioModification.h"
 
 namespace Test
 {
@@ -12,7 +13,8 @@ namespace Test
 class PlaybackRegion : public Timeline::PlaybackRegion
 {
 public:
-	PlaybackRegion()
+	PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod)
+	: Timeline::PlaybackRegion(audioSource, audioMod)
 	{
 		
 	}

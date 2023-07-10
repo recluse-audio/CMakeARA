@@ -10,6 +10,9 @@ using Int64Range = juce::Range<juce::int64>;
 namespace Timeline
 {
 
+class AudioSoure;
+class AudioModification;
+
 /**
 	This class represents the data behind a region of time within a region sequence (i.e. track / lane, etc.)
 	It must know the associated AudioMod / AudioSource / RegionSequence
@@ -30,12 +33,20 @@ public:
 		Int64Range rangeInAudioSource;
 	};
 	
-	PlaybackRegion();	
+	PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod);	
+	~PlaybackRegion();
 	
 	// In ARA sub-class these will likely simply be the ARA function equivalents formatted as a Range
 	virtual juce::Range<double> getRangeInTimelineSeconds() const = 0;
 	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;
 	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
+
+	void setAudioSource(Timeline::AudioSource* pAudioSource);
+	void setAudioModification(Timeline::AudioModification* pAudioMod);
+
+	Timeline::AudioSource& getAudioSource() const;
+	Timeline::AudioModification& getAudioModification() const;
+
 
 	/**
 		RenderRanges contain three juce::Range<juce::int64> ranges.
@@ -64,6 +75,9 @@ public:
 private:
 	juce::Range<juce::int64> mRangeInTimeline;
 	juce::Range<juce::int64> mRangeInAudioSource;
+
+	Timeline::AudioSource& mAudioSource;
+	Timeline::AudioModification& mAudioMod;
 
 	
 	

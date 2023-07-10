@@ -1,9 +1,11 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include "Util/Juce_Header.h"
+#include "Test_Utils/TestUtils.h"
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "Test_Timeline/Test_PlaybackRegion.h"
 #include "Test_Timeline/Test_AudioSource.h"
+#include "Timeline/Objects/Timeline_AudioModification.h"
 
 // save some typing
 using Int64Range = juce::Range<juce::int64>;
@@ -58,7 +60,12 @@ TEST_CASE("Calculating range to read in audio source")
 
 TEST_CASE("Retrieving Render Ranges using Test::PlaybackRegion to simulate ARA ranges")
 {
-	Test::PlaybackRegion playbackRegion;
+	TestUtils::SetupAndTeardown setupAndTeardown;
+
+	Test::AudioSource audioSource;
+	juce::UndoManager undoManager;
+	Timeline::AudioModification audioMod(undoManager);
+	Test::PlaybackRegion playbackRegion(audioSource, audioMod);
 	
 	SECTION("Test the test class set/get")
 	{
@@ -70,6 +77,8 @@ TEST_CASE("Retrieving Render Ranges using Test::PlaybackRegion to simulate ARA r
 		CHECK(playbackRegion.getRangeInAudioSource().getStart()==0);
 		CHECK(playbackRegion.getRangeInAudioSource().getEnd()==50);
 	}
+
+
 	
 }
 
@@ -93,7 +102,13 @@ TEST_CASE("Should write to correct part of blockRange when only writing to a por
 
 TEST_CASE("Simulating how the PlaybackRenderer will get the correct render range")
 {
-	Test::PlaybackRegion playbackRegion;
+	TestUtils::SetupAndTeardown setupAndTeardown;
+
+
+	Test::AudioSource audioSource;
+	juce::UndoManager undoManager;
+	Timeline::AudioModification audioMod(undoManager);
+	Test::PlaybackRegion playbackRegion(audioSource, audioMod);
 	playbackRegion.setRangeInTimeline(2, 7);
 	playbackRegion.setRangeInAudioSource(1, 6);
 	
@@ -115,4 +130,6 @@ TEST_CASE("Simulating how the PlaybackRenderer will get the correct render range
 	
 	CHECK(rangeInAudioSource.getStart() == 1);
 	CHECK(rangeInAudioSource.getEnd() == 2);
+
 }
+

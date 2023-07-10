@@ -39,16 +39,16 @@ double Document::getPlaybackSampleRate() const
 }
 
 
-double Document::getLongestSequenceInSeconds() const
+double Document::getTimelineLength() const
 {
-	double longestDuration = 120.0; // atleast 120 seconds
+	double length = minTimelineLength; // atleast 120 seconds
 	for(auto sequence : mRegionSequences)
 	{
 		auto sequenceEnd = sequence->getEndOfFinalRegion() / mPlaybackSampleRate;
-		if(sequenceEnd > longestDuration)
-			longestDuration = sequenceEnd;
+		if(sequenceEnd > length)
+			length = sequenceEnd;
 	}
-	return longestDuration;
+	return length;
 }
 
 

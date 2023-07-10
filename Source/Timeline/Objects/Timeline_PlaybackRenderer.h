@@ -11,9 +11,6 @@ namespace Timeline
 class PlaybackRegion;
 
 
-
-
-
 //===========================================
 /**
 	This class can hold one or many playback regions
@@ -27,29 +24,17 @@ class PlaybackRegion;
 class PlaybackRenderer
 {
 public:
-	PlaybackRenderer(){}
-	~PlaybackRenderer(){}
-	
-	/** Instructions on what to read and from which playbackRegion and where to write in the processBlock*/
-	struct ReadInstructions
-	{
-		std::unique_ptr<Timeline::PlaybackRegion> playbackRegion;
-		Int64Range readRangeInPlaybackRegion;
-		Int64Range writeRangeInProcessBlock;
-	};
+	PlaybackRenderer();
+	~PlaybackRenderer();
 	
 	
-	/**
-		Given a blockRange, this returns a vector of ReadInstructions,
-		a simple data container that tells you what to read from a region.
-		Returns an empty vector if no regions overlapped with blockRange
-	*/
-	static std::vector<ReadInstructions> collectReadInstructions( Int64Range blockRange,
-																  std::vector<Timeline::PlaybackRegion> regions );
-	
-	
-	
+	void processBlock(juce::AudioBuffer<float>& buffer);
+
+	void addPlaybackRegion(Timeline::PlaybackRegion* pRegion);
+	int getNumRegions();
 private:
+	friend class RendererFriend;
+	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;
 
 	
 };

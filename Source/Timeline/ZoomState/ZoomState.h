@@ -20,23 +20,23 @@ public:
 	
 	static constexpr auto minZoom = 1.0;
 	static constexpr auto maxZoom = 32.0;
-	static constexpr auto baseSequenceHeight = 60.0;
-	static constexpr auto baseRegionPadding = 1.0; // 
-	static constexpr auto basePixelsPerSecond = 10.0; 	// Atleast 10 pixels per second
+	static constexpr auto baseSequenceHeight = 60;
+	static constexpr auto baseRegionPadding = 1; // 
+	static constexpr auto basePixelsPerSecond = 10; 	// Atleast 10 pixels per second
 	
 	void zoomIn() {}
 	void zoomOut() {}
 	
-	void setSequenceHeight(double sequenceHeight);
-	void setRegionPadding(double regionPadding);
-	void setPixelsPerSecond(double pixPerSecond);
+	void setSequenceHeight(int sequenceHeight);
+	void setRegionPadding(int regionPadding);
+	void setPixelsPerSecond(int pixPerSecond);
 	void setHeightZoomFactor(double zoomFactor);
 	void setWidthZoomFactor(double zoomFactor);
 	void setSampleRate(double sampleRate);
 	
 	
 	int getSequenceHeight();
-	double getRegionPadding();
+	int getRegionPadding();
 	int getPixelsPerSecond();
 	double getHeightZoomFactor();
 	double getWidthZoomFactor();
@@ -48,15 +48,16 @@ public:
 	
 private:
 	// gets a height within the range of the min/max zoom
-	double getValidHeight(double height);
-	double getValidPadding(double padding);
-	double getValidPixelsPerSecond(double pixPerSecond);
+	int getValidHeight(int height);		
+	int getValidPadding(int padding);		
+	int getValidPixelsPerSecond(int pixPerSecond);		
 	
+
+	std::atomic<int> mSequenceHeight { baseSequenceHeight };
+	std::atomic<int> mRegionPadding { baseRegionPadding };
+	std::atomic<int> mPixelsPerSecond { basePixelsPerSecond };
 	std::atomic<double> mWidthFactor  { minZoom };
 	std::atomic<double> mHeightFactor { minZoom };
-	std::atomic<double> mSequenceHeight { 60.0 };
-	std::atomic<double> mRegionPadding { 1.0 };
-	std::atomic<double> mPixelsPerSecond { 10.0 };
 	std::atomic<double> mSampleRate { 44100.0 };
 };
 

@@ -2,12 +2,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Standalone App",
             "type": "lldb",
             "request": "launch",
-            "name": "Launch Standalone App",
             "program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app/Contents/MacOS/CMakeARA",
             "args": [],
             "cwd": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "Debug Catch2 Tests",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Tests",
+            "args": ["--break"],
+            "cwd": "${workspaceFolder}",
+            "miDebuggerPath": "/usr/bin/lldb",
+            "preLaunchTask": "Build and Run Catch2 Tests"
+          }
     ]
 }

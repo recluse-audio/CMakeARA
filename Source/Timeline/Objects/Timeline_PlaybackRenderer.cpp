@@ -3,23 +3,27 @@
 
 using namespace Timeline;
 
-//PlaybackRenderer::PlaybackRenderer()
-//{
-//	
-//}
-//
-//PlaybackRenderer::~PlaybackRenderer()
-//{
-//	
-//}
-//
-//std::vector<PlaybackRenderer::ReadInstructions> PlaybackRenderer::collectReadInstructions(Int64Range blockRange, std::vector<Timeline::PlaybackRegion> regions)
-//{
-//	auto instructions = std::vector<PlaybackRenderer::ReadInstructions>();
-//	
-//	for(auto region : regions)
-//	{
-//		
-//	}
-//	
-//}
+PlaybackRenderer::PlaybackRenderer()
+{
+	
+}
+
+PlaybackRenderer::~PlaybackRenderer()
+{
+	
+}
+
+void PlaybackRenderer::processBlock(juce::AudioBuffer<float>& block)
+{
+
+}
+
+void PlaybackRenderer::addPlaybackRegion(Timeline::PlaybackRegion* pRegion)
+{
+    mPlaybackRegions.push_back(pRegion);
+}
+
+int PlaybackRenderer::getNumRegions()
+{
+    return (int)mPlaybackRegions.size();
+}

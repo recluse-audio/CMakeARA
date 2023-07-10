@@ -10,6 +10,8 @@
 #include "Timeline/Objects/Timeline_PlaybackRegion.h"
 #include "Test_Timeline/Test_PlaybackRegion.h"
 
+#include "Test_Timeline/Test_AudioSource.h"
+#include "Test_Timeline/Test_AudioModification.h"
 
 TEST_CASE("Test setting zoom state by pixel")
 {
@@ -232,13 +234,17 @@ TEST_CASE("ZoomStateListeners are being passed the ZoomState pointer we think we
 TEST_CASE("PlaybackRegionView can size correctly")
 {
 	/** Needed for ChangeListener callback to work */
-	juce::MessageManager::getInstance()->setCurrentThreadAsMessageThread();
+	TestUtils::SetupAndTeardown setupAndTeardown;
 
 	Timeline::ZoomState zoomState;
+	auto one_second_of_samples = zoomState.getSampleRate();
 
-	auto testRegion = std::make_unique<Test::PlaybackRegion>();
-	testRegion->setRangeInTimeline(0, 1);
-	testRegion->setRangeInAudioSource(0, 1);
+	Test::AudioSource audioSource;
+	juce::UndoManager undoManager;
+	Timeline::AudioModification audioMod(undoManager);
+	auto testRegion = std::make_unique<Test::PlaybackRegion>(audioSource, audioMod);
+	testRegion->setRangeInTimeline(0, one_second_of_samples);
+	testRegion->setRangeInAudioSource(0, one_second_of_samples);
 
 	auto regionView = std::make_unique<Timeline::PlaybackRegionView>(*testRegion.get(), zoomState);
 
@@ -264,8 +270,4 @@ TEST_CASE("PlaybackRegionView can size correctly")
 	auto regionBounds = regionView->getLocalBounds();
 	CHECK(regionBounds.getWidth() == testPixPer);
 
-
-
-	/** Needed for ChangeListener callback to work (cleanup) */
-	juce::MessageManager::deleteInstance();
 }

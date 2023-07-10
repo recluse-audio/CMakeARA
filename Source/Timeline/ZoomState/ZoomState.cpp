@@ -21,7 +21,7 @@ ZoomState::~ZoomState()
 //*************************************
 
 //==============
-void ZoomState::setSequenceHeight(double sequenceHeight)
+void ZoomState::setSequenceHeight(int sequenceHeight)
 {
 	// Keep within limits of min/max zoom
 	auto validHeight = getValidHeight(sequenceHeight);
@@ -35,7 +35,7 @@ void ZoomState::setSequenceHeight(double sequenceHeight)
 }
 
 //==============
-void ZoomState::setRegionPadding(double regionPadding)
+void ZoomState::setRegionPadding(int regionPadding)
 {
 	mRegionPadding = regionPadding;
 	
@@ -43,7 +43,7 @@ void ZoomState::setRegionPadding(double regionPadding)
 }
 
 //==============
-void ZoomState::setPixelsPerSecond(double pixPerSecond)
+void ZoomState::setPixelsPerSecond(int pixPerSecond)
 {
 	// Keep within limits of min/max zoom
 	auto validPix = getValidPixelsPerSecond(pixPerSecond);
@@ -101,7 +101,7 @@ int ZoomState::getSequenceHeight()
 }
 
 //==============
-double ZoomState::getRegionPadding()
+int ZoomState::getRegionPadding()
 {
 	return mRegionPadding.load();
 }
@@ -135,20 +135,20 @@ double ZoomState::getSampleRate()
 
 
 //=============
-double ZoomState::getValidHeight(double height)
+int ZoomState::getValidHeight(int height)
 {
 	auto minHeight = minZoom * baseSequenceHeight;
 	auto maxHeight = maxZoom * baseSequenceHeight;
-	auto validHeight = juce::jlimit(minHeight, maxHeight, height);
+	auto validHeight = juce::jlimit(minHeight, maxHeight, (double)height);
 	return validHeight;
 }
 
 //=============
-double ZoomState::getValidPixelsPerSecond(double pixPerSecond)
+int ZoomState::getValidPixelsPerSecond(int pixPerSecond)
 {
 	auto minPix = minZoom * basePixelsPerSecond;
 	auto maxPix = maxZoom * basePixelsPerSecond;
-	auto validPix = juce::jlimit(minPix, maxPix, pixPerSecond);
+	auto validPix = juce::jlimit(minPix, maxPix, (double)pixPerSecond);
 	return validPix;
 }
 

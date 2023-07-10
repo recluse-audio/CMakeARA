@@ -1,11 +1,19 @@
 #include "Timeline_PlaybackRegion.h"
+#include "Timeline_AudioModification.h"
 #include "Timeline_AudioSource.h"
 
 using namespace Timeline;
 
-PlaybackRegion::PlaybackRegion()
+PlaybackRegion::PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod)
+: mAudioSource(audioSource)
+, mAudioMod(audioMod)
 {
 	
+}
+
+PlaybackRegion::~PlaybackRegion()
+{
+
 }
 
 
@@ -84,3 +92,13 @@ juce::int64 PlaybackRegion::calculateAudioSourceReadOffset(juce::int64 regionSta
 	return offset;
 }
 
+
+
+
+
+
+//==============================
+Timeline::AudioSource& PlaybackRegion::getAudioSource() const
+{
+	return mAudioSource;
+}

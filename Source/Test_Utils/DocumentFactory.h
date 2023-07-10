@@ -2,8 +2,11 @@
 #include "Util/Juce_Header.h"
 #include "../Timeline/Objects/Timeline_RegionSequence.h"
 #include "../Timeline/Objects/Timeline_Document.h"
-
+#include "../Timeline/Objects/Timeline_AudioSource.h"
+#include "../Timeline/Objects/Timeline_AudioModification.h"
 #include "../Source/Test_Timeline/Test_PlaybackRegion.h"
+#include "../Source/Test_Timeline/Test_AudioSource.h"
+
 
 /**
 	This class is a quick way to make Timeline::Documents for testing purposes
@@ -13,7 +16,8 @@ class DocumentFactory
 public:
 	DocumentFactory()
 	{
-		
+		mAudioSource = std::make_unique<Test::AudioSource>();
+		mAudioMod = std::make_unique<Timeline::AudioModification>(mUndoManager);
 	}
 	
 	~DocumentFactory()
@@ -21,7 +25,7 @@ public:
 		
 	}
 	
-	static std::unique_ptr<Timeline::Document> createDocument(int numSequences, int numRegions)
+	std::unique_ptr<Timeline::Document> createDocument(int numSequences, int numRegions)
 	{
 		auto document = std::make_unique<Timeline::Document>();
 
@@ -41,7 +45,7 @@ public:
 			{
 				juce::int64 regionStart = ((int)j * 5 ) * document->getPlaybackSampleRate();
 				juce::int64 regionEnd = regionStart + document->getPlaybackSampleRate();
-				auto region = new Test::PlaybackRegion();
+				auto region = new Test::PlaybackRegion(*mAudioSource.get(), *mAudioMod.get());
 
 				region->setRangeInTimeline(regionStart, regionEnd);
 
@@ -52,4 +56,8 @@ public:
 		
 		return document;
 	}
+private:
+	std::unique_ptr<Test::AudioSource> mAudioSource;
+	std::unique_ptr<Timeline::AudioModification> mAudioMod;
+	juce::UndoManager mUndoManager;
 };

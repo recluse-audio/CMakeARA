@@ -74,7 +74,7 @@ void DocumentView::_positionChildren()
 //================================
 int DocumentView::_getLongestSequenceWidth(int pixPerSecond)
 {
-	int longestWidth = (int)mDocument.getLongestSequenceInSeconds() * pixPerSecond;
+	int longestWidth = (int)mDocument.getTimelineLength() * pixPerSecond;
 	return longestWidth;
 }
 

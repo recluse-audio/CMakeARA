@@ -14,6 +14,8 @@ class AudioSource : public Timeline::AudioSource
 public:
 	using Int64Range = juce::Range<juce::int64>;
 	
+	AudioSource(const AudioSource&) = delete;
+	AudioSource& operator=(const AudioSource&) = delete;
 	AudioSource()
 	{
 		sourceBuffer = std::make_unique<juce::AudioBuffer<float>>(1, 100);

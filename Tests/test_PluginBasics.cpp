@@ -1,19 +1,23 @@
 #include <PluginProcessor.h>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_string.hpp>
+#include "Test_Utils/TestUtils.h"
 
 TEST_CASE("one is equal to one", "[dummy]")
 {
   REQUIRE(1 == 1);
 }
 
-// https://github.com/McMartin/FRUT/issues/490#issuecomment-663544272
-PluginProcessor testPlugin;
+
 
 TEST_CASE("Plugin instance name", "[name]")
 {
-  CHECK_THAT(testPlugin.getName().toStdString(),
-             Catch::Matchers::Equals("CMakeARA"));
+	TestUtils::SetupAndTeardown setupAndTeardown;
+
+  PluginProcessor testPlugin;
+
+  CHECK_THAT(testPlugin.getName().toStdString(), Catch::Matchers::Equals("CMakeARA"));
+         
 }
 
 #ifdef PAMPLEJUCE_IPP

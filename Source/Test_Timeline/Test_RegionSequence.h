@@ -18,14 +18,6 @@ class RegionSequence : public Timeline::RegionSequence
 public:
 	RegionSequence(){}
 	
-	
-	void addRegionAtRange(juce::int64 start, juce::int64 end)
-	{
-		jassert(start < end);
-		auto region = std::make_unique<Test::PlaybackRegion>();
-		region->setRangeInTimeline(start, end);
-		addPlaybackRegion(region.get());
-	}
 
 
 	

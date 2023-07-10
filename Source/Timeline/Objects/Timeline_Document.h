@@ -20,6 +20,8 @@ class PlaybackRegion;
 class Document final
 {
 public:
+	static constexpr auto minTimelineLength = 120.0;
+	
 	Document();
 	~Document();
 	
@@ -29,12 +31,14 @@ public:
 	void setPlaybackSampleRate(double sampleRate);
 	double getPlaybackSampleRate() const;
 	
-	// Returns the longest sequence duration in seconds
-	double getLongestSequenceInSeconds() const;
+	// Returns the longest sequence duration in seconds or 120 seconds minimum
+	double getTimelineLength() const;
 	int getNumSequences() const;
 private:
 	std::vector<Timeline::RegionSequence*> mRegionSequences;
 	double mPlaybackSampleRate = 44100;
+
+
 	
 };
 
