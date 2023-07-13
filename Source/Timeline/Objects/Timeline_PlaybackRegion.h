@@ -41,10 +41,11 @@ public:
 	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;
 	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
 
-	void setAudioSource(Timeline::AudioSource* pAudioSource);
-	void setAudioModification(Timeline::AudioModification* pAudioMod);
 
-	Timeline::AudioSource& getAudioSource() const;
+
+
+
+	Timeline::AudioSource* getAudioSource() const;
 	Timeline::AudioModification& getAudioModification() const;
 
 
@@ -54,6 +55,9 @@ public:
 	*/
 	PlaybackRegion::RenderRanges getRenderRanges(juce::Range<juce::int64> blockRange);
 	
+	void readRangeInAudioSource(juce::AudioBuffer<float>& bufferToWriteTo, 
+								juce::Range<juce::int64> rangeInAudioSourceToRead);
+
 	/** This function is for getting the position within the blockRange (not timeline) to write to  */
 	static juce::Range<juce::int64> calculateRangeToRenderInBlock(Int64Range fullBlockRangeInTimeline, Int64Range rangeToRenderInTimeline);
 	

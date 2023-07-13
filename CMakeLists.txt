@@ -257,7 +257,7 @@ endif ()
 
 
 
-add_custom_command(TARGET ${PROJECT_NAME}_Standalone
-                   POST_BUILD
-                   COMMAND open ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_artefacts/Debug/Standalone/${PROJECT_NAME}.app
-                   COMMENT "Launching Standalone app...")
+#add_custom_command(TARGET ${PROJECT_NAME}_Standalone
+ #                  POST_BUILD
+  #                 COMMAND open ${CMAKE_BINARY_DIR}/${PROJECT_NAME}_artefacts/Debug/Standalone/${PROJECT_NAME}.app
+   #                COMMENT "Launching Standalone app...")

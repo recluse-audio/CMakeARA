@@ -16,8 +16,7 @@
             "program": "${workspaceFolder}/build/Tests",
             "args": ["--break"],
             "cwd": "${workspaceFolder}",
-            "miDebuggerPath": "/usr/bin/lldb",
-            "preLaunchTask": "Build and Run Catch2 Tests"
+            //"preLaunchTask": "Build and Run Catch2 Tests"
           }
     ]
 }

@@ -34,6 +34,7 @@ PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::i
 
 
 
+
 //=============================
 juce::Range<juce::int64> PlaybackRegion::calculateRangeToRenderInBlock(juce::Range<juce::int64> fullBlockRangeInTimeline, juce::Range<juce::int64> rangeToRenderInTimeline)
 {
@@ -98,7 +99,7 @@ juce::int64 PlaybackRegion::calculateAudioSourceReadOffset(juce::int64 regionSta
 
 
 //==============================
-Timeline::AudioSource& PlaybackRegion::getAudioSource() const
+Timeline::AudioSource* PlaybackRegion::getAudioSource() const
 {
-	return mAudioSource;
+	return &mAudioSource;
 }

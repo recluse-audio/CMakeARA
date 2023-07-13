@@ -9,7 +9,22 @@
 using Int64Range = juce::Range<juce::int64>;
 
 
+class RendererTester
+{
+public:
+	RendererTester()
+	{
+		mRenderer = std::make_unique<Timeline::PlaybackRenderer>();
+	}
 
+	~RendererTester(){}
+
+
+private:
+	std::unique_ptr<Timeline::PlaybackRenderer> mRenderer;
+};
+
+//========================================
 
 TEST_CASE("Adding a PlaybackRegion")
 {
@@ -34,7 +49,7 @@ TEST_CASE("Should render processBlock() correctly")
 
 	SECTION("processBlock() with no regions writes nothing")
 	{
-		playbackRenderer.processBlock(block);
+		playbackRenderer.processBlock(block, blockRangeInTimeline);
 		for(int i = 0; i < block.getNumSamples(); i++)
 		{
 			CHECK(block.getSample(0, i) == 0.f);
@@ -53,7 +68,7 @@ TEST_CASE("Should render processBlock() correctly")
 
 	SECTION("processBlock() catches overlap of single added region")
 	{
-		playbackRenderer.processBlock(block);
+		playbackRenderer.processBlock(block, blockRangeInTimeline);
 
 		int startInProcessBlock = regionRangeInTimeline.getStart() - blockRangeInTimeline.getStart();
 

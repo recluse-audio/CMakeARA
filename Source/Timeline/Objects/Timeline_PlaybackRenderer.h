@@ -27,16 +27,26 @@ public:
 	PlaybackRenderer();
 	~PlaybackRenderer();
 	
-	
-	void processBlock(juce::AudioBuffer<float>& buffer);
+	// Simply knowing the start in timeline samples would suffice if necessary to change
+	void processBlock(juce::AudioBuffer<float>& block, Int64Range blockRangeInTimeline);
 
 	void addPlaybackRegion(Timeline::PlaybackRegion* pRegion);
 	int getNumRegions();
 private:
-	friend class RendererFriend;
+	friend class RendererTester;
 	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;
 
+	// this could be passed a PlaybackRegion instead of an AudioSource if that helps
+	void _readFromAudioSource(juce::AudioBuffer<float>& bufferToWriteTo,
+							 Int64Range blockRangeInTimeline,
+							 Timeline::PlaybackRegion* pRegion);
 	
+	void _applyAudioModification(juce::AudioBuffer<float>& bufferToModify,
+								 Timeline::PlaybackRegion* pRegion);
+
+	void _writeToProcessBlock(juce::AudioBuffer<float>& regionBlock, 
+							  juce::AudioBuffer<float>& processBlock,
+							  Int64Range rangeToWriteTo);
 };
 
 }
