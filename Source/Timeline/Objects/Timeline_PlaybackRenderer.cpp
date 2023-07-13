@@ -84,7 +84,7 @@ void PlaybackRenderer::_writeToProcessBlock(juce::AudioBuffer<float>& regionBloc
         for(int channel = 0; channel < regionBlock.getNumChannels(); channel++)
         {
             auto readSample = buffRead[channel][readIndex];
-            buffWrite[channel][writeIndex];
+            buffWrite[channel][writeIndex] = readSample;
         }
     }
 }
