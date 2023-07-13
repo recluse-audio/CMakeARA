@@ -11,11 +11,13 @@
 #pragma once
 
 #include <../Util/Juce_Header.h>
+#include "../Timeline/Objects/Timeline_DocumentController.h"
 
 //==============================================================================
 /**
 */
 class ARA_DocumentController  : public juce::ARADocumentControllerSpecialisation
+							  , public Timeline::DocumentController
 {
 public:
 	//==============================================================================

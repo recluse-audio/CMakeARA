@@ -34,10 +34,7 @@ void PlaybackRenderer::processBlock(juce::AudioBuffer<float>& processBlock,
             _applyAudioModification(regionBlock, region);
             _writeToProcessBlock(regionBlock, processBlock, renderRanges.rangeInBlock);
         }        
-        
-
-
-
+    
     }
 }
 

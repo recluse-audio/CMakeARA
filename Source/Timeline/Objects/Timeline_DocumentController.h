@@ -21,10 +21,11 @@ public:
 	DocumentController();
 	~DocumentController();
 	
-	void addRegionSequence(Timeline::RegionSequence* sequence);
+	// You'd better be able to make a Timeline::Document in your subclass one way or another!
+	virtual Timeline::Document* getTimelineDocument() const = 0;
 	
 private:
-	std::unique_ptr<Timeline::Document> mDocument;
+
 };
 
 }
