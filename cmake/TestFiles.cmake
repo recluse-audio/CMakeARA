@@ -1,0 +1,16 @@
+set(TestFiles
+    Tests/test_ARADocumentController.cpp
+    Tests/test_ARA_AudioSource.cpp
+    Tests/test_AudioModification.cpp
+    Tests/test_AudioSource.cpp
+    Tests/test_Colors.cpp
+    Tests/test_Document.cpp
+    Tests/test_DocumentController.cpp
+    Tests/test_ObjectViews.cpp
+    Tests/test_PlaybackRegion.cpp
+    Tests/test_PluginBasics.cpp
+    Tests/test_Renderer.cpp
+    Tests/test_TimelineRegion.cpp
+    Tests/test_WaveformCache.cpp
+    Tests/test_ZoomState.cpp
+)

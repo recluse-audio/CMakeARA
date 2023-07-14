@@ -35,6 +35,7 @@ set(SourceFiles
     Source/Test_Timeline/Test_PlaybackRenderer.h
     Source/Test_Timeline/Test_RegionSequence.h
     Source/Test_Utils/DocumentFactory.h
+    Source/Test_Utils/ObjectFactory.h
     Source/Test_Utils/TestUtils.cpp
     Source/Test_Utils/TestUtils.h
     Source/Timeline/Objects/Timeline_AudioModification.cpp
