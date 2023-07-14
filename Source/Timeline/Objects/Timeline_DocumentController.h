@@ -22,7 +22,7 @@ public:
 	~DocumentController();
 	
 	// You'd better be able to make a Timeline::Document in your subclass one way or another!
-	virtual Timeline::Document* getTimelineDocument() const = 0;
+	virtual Timeline::Document& getTimelineDocument() const = 0;
 	
 private:
 

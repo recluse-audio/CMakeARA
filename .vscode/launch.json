@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Standalone App",
+            "name": "Launch and Debug Standalone App",
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/build/CMakeARA_artefacts/Debug/Standalone/CMakeARA.app/Contents/MacOS/CMakeARA",
@@ -10,7 +10,7 @@
             "cwd": "${workspaceFolder}"
         },
         {
-            "name": "Debug Catch2 Tests",
+            "name": "Launch and Debug Catch2 Tests",
             "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/build/Tests",

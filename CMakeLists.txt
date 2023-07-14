@@ -17,15 +17,9 @@ file(STRINGS VERSION CURRENT_VERSION)
 # For simplicity, the name of the project is also the name of the target
 project(${PROJECT_NAME} VERSION ${CURRENT_VERSION})
 
-# By default we don't want Xcode schemes to be made for modules, etc
-set(CMAKE_XCODE_GENERATE_SCHEME OFF)
 
-# Building universal binaries on macOS increases build time
-# This is set on CI but not during local dev
-if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
-  message("Building for Apple Silicon and x86_64")
-  set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
-endif ()
+set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+
 
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Support macOS down to High Sierra")
 
@@ -34,8 +28,6 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Support macOS down to High
 # https://github.com/juce-framework/JUCE/commit/6b1b4cf7f6b1008db44411f2c8887d71a3348889
 set_property(GLOBAL PROPERTY USE_FOLDERS YES)
 
-# Create a /Modules directory in the IDE with the JUCE Module code
-option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Show all module sources in IDE projects" ON)
 
 # JUCE is setup as a submodule in the /JUCE folder
 add_subdirectory(submodules/JUCE)
@@ -95,50 +87,12 @@ target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 target_sources("${PROJECT_NAME}" PRIVATE ${ARASource})
 
 
-set_target_properties("${PROJECT_NAME}" PROPERTIES 
-    OSX_ARCHITECTURES "arm64;x86_64"    
-    FOLDER ""
-)
-
-# The Xcode source tree should uhhh, still look like the source tree, yo
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
-
-# Setup our binary data as a target
-set(ASSETS "pamplejuce.png")
-
-juce_add_binary_data(BinaryData 
-    NAMESPACE
-        BinaryData
-    SOURCES 
-        ${ASSETS}
-)
-
-set_target_properties(BinaryData PROPERTIES
-    OSX_ARCHITECTURES "arm64;x86_64"    # Universal Binary
-    FOLDER "Targets"                    # place the BinaryData section into the "Targets" group for the IDE project
-)
-
-
-# Clean up folder organization on Xcode.
-# It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
-# Xcode scheme generation is turned off globally to limit noise from other targets
-# The non-hacky way of doing this is via the global PREDEFINED_TARGETS_FOLDER property
-# However that doesn't seem to be working in Xcode
-# Not all plugin types (au, vst) available on each build type (win, macos, linux)
+# Set up Targets
 foreach(target ${FORMATS} "All")
     if(TARGET ${PROJECT_NAME}_${target})
         set_target_properties(${PROJECT_NAME}_${target} PROPERTIES
             OSX_ARCHITECTURES "arm64;x86_64"    # Universal Binary
-
-            # Tuck the actual plugin targets into a folder where they won't bother us
-            FOLDER "Targets"
-
-            # MacOS only: Sets the default executable that Xcode will open on build
-            # For this exact path to to work, manually build the AudioPluginHost.xcodeproj in the JUCE subdir
-            # XCODE_SCHEME_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app"
-            XCODE_SCHEME_EXECUTABLE "/Applications/Studio One 6.app"
-            # Let us build the target in Xcode
-            XCODE_GENERATE_SCHEME ON)
+        )
     endif()
 endforeach()
 
@@ -174,7 +128,6 @@ set(JUCE_DEPENDENCIES
 
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
-        BinaryData
         ${JUCE_DEPENDENCIES}
     PUBLIC
         juce::juce_recommended_config_flags
@@ -193,16 +146,10 @@ if(MSVC)
     endif()
 endif()
 
-# Required for ctest (which is just easier for cross-platform CI)
-# include(CTest) does this too, but adds tons of targets we don't want
-# See: https://github.com/catchorg/Catch2/issues/2026
-# You also could forgo ctest and call ./Tests directly from the build dir
-enable_testing()
 
 # "GLOBS ARE BAD" is brittle and silly dev UX, sorry CMake!
 # CONFIGURE_DEPENDS / Clion's CMake integration makes globbing absolutely fine
 file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.h")
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
 
 
 
@@ -216,31 +163,14 @@ FetchContent_Declare(
     GIT_TAG v3.1.0)
 FetchContent_MakeAvailable(Catch2) # find_package equivalent
 
-# Setup the test executable, again C++ 20 please
+# Setup the test executable
 add_executable(Tests ${TestFiles})
-target_compile_features(Tests PRIVATE cxx_std_20)
-
-
 
 # Our test executable also wants to know about our plugin code...
+target_compile_features(Tests PRIVATE cxx_std_20)
 target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain "${PROJECT_NAME}" ${JUCE_DEPENDENCIES})
 
-# Make an Xcode Scheme for the test executable so we can run tests in the IDE
-set_target_properties(Catch2 PROPERTIES 
-    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
-)
-
-set_target_properties(Catch2WithMain PROPERTIES
-    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
-)
-
-set_target_properties(Tests PROPERTIES
-    OSX_ARCHITECTURES "x86_64"      # Intel-only
-    XCODE_GENERATE_SCHEME ON        # Make an Xcode Scheme for the test executable so we can run tests in the IDE
-)
-# Organize the test source in the Tests/ folder in the IDE
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
 
 # Load and use the .cmake file provided by Catch2
 # https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md

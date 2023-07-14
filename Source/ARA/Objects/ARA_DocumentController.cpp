@@ -1,5 +1,6 @@
 #include "ARA_DocumentController.h"
 #include "ARA_PlaybackRenderer.h"
+#include "../Timeline/Objects/Timeline_Document.h"
 
 //==============================================================================
 juce::ARAPlaybackRenderer* ARA_DocumentController::doCreatePlaybackRenderer() noexcept
@@ -29,4 +30,16 @@ bool ARA_DocumentController::doStoreObjectsToStream (juce::ARAOutputStream& outp
 const ARA::ARAFactory* JUCE_CALLTYPE createARAFactory()
 {
 	return juce::ARADocumentControllerSpecialisation::createARAFactory<ARA_DocumentController>();
+}
+
+
+Timeline::Document& ARA_DocumentController::getTimelineDocument() const
+{
+	return *mDocument.get();
+}
+
+void ARA_DocumentController::_updateDocument()
+{
+	mDocument.reset();
+	mDocument = std::make_unique<Timeline::Document>();
 }
