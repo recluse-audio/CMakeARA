@@ -60,8 +60,7 @@ target_link_libraries(CMakeARA
 )
 
 juce_generate_juce_header(CMakeARA)
-get_target_property(PCH_FILE CMakeARA PRECOMPILE_HEADERS)
-message("Generated JUCE header: ${PCH_FILE}")
+
 
 
 
