@@ -18,7 +18,7 @@ class RegionSequenceView : public juce::Component
 {
 public:
 	RegionSequenceView(Timeline::RegionSequence& sequence, Timeline::ZoomState& zoomState);
-	~RegionSequenceView();
+	~RegionSequenceView() override;
 	
 	void paint(juce::Graphics& g) override;
 

@@ -14,7 +14,7 @@ class DocumentSection : public Timeline::ViewportSection
 {
 public:
 	DocumentSection(Timeline::ZoomState& zoomState);
-	~DocumentSection();
+	~DocumentSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

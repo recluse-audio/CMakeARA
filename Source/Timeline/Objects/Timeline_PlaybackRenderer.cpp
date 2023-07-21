@@ -28,7 +28,7 @@ void PlaybackRenderer::processBlock(juce::AudioBuffer<float>& processBlock,
                 2.) Apply AudioModification, 
                 3.) Add to processBlock
             */ 
-            juce::AudioBuffer<float> regionBlock(processBlock.getNumChannels(), renderRanges.rangeInBlock.getLength());
+            juce::AudioBuffer<float> regionBlock(processBlock.getNumChannels(), (int)renderRanges.rangeInBlock.getLength());
 
             _readFromAudioSource(regionBlock, blockRangeInTimeline, region);
             _applyAudioModification(regionBlock, region);
@@ -60,10 +60,10 @@ void PlaybackRenderer::_readFromAudioSource(juce::AudioBuffer<float>& bufferToWr
     
 }
 
-void PlaybackRenderer::_applyAudioModification(juce::AudioBuffer<float>& bufferToModify,
-                                                Timeline::PlaybackRegion* pRegion)
+void PlaybackRenderer::_applyAudioModification([[maybe_unused]] juce::AudioBuffer<float>& bufferToModify,
+                                                [[maybe_unused]] Timeline::PlaybackRegion* pRegion)
 {
-
+    
 }
 
 void PlaybackRenderer::_writeToProcessBlock(juce::AudioBuffer<float>& regionBlock, 
@@ -77,7 +77,7 @@ void PlaybackRenderer::_writeToProcessBlock(juce::AudioBuffer<float>& regionBloc
     // keep garbage data out of processBlock at all costs! (although it would likely crash... I don't expect either circumstance to happen)
     for(int readIndex = 0; readIndex < regionBlock.getNumSamples(); readIndex++)
     {
-        int writeIndex = readIndex + rangeToWriteTo.getStart();
+        int writeIndex = readIndex + (int)rangeToWriteTo.getStart();
         for(int channel = 0; channel < regionBlock.getNumChannels(); channel++)
         {
             auto readSample = buffRead[channel][readIndex];

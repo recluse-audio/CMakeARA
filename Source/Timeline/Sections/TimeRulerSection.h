@@ -15,7 +15,7 @@ class TimeRulerSection : public Timeline::ViewportSection
 {
 public:
 	TimeRulerSection(Timeline::ZoomState& zoomState);
-	~TimeRulerSection();
+	~TimeRulerSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

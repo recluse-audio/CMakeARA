@@ -21,7 +21,7 @@ public:
 		sourceBuffer = std::make_unique<juce::AudioBuffer<float>>(1, 100);
 	}
 	
-	~AudioSource()
+	~AudioSource() override
 	{
 		sourceBuffer.reset();
 	}

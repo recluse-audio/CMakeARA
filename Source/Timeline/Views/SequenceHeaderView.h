@@ -10,7 +10,7 @@ class SequenceHeaderView : public juce::Component
 {
 public:
 	SequenceHeaderView();
-	~SequenceHeaderView();
+	~SequenceHeaderView() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

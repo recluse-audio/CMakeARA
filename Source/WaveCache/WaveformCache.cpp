@@ -42,15 +42,7 @@ juce::AudioThumbnail& WaveformCache::getOrCreateThumbnail (juce::ARAAudioSource*
 }
 
 
-juce::AudioThumbnail& WaveformCache::getOrCreateThumbnail (AudioData* audioData)
-{
-	const auto iter = audioThumbnails.find (audioData);
 
-	if (iter != std::end (audioThumbnails))
-		return *iter->second;
-
-
-}
 
 
 

@@ -12,7 +12,7 @@ class ZoomControlsSection : public juce::Component
 {
 public:
 	ZoomControlsSection(Timeline::ZoomState& zoomState);
-	~ZoomControlsSection();
+	~ZoomControlsSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

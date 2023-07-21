@@ -10,6 +10,13 @@ Document::Document()
 	
 }
 
+Document::Document(const Document& other)
+: mRegionSequences(other.mRegionSequences)
+, mPlaybackSampleRate(other.mPlaybackSampleRate)
+{
+
+}
+
 Document::~Document()
 {
 	mRegionSequences.clear();

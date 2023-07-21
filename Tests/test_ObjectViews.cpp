@@ -96,10 +96,7 @@ public:
 		return zoomStateListeners;
 	}
 	
-	void addRegionSequence(Timeline::RegionSequence* newSequence)
-	{
 
-	}
 
 private:
 };

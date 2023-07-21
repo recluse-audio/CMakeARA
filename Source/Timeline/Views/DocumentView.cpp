@@ -12,8 +12,8 @@
 using namespace Timeline;
 
 DocumentView::DocumentView(Timeline::Document& document, Timeline::ZoomState& zoomState)
-: mDocument(document)
-, Timeline::ObjectView(zoomState)
+: Timeline::ObjectView(zoomState)
+, mDocument(document)
 {
 	refresh();
 }

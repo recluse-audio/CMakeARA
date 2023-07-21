@@ -7,7 +7,7 @@ class InspectSection : public juce::Component
 {
 public:
 	InspectSection();
-	~InspectSection();
+	~InspectSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

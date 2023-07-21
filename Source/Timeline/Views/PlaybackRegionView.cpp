@@ -6,8 +6,8 @@
 using namespace Timeline;
 
 PlaybackRegionView::PlaybackRegionView(Timeline::PlaybackRegion& pRegion, Timeline::ZoomState& zoomState)
-: mPlaybackRegion(pRegion)
-, Timeline::ObjectView(zoomState)
+: Timeline::ObjectView(zoomState)
+, mPlaybackRegion(pRegion)
 {
 	refresh();
 
@@ -33,8 +33,8 @@ void PlaybackRegionView::_updateSize()
 {
 
 	auto lengthInSeconds = mPlaybackRegion.getRangeInTimeline().getLength() / getZoomState().getSampleRate();
-	auto regionWidth = lengthInSeconds * getZoomState().getPixelsPerSecond();
-	auto regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() * 2);
+	int regionWidth = (int)(lengthInSeconds * getZoomState().getPixelsPerSecond());
+	int regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() * 2);
 	this->setSize(regionWidth, regionHeight);
 	
 }

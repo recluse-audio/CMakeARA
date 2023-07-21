@@ -17,12 +17,13 @@ class AudioModification;
 class RegionSequence;
 class PlaybackRegion;
 
-class Document final
+class Document
 {
 public:
 	static constexpr auto minTimelineLength = 120.0;
 	
 	Document();
+	Document(const Document& other);
 	~Document();
 	
 	void addRegionSequence(Timeline::RegionSequence* pSequence);

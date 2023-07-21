@@ -29,7 +29,7 @@ public:
         mZoomInButton->setBounds(10, 5, 30, 30);
         mZoomOutButton->setBounds(60, 5, 30, 30);
     }
-    ~ZoomControls()
+    ~ZoomControls() override
     {
         mZoomInButton->removeListener(this);
         mZoomOutButton->removeListener(this);

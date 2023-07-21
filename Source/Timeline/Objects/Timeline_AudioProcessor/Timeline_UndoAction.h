@@ -22,7 +22,7 @@ public:
         
     }
     
-    ~AudioMod_UndoAction()
+    ~AudioMod_UndoAction() override
     {
         delete pParameter;
     }

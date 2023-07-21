@@ -19,7 +19,7 @@ public:
 	std::vector<Timeline::PlaybackRegion*> getPlaybackRegions();
 	
 	// Returns the timeline sample position of the final region
-	juce::int64 getEndOfFinalRegion();
+	double getEndOfFinalRegion();
 	
 private:
 	std::vector<Timeline::PlaybackRegion*> mPlaybackRegions;

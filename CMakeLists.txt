@@ -5,25 +5,30 @@ cmake_minimum_required(VERSION 3.24.1)
 project(CMake_ARA VERSION 0.0.1)
 
 
-
 # JUCE is setup as a submodule in the /JUCE folder
 add_subdirectory(submodules/JUCE)
 
 # Set path(s) before adding targets via 'add_plugin' below
 juce_set_ara_sdk_path("submodules/ARA_SDK")
 
+set(PLUGIN_FORMATS "AU VST3 Standalone" CACHE STRING "Formats to be built as part of target")
+message(STATUS "PLUGIN_FORMATS: ${PLUGIN_FORMATS}")
+
 # Check the readme at `docs/CMake API.md` in the JUCE repo
 juce_add_plugin(CMakeARA
-    COMPANY_NAME Recluse-Audio
+    COMPANY_NAME recluse-audio
     BUNDLE_ID com.recluseaudio.recluseaudio
     COPY_PLUGIN_AFTER_BUILD TRUE          # On MacOS, plugin will be copied to /Users/you/Library/Audio/Plug-Ins/
     PLUGIN_MANUFACTURER_CODE Recl         # This has to be one uppercase, rest lower for AU formats
-    PLUGIN_CODE Recl           
-    FORMATS AU VST3 Standalone
+    PLUGIN_CODE Cara           
+    FORMATS ${PLUGIN_FORMATS}
     PRODUCT_NAME "CMakeARA"        # The name of the final executable, which can differ from the target name
     IS_ARA_EFFECT TRUE
     IS_PLUGIN_ARA_EFFECT TRUE
 )
+
+add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
+add_compile_definitions(JucePlugin_Enable_ARA=1)
 
 include(cmake/SourceFiles.cmake)   # defines ${SourceFiles}
 include(cmake/JuceARAFiles.cmake)  # defines ${JuceARAFiles}
@@ -55,12 +60,13 @@ target_link_libraries(CMakeARA
 )
 
 juce_generate_juce_header(CMakeARA)
+get_target_property(PCH_FILE CMakeARA PRECOMPILE_HEADERS)
+message("Generated JUCE header: ${PCH_FILE}")
 
 
 
 # C++20, please
 target_compile_features(CMakeARA PRIVATE cxx_std_20)
-
 
 
 target_compile_definitions(CMakeARA
@@ -71,7 +77,8 @@ target_compile_definitions(CMakeARA
     JUCE_VST3_CAN_REPLACE_VST2=0
     )
 
-
+# Generate debug symbols (TODO: Make this debug only?)    
+target_compile_options(CMakeARA PRIVATE -g)
 
 
 # Use Catch2 v3 on the devel branch

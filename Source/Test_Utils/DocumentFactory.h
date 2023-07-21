@@ -43,8 +43,8 @@ public:
 			auto sequence = new Timeline::RegionSequence();
 			for(size_t j = 0; j < (size_t) numRegions; j++)
 			{
-				juce::int64 regionStart = ((int)j * 5 ) * document->getPlaybackSampleRate();
-				juce::int64 regionEnd = regionStart + document->getPlaybackSampleRate();
+				juce::int64 regionStart = ((int)j * 5 ) * (int)document->getPlaybackSampleRate();
+				juce::int64 regionEnd = regionStart + (int)document->getPlaybackSampleRate();
 				auto region = new Test::PlaybackRegion(*mAudioSource.get(), *mAudioMod.get());
 
 				region->setRangeInTimeline(regionStart, regionEnd);

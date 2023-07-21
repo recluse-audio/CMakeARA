@@ -80,6 +80,7 @@ std::unique_ptr<juce::UndoableAction> mockUndoableAction() noexcept
 
 std::unique_ptr<juce::AudioPlayHead> mockPlayhead(const juce::AudioPlayHead::CurrentPositionInfo& infoToReturnFromPlayhead) noexcept
 {
+	(void) infoToReturnFromPlayhead;
 #if (JUCE_MAJOR_VERSION < 7 )
 	class MockPlayhead : public juce::AudioPlayHead
 	{

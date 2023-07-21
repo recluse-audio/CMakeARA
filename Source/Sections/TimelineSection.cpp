@@ -69,6 +69,8 @@ void TimelineSection::resized()
 //===============
 void TimelineSection::scrollBarMoved(juce::ScrollBar *scrollBar, double newRangeStart)
 {
+	(void) newRangeStart; // hide warning of unused variable (don't need it here)
+	
 	auto horizontalScrollBar = &mDocumentSection->getViewport()->getHorizontalScrollBar();
 	auto verticalScrollBar = &mDocumentSection->getViewport()->getVerticalScrollBar();
 	

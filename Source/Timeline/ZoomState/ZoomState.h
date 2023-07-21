@@ -27,9 +27,9 @@ public:
 	void zoomIn() {}
 	void zoomOut() {}
 	
-	void setSequenceHeight(int sequenceHeight);
-	void setRegionPadding(int regionPadding);
-	void setPixelsPerSecond(int pixPerSecond);
+	void setSequenceHeight(double sequenceHeight);
+	void setRegionPadding(double regionPadding);
+	void setPixelsPerSecond(double pixPerSecond);
 	void setHeightZoomFactor(double zoomFactor);
 	void setWidthZoomFactor(double zoomFactor);
 	void setSampleRate(double sampleRate);
@@ -48,14 +48,14 @@ public:
 	
 private:
 	// gets a height within the range of the min/max zoom
-	int getValidHeight(int height);		
-	int getValidPadding(int padding);		
-	int getValidPixelsPerSecond(int pixPerSecond);		
+	double getValidHeight(double height);		
+	double getValidPadding(double padding);		
+	double getValidPixelsPerSecond(double pixPerSecond);		
 	
 
-	std::atomic<int> mSequenceHeight { baseSequenceHeight };
-	std::atomic<int> mRegionPadding { baseRegionPadding };
-	std::atomic<int> mPixelsPerSecond { basePixelsPerSecond };
+	std::atomic<double> mSequenceHeight { baseSequenceHeight };
+	std::atomic<double> mRegionPadding { baseRegionPadding };
+	std::atomic<double> mPixelsPerSecond { basePixelsPerSecond };
 	std::atomic<double> mWidthFactor  { minZoom };
 	std::atomic<double> mHeightFactor { minZoom };
 	std::atomic<double> mSampleRate { 44100.0 };

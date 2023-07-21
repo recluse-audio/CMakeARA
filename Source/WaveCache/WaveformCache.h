@@ -16,8 +16,9 @@ class AudioData;
 /**  This class keeps track of AudioData
  
  */
-struct WaveformCache
+class WaveformCache
 {
+public:
 	WaveformCache();
 
 	~WaveformCache();
@@ -26,9 +27,7 @@ struct WaveformCache
 
 	juce::AudioThumbnail& getOrCreateThumbnail (juce::ARAAudioSource* audioSource);
 	
-	// Give this some AudioData and it will check if we have made a thumbnail for it already
-	// If not, we will make a new one and return it.  If we make a new one we will put it in the map as well
-	juce::AudioThumbnail& getOrCreateThumbnail (AudioData* audioSource);
+
 
 
 private:

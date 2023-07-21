@@ -13,7 +13,7 @@ class SequenceHeadersSection : public Timeline::ViewportSection
 {
 public:
 	SequenceHeadersSection(Timeline::ZoomState& zoomState);
-	~SequenceHeadersSection();
+	~SequenceHeadersSection() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

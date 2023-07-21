@@ -13,7 +13,7 @@ ObjectView::~ObjectView()
 	
 }
 
-void ObjectView::updateZoomState(ZoomState *zoomState)
+void ObjectView::updateZoomState( [[maybe_unused]] ZoomState* zoomState)
 {
 	_updateSize();
 	_positionChildren();

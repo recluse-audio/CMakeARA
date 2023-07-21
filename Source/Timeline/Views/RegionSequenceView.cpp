@@ -11,8 +11,8 @@
 using namespace Timeline;
 
 RegionSequenceView::RegionSequenceView(Timeline::RegionSequence& sequence, Timeline::ZoomState& zoomState)
-: mRegionSequence(sequence)
-, Timeline::ObjectView(zoomState)
+: Timeline::ObjectView(zoomState)
+, mRegionSequence(sequence)
 {
 	refresh();
 }
@@ -29,12 +29,6 @@ void RegionSequenceView::paint(juce::Graphics &g)
 	g.drawRoundedRectangle(getLocalBounds().toFloat(), 2.f, 2.f);
 	
 }
-
-
-
-
-
-
 
 
 //===========================
@@ -55,8 +49,8 @@ int RegionSequenceView::getEndPositionOfFinalRegion()
 void RegionSequenceView::_updateSize()
 {
 	// convert the end of final PlaybackRegion in Timeline samples to Timeline seconds using SampleRate given to ZoomState
-	juce::int64 endInTimelineSeconds = mRegionSequence.getEndOfFinalRegion() / (int)getZoomState().getSampleRate();
-	auto width = endInTimelineSeconds * getZoomState().getPixelsPerSecond();
+	auto endInTimelineSeconds = mRegionSequence.getEndOfFinalRegion() / getZoomState().getSampleRate();
+	auto width = (int)(endInTimelineSeconds * getZoomState().getPixelsPerSecond());
 	auto height = getZoomState().getSequenceHeight();
 	
 	this->setSize(width, height);

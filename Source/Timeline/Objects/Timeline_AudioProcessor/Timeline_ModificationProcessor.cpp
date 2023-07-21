@@ -8,6 +8,15 @@
   ==============================================================================
 */
 
+/** 
+ * This subclass of AudioProcessor has lots of unused variables being passed as parameters in the virtual functions 
+ * of this class.  But we only really need this AudioProcessor for the sake of having an APVTS.  So ignore those.
+*/
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
+
+
 #include "Timeline_ModificationProcessor.h"
 #include "Timeline_UndoAction.h"
 
@@ -80,3 +89,5 @@ void ModificationProcessor::valueTreePropertyChanged(juce::ValueTree& tree, cons
 {
     
 }
+
+#pragma GCC diagnostic pop

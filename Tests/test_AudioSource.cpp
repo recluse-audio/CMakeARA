@@ -33,7 +33,7 @@ TEST_CASE("Writes To incoming buffer")
 	CHECK(bufferToWriteTo.getSample(0, 0) == 20.f);
 	CHECK(bufferToWriteTo.getSample(0, 10) == 30.f);
 	
-	SECTION("Reading Stereo, but writing mono should average values and not crash")
+	SECTION("Reading Stereo, but writing mono. Should average values and not crash")
 	{
 		
 		bufferToWriteTo.clear();
@@ -42,9 +42,9 @@ TEST_CASE("Writes To incoming buffer")
 		juce::AudioBuffer<float> bufferToReadFrom(1, 20);
 		bufferToReadFrom.clear();
 		
-		Int64Range rangeToRead(0, 20);
+		Int64Range stereoRangeToRead(0, 20);
 
-		source.readFromAudioSource(bufferToWriteTo, rangeToRead);
+		source.readFromAudioSource(bufferToWriteTo, stereoRangeToRead);
 		//CHECK(bufferToWriteTo.getRMSLevel(0, 0, bufferToWriteTo.getNumSamples()) == 0.5f);
 	}
 }

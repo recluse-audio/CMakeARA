@@ -23,8 +23,7 @@ std::vector<Timeline::PlaybackRegion*> RegionSequence::getPlaybackRegions()
 	return mPlaybackRegions;
 }
 
-
-juce::int64 RegionSequence::getEndOfFinalRegion()
+double RegionSequence::getEndOfFinalRegion()
 {
 	juce::int64 endSample = 0;
 	for (auto region : mPlaybackRegions)

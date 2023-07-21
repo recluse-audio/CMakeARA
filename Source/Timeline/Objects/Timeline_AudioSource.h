@@ -20,7 +20,7 @@ public:
 	// save some typing
 	using Int64Range = juce::Range<juce::int64>;
 	AudioSource();
-	~AudioSource();
+	virtual ~AudioSource();
 	
 	//
 	virtual bool readFromAudioSource(juce::AudioBuffer<float>& buffer, juce::Range<juce::int64> rangeInAudioSourceToRead) = 0;

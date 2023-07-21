@@ -1,5 +1,5 @@
 #pragma once
-#include <Util/Juce_Header.h>
+#include <JuceHeader.h>
 #include "Timeline_AudioSource.h"
 #include "Timeline_Object.h"
 
@@ -34,7 +34,9 @@ public:
 	};
 	
 	PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod);	
-	~PlaybackRegion();
+
+
+	virtual ~PlaybackRegion();
 	
 	// In ARA sub-class these will likely simply be the ARA function equivalents formatted as a Range
 	virtual juce::Range<double> getRangeInTimelineSeconds() const = 0;

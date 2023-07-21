@@ -1,9 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-cd ../
 rm -rf build
 mkdir build
 pushd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-cmake --build . 
+cmake -DCMAKE_BUILD_TYPE=Debug -DPLUGIN_FORMATS="AU VST3 Standalone" ..
+cmake --build . --target CMakeARA
 popd # back to top level

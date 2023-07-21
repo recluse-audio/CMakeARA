@@ -10,7 +10,7 @@ class TimeRulerView : public juce::Component
 {
 public:
 	TimeRulerView();
-	~TimeRulerView();
+	~TimeRulerView() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

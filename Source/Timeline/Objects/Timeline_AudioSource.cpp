@@ -112,7 +112,7 @@ bool AudioSource::readStereoWriteMono(juce::AudioBuffer<float>& bufferToWriteTo,
 
 juce::Range<juce::int64> getValidRange(juce::Range<juce::int64> rangeToRead, juce::AudioBuffer<float>& bufferToReadFrom)
 {
-	auto sourceRange = Int64Range(0, bufferToReadFrom.getNumSamples() - 1);
+	auto sourceRange = juce::Range<juce::int64>(0, bufferToReadFrom.getNumSamples() - 1);
 	auto validatedRange = sourceRange.getIntersectionWith(rangeToRead);
 	return validatedRange;
 }

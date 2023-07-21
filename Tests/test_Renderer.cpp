@@ -44,7 +44,7 @@ TEST_CASE("Should render processBlock() correctly")
 {
 	Timeline::PlaybackRenderer playbackRenderer;
 	Int64Range blockRangeInTimeline(100, 110);
-	juce::AudioBuffer<float> block(1, blockRangeInTimeline.getLength());
+	juce::AudioBuffer<float> block(1, (int)blockRangeInTimeline.getLength());
 	block.clear();
 
 	SECTION("processBlock() with no regions writes nothing")
@@ -70,7 +70,7 @@ TEST_CASE("Should render processBlock() correctly")
 	{
 		playbackRenderer.processBlock(block, blockRangeInTimeline);
 
-		int startInProcessBlock = regionRangeInTimeline.getStart() - blockRangeInTimeline.getStart();
+		juce::int64 startInProcessBlock = regionRangeInTimeline.getStart() - blockRangeInTimeline.getStart();
 
 		// Should be writing zeros because we haven't reached the region yet
 		for(int i = 0; i < startInProcessBlock; i++)

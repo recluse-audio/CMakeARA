@@ -12,7 +12,7 @@ class MainView : public juce::Component
 {
 public:
 	MainView();
-	~MainView();
+	~MainView() override;
 	
 	void paint(juce::Graphics& g) override;
 	void resized() override;

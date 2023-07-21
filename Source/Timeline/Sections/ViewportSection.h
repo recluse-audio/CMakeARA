@@ -21,7 +21,7 @@ public:
 	
 	ViewportSection(Timeline::ZoomState& zoomState);
 	
-	~ViewportSection();
+	~ViewportSection() override;
 	
 	void resized() override;
 	

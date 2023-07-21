@@ -17,6 +17,13 @@
             "args": ["--break"],
             "cwd": "${workspaceFolder}",
             //"preLaunchTask": "Build and Run Catch2 Tests"
-          }
+        },
+        {
+            "name": "Attach to Process",
+            "type": "lldb",
+            "request": "attach",
+            "pid": "${command:pickProcess}"
+        }
+          
     ]
 }
