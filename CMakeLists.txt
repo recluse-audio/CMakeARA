@@ -11,7 +11,7 @@ add_subdirectory(submodules/JUCE)
 # Set path(s) before adding targets via 'add_plugin' below
 juce_set_ara_sdk_path("submodules/ARA_SDK")
 
-set(PLUGIN_FORMATS "AU VST3 Standalone" CACHE STRING "Formats to be built as part of target")
+set(PLUGIN_FORMATS AU VST3 Standalone CACHE STRING "Formats to be built as part of target")
 message(STATUS "PLUGIN_FORMATS: ${PLUGIN_FORMATS}")
 
 # Check the readme at `docs/CMake API.md` in the JUCE repo
@@ -21,7 +21,7 @@ juce_add_plugin(CMakeARA
     COPY_PLUGIN_AFTER_BUILD TRUE          # On MacOS, plugin will be copied to /Users/you/Library/Audio/Plug-Ins/
     PLUGIN_MANUFACTURER_CODE Recl         # This has to be one uppercase, rest lower for AU formats
     PLUGIN_CODE Cara           
-    FORMATS ${PLUGIN_FORMATS}
+    FORMATS "${PLUGIN_FORMATS}"
     PRODUCT_NAME "CMakeARA"        # The name of the final executable, which can differ from the target name
     IS_ARA_EFFECT TRUE
     IS_PLUGIN_ARA_EFFECT TRUE
@@ -41,7 +41,7 @@ target_include_directories(CMakeARA
         ${CMAKE_CURRENT_LIST_DIR}/Source
         ${CMAKE_CURRENT_LIST_DIR}/Source/ARA
 
-         ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
+        ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
 
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_API
