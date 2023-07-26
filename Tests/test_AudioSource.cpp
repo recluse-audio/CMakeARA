@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include "Test_Timeline/Test_AudioSource.h"
-#include "Util/Juce_Header.h"
+#include "../Source/Util/Juce_Header.h"
 
 using Int64Range = juce::Range<juce::int64>;
 

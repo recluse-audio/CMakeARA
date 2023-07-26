@@ -1,4 +1,4 @@
-set(SourceFiles
+set(Source_Files
     Source/ARA/Objects/ARA_AudioSource.cpp
     Source/ARA/Objects/ARA_AudioSource.h
     Source/ARA/Objects/ARA_DocumentController.cpp
@@ -38,6 +38,8 @@ set(SourceFiles
     Source/Test_Utils/ObjectFactory.h
     Source/Test_Utils/TestUtils.cpp
     Source/Test_Utils/TestUtils.h
+    Source/Timeline/Controllers/Controller.h
+    Source/Timeline/Objects/ObjectIncludes.h
     Source/Timeline/Objects/Timeline_AudioModification.cpp
     Source/Timeline/Objects/Timeline_AudioModification.h
     Source/Timeline/Objects/Timeline_AudioProcessor/Timeline_ModificationProcessor.cpp
@@ -82,6 +84,7 @@ set(SourceFiles
     Source/Timeline/Views/SequenceHeaderView.h
     Source/Timeline/Views/TimeRulerView.cpp
     Source/Timeline/Views/TimeRulerView.h
+    Source/Timeline/Views/ViewIncludes.h
     Source/Timeline/ZoomState/ZoomState.cpp
     Source/Timeline/ZoomState/ZoomState.h
     Source/Timeline/ZoomState/ZoomStateListener.h

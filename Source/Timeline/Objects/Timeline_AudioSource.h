@@ -1,7 +1,6 @@
 
+#include "../Util/Juce_Header.h"
 #pragma once
-#include "../../Util/Juce_Header.h"
-
 
 
 namespace Timeline

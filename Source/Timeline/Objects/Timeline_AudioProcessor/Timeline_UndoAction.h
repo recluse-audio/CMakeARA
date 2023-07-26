@@ -9,7 +9,7 @@
 */
 
 #pragma once
-#include <JuceHeader.h>
+#include <Util/Juce_Header.h>
 
 class AudioMod_UndoAction : public juce::UndoableAction
 {

@@ -1,7 +1,5 @@
 #pragma once
-#include <JuceHeader.h>
-#include "Timeline_AudioSource.h"
-#include "Timeline_Object.h"
+#include "../Util/Juce_Header.h"
 
 
 // save some typing
@@ -10,7 +8,7 @@ using Int64Range = juce::Range<juce::int64>;
 namespace Timeline
 {
 
-class AudioSoure;
+class AudioSource;
 class AudioModification;
 
 /**

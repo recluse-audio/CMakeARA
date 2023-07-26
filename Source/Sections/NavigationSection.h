@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Util/Juce_Header.h>
+#include <Util/Juce_Header.h>	
 
 
 class NavigationSection : public juce::Component

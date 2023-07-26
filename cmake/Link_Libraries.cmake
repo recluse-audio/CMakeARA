@@ -1,5 +1,5 @@
 # We'll need to link to these from our plugin as well as our tests
-set(JuceDependencies
+set(Link_Libraries
     juce::juce_audio_utils
     juce::juce_core
     juce::juce_events

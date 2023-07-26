@@ -1,5 +1,5 @@
 #pragma once
-#include <Util/Juce_Header.h>
+#include "../Util/Juce_Header.h"
 
 /**
 	This class represents an object that will be owned by an ARADocumentControllerSpecialisation.
@@ -28,6 +28,7 @@ public:
 	
 	void addRegionSequence(Timeline::RegionSequence* pSequence);
 	std::vector<Timeline::RegionSequence*> getRegionSequences();
+
 	
 	void setPlaybackSampleRate(double sampleRate);
 	double getPlaybackSampleRate() const;

@@ -1,7 +1,6 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
-
 // save some typing
 using Int64Range = juce::Range<juce::int64>;
 

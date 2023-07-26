@@ -11,7 +11,6 @@
 #pragma once
 #include <Util/Juce_Header.h>
 
-class AudioData;
 //==============================================================================
 /**  This class keeps track of AudioData
  
@@ -37,7 +36,6 @@ private:
 	juce::AudioFormatManager dummyManager;
 	juce::AudioThumbnailCache thumbnailCache;
 	std::map<juce::ARAAudioSource*, std::unique_ptr<juce::AudioThumbnail>> thumbnails;
-	std::map<AudioData*, std::unique_ptr<juce::AudioThumbnail>> audioThumbnails;
 	
 };
 
