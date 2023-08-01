@@ -2,50 +2,85 @@
 # 3.24.1 is also bundled in CLion as of 2023
 cmake_minimum_required(VERSION 3.24.1)
 
-set(Plugin_Name "CMakeARA")
+# This is the name of your plugin (no spaces allowed)
+set(PROJECT_NAME "CMakeARA")
 
-project(${Plugin_Name} VERSION 0.0.1)
+# defines SourceFiles
+include(cmake/SourceFiles.cmake)   
 
+# Valid formats: AAX Unity VST AU AUv3 Standalone
+set(FORMATS AU VST3 AUv3)
+
+# Reads in VERSION file and sticks in it CURRENT_VERSION variable
+file(STRINGS VERSION CURRENT_VERSION)
+
+# For simplicity, the name of the project is also the name of the target
+project(${PROJECT_NAME} VERSION ${CURRENT_VERSION})
+
+# By default we don't want Xcode schemes to be made for modules, etc
+set(CMAKE_XCODE_GENERATE_SCHEME OFF)
+
+# Building universal binaries on macOS increases build time
+# This is set on CI but not during local dev
+if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
+  message("Building for Apple Silicon and x86_64")
+  set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+endif ()
+
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Support macOS down to High Sierra")
+
+# Adds all the module sources so they appear correctly in the IDE
+# Must be set before JUCE is added as a sub-dir (or any targets are made)
+# https://github.com/juce-framework/JUCE/commit/6b1b4cf7f6b1008db44411f2c8887d71a3348889
+set_property(GLOBAL PROPERTY USE_FOLDERS YES)
+
+# Create a /Modules directory in the IDE with the JUCE Module code
+option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Show all module sources in IDE projects" ON)
 
 # JUCE is setup as a submodule in the /JUCE folder
 add_subdirectory(submodules/JUCE)
 
-# Set path(s) before adding targets via 'add_plugin' below
 juce_set_ara_sdk_path("submodules/ARA_SDK")
 
-set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
-
-set(Plugin_Formats AU VST3 Standalone CACHE STRING "Formats to be built as part of target")
-message(STATUS "PLUGIN_FORMATS: ${Plugin_Formats}")
-
-# Check the readme at `docs/CMake API.md` in the JUCE repo
-juce_add_plugin("${Plugin_Name}"
-    COMPANY_NAME recluse-audio
+# Check the readme at `docs/CMake API.md` in the JUCE repo for full config
+juce_add_plugin("${PROJECT_NAME}"
+    # VERSION ...                               # Set this if the plugin version is different to the project version
+    # ICON_BIG ...                              # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
+    # ICON_SMALL ...
+    COMPANY_NAME Recluse-Audio
     BUNDLE_ID com.recluseaudio.recluseaudio
-    COPY_PLUGIN_AFTER_BUILD TRUE          # On MacOS, plugin will be copied to /Users/you/Library/Audio/Plug-Ins/
-    PLUGIN_MANUFACTURER_CODE Recl         # This has to be one uppercase, rest lower for AU formats
-    PLUGIN_CODE Cara           
-    FORMATS "${Plugin_Formats}"
-    PRODUCT_NAME "${Plugin_Name}"        # The name of the final executable, which can differ from the target name
+    # IS_SYNTH TRUE/FALSE                       # Is this a synth or an effect?
+    # NEEDS_MIDI_INPUT TRUE/FALSE               # Does the plugin need midi input?
+    # NEEDS_MIDI_OUTPUT TRUE/FALSE              # Does the plugin need midi output?
+    # IS_MIDI_EFFECT TRUE/FALSE                 # Is this plugin a MIDI effect?
+    # EDITOR_WANTS_KEYBOARD_FOCUS TRUE/FALSE    # Does the editor need keyboard focus?
+    COPY_PLUGIN_AFTER_BUILD TRUE # On MacOS, plugin will be copied to /Users/you/Library/Audio/Plug-Ins/
+    PLUGIN_MANUFACTURER_CODE Recl               # This has to be one uppercase, rest lower for AU formats
+    PLUGIN_CODE Recl                            # A unique four-character plugin id with at least one upper-case character
+    FORMATS "${FORMATS}"
+    PRODUCT_NAME "${PROJECT_NAME}"        # The name of the final executable, which can differ from the target name
     IS_ARA_EFFECT TRUE
     IS_PLUGIN_ARA_EFFECT TRUE
+
 )
 
 add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
 add_compile_definitions(JucePlugin_Enable_ARA=1)
 
-include(cmake/Source_Files.cmake)   # defines ${Source_Files}
-include(cmake/Juce_ARA_Files.cmake)  # defines ${Juce_ARA_Files}
+juce_generate_juce_header(${PROJECT_NAME})
 
-target_sources("${Plugin_Name}" PRIVATE ${Source_Files})
-target_sources("${Plugin_Name}" PRIVATE ${Juce_ARA_Files})
+# C++20, please
+target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
 
-target_include_directories("${Plugin_Name}"
+
+target_include_directories(${PROJECT_NAME} 
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/Source
         ${CMAKE_CURRENT_LIST_DIR}/Source/ARA
 
-        ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
+        # files created when you export from modified Projucer
+        # todo - is there a way to not directly include this??
+         ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
 
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_API
@@ -53,50 +88,109 @@ target_include_directories("${Plugin_Name}"
 )
 
 
-include(cmake/Link_Libraries.cmake) # defines ${Link_Libraries}
-include(cmake/Juce_Flags.cmake) # defines ${Juce_Flags}
+set(ARASource submodules/JUCE/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp)
 
-target_link_libraries("${Plugin_Name}"
-    PRIVATE
-        ${Link_Libraries}
-    PUBLIC
-        ${Juce_Flags}
+
+target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
+target_sources("${PROJECT_NAME}" PRIVATE ${ARASource})
+
+
+set_target_properties("${PROJECT_NAME}" PROPERTIES 
+    OSX_ARCHITECTURES "arm64;x86_64"    
+    FOLDER ""
 )
 
-set_target_properties("${Plugin_Name}" PROPERTIES OSX_ARCHITECTURES "arm64;x86_64")
-# Require using namespace juce::
-add_compile_definitions(DONT_SET_USING_JUCE_NAMESPACE=1)
-
-# Let us use #include<Util/Juce_Header.h>
-juce_generate_juce_header("${Plugin_Name}")
+# The Xcode source tree should uhhh, still look like the source tree, yo
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
 
 
-# C++20, please
-target_compile_features("${Plugin_Name}" PRIVATE cxx_std_20)
+
+# Clean up folder organization on Xcode.
+# It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
+# Xcode scheme generation is turned off globally to limit noise from other targets
+# The non-hacky way of doing this is via the global PREDEFINED_TARGETS_FOLDER property
+# However that doesn't seem to be working in Xcode
+# Not all plugin types (au, vst) available on each build type (win, macos, linux)
+foreach(target ${FORMATS} "All")
+    if(TARGET ${PROJECT_NAME}_${target})
+        set_target_properties(${PROJECT_NAME}_${target} PROPERTIES
+            OSX_ARCHITECTURES "arm64;x86_64"    # Universal Binary
+
+            # Tuck the actual plugin targets into a folder where they won't bother us
+            FOLDER "Targets"
+
+            # MacOS only: Sets the default executable that Xcode will open on build
+            # For this exact path to to work, manually build the AudioPluginHost.xcodeproj in the JUCE subdir
+            # XCODE_SCHEME_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/JUCE/extras/AudioPluginHost/Builds/MacOSX/build/Debug/AudioPluginHost.app"
+            XCODE_SCHEME_EXECUTABLE "/Applications/Studio One 6.app"
+            # Let us build the target in Xcode
+            XCODE_GENERATE_SCHEME ON)
+    endif()
+endforeach()
 
 
-target_compile_definitions("${Plugin_Name}"
+
+target_compile_definitions("${PROJECT_NAME}"
     PUBLIC
     # JUCE_WEB_BROWSER and JUCE_USE_CURL would be on by default, but you might not need them.
     JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
-    JUCE_VST3_CAN_REPLACE_VST2=0
-    )
+    JUCE_VST3_CAN_REPLACE_VST2=0)
 
-# Generate debug symbols (TODO: Make this debug only?)    
-target_compile_options("${Plugin_Name}" PRIVATE -g)
 
-###########
-######
-##          TESTING
-######
-###########
+
+
+# We'll need to link to these from our plugin as well as our tests
+set(JUCE_DEPENDENCIES
+    juce::juce_audio_utils
+    juce::juce_core
+    juce::juce_events
+    juce::juce_graphics
+    juce::juce_data_structures
+    juce::juce_gui_basics
+    juce::juce_gui_extra
+    juce::juce_opengl
+    juce::juce_audio_basics
+    juce::juce_audio_devices
+    juce::juce_audio_formats
+    juce::juce_audio_processors
+    juce::juce_audio_plugin_client
+    juce::juce_audio_utils
+    juce::juce_dsp)
+
+target_link_libraries("${PROJECT_NAME}"
+    PRIVATE
+        ${JUCE_DEPENDENCIES}
+    PUBLIC
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags)
+
+# When present, use Intel IPP for performance on Windows
+if(MSVC)
+    find_package(IPP)
+    if(IPP_FOUND)
+        target_link_libraries("${PROJECT_NAME}" PUBLIC IPP::ipps IPP::ippcore IPP::ippi IPP::ippcv)
+        message("IPP LIBRARIES FOUND")
+        target_compile_definitions("${PROJECT_NAME}" PUBLIC PAMPLEJUCE_IPP=1)
+    else()
+        message("IPP LIBRARIES *NOT* FOUND")
+    endif()
+endif()
+
+# Required for ctest (which is just easier for cross-platform CI)
+# include(CTest) does this too, but adds tons of targets we don't want
+# See: https://github.com/catchorg/Catch2/issues/2026
+# You also could forgo ctest and call ./Tests directly from the build dir
 enable_testing()
 
+# "GLOBS ARE BAD" is brittle and silly dev UX, sorry CMake!
 # CONFIGURE_DEPENDS / Clion's CMake integration makes globbing absolutely fine
-file(GLOB_RECURSE Test_Files CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.h")
-message(STATUS "Test Files In Glob: ${Test_Files}")
+file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.h")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
+
+
 
 # Use Catch2 v3 on the devel branch
 Include(FetchContent)
@@ -108,52 +202,37 @@ FetchContent_Declare(
     GIT_TAG v3.1.0)
 FetchContent_MakeAvailable(Catch2) # find_package equivalent
 
-# include(cmake/Test_Files.cmake) # Defines ${Test_Files}
-# add_executable(Tests ${Test_Files}) # Setup the test executable
-add_executable(Tests ${Test_Files})
-
-# Our test executable also wants to know about our plugin code...
+# Setup the test executable, again C++ 20 please
+add_executable(Tests ${TestFiles})
 target_compile_features(Tests PRIVATE cxx_std_20)
 
 
-##########################################
-# All my attempts to get the Tests to find the tests and link properly
 
-target_sources(Tests PRIVATE ${Juce_ARA_Files})
+# Our test executable also wants to know about our plugin code...
+target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain "${PROJECT_NAME}" ${JUCE_DEPENDENCIES})
 
-
-target_include_directories(Tests
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/build/CMakeARA_artefacts/JuceLibraryCode
-        ${CMAKE_CURRENT_LIST_DIR}/Source
-        ${CMAKE_CURRENT_LIST_DIR}/Source/ARA
-        ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
-        ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK
-        ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_API
-        ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_Library/PlugIn
+# Make an Xcode Scheme for the test executable so we can run tests in the IDE
+set_target_properties(Catch2 PROPERTIES 
+    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
 )
 
-########################################
+set_target_properties(Catch2WithMain PROPERTIES
+    OSX_ARCHITECTURES "x86_64"      # Intel-only, required to prevent linker errors when building Tests as Intel-only
+)
 
-target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(Tests
-    PRIVATE
-        ${Plugin_Name} 
-        ${Link_Libraries}
-) # wh
+set_target_properties(Tests PROPERTIES
+    OSX_ARCHITECTURES "x86_64"      # Intel-only
+    XCODE_GENERATE_SCHEME ON        # Make an Xcode Scheme for the test executable so we can run tests in the IDE
+)
+# Organize the test source in the Tests/ folder in the IDE
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
 
-
-set_target_properties(Catch2 PROPERTIES OSX_ARCHITECTURES "x86_64")
-set_target_properties(Catch2WithMain PROPERTIES OSX_ARCHITECTURES "x86_64")
-set_target_properties(Tests PROPERTIES OSX_ARCHITECTURES "x86_64")
-
-
+# Load and use the .cmake file provided by Catch2
+# https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md
+# We have to manually provide the source directory here for now
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 catch_discover_tests(Tests)
-
-
-
-
 
 # Color our warnings and errors
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -161,22 +240,3 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
    add_compile_options (-fcolor-diagnostics)
 endif ()
-
-
-# When present, use Intel IPP for performance on Windows
-if(MSVC)
-    find_package(IPP)
-    if(IPP_FOUND)
-        target_link_libraries("${Plugin_Name}" PUBLIC IPP::ipps IPP::ippcore IPP::ippi IPP::ippcv)
-        message("IPP LIBRARIES FOUND")
-        target_compile_definitions("${Plugin_Name}" PUBLIC PAMPLEJUCE_IPP=1)
-    else()
-        message("IPP LIBRARIES *NOT* FOUND")
-    endif()
-endif()
-
-
-#add_custom_command(TARGET ${Plugin_Name}_Standalone
- #                  POST_BUILD
-  #                 COMMAND open ${CMAKE_BINARY_DIR}/${Plugin_Name}_artefacts/Debug/Standalone/${Plugin_Name}.app
-   #                COMMENT "Launching Standalone app...")

@@ -1,4 +1,4 @@
-set(Source_Files
+set(SourceFiles
     Source/ARA/Objects/ARA_AudioSource.cpp
     Source/ARA/Objects/ARA_AudioSource.h
     Source/ARA/Objects/ARA_DocumentController.cpp
