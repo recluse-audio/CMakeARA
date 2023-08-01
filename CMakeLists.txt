@@ -67,9 +67,6 @@ juce_add_plugin("${PROJECT_NAME}"
 
 )
 
-#add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
-#add_compile_definitions(JucePlugin_Enable_ARA=1)
-
 juce_generate_juce_header(${PROJECT_NAME})
 
 
