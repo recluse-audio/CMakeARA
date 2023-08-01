@@ -3,36 +3,50 @@
     "tasks": 
     [
       {
-        "label": "Build and Run Catch2 Tests",
+        "label": "Rebuild All",
         "type": "shell",
-        "command": [ 
-                    "cmake --build" ,
-                    "${workspaceFolder}/build --target Tests" ,
-                    "--config Debug && ${workspaceFolder}/build/Tests" 
-                   ],
-        "options":  { "cwd": "${workspaceFolder}" },
+        "command": "./scripts/rebuild_all.sh",
+        "options": { "cwd": "${workspaceFolder}" },
         "problemMatcher": [],
-        "group":{
-                    "kind": "test",
-                    "isDefault": true
-                }
-      }
-    ],
-    [
+        "group": { "kind": "build", "isDefault": true }      
+      },
       {
         "label": "Build VST3",
         "type": "shell",
-        "command": [ 
-                    "cmake --build" ,
-                    "${workspaceFolder}/build --target Tests" ,
-                    "--config Debug && ${workspaceFolder}/build/Tests" 
-                   ],
-        "options":  { "cwd": "${workspaceFolder}" },
+        "command": "./scripts/build_vst3.sh",
+        "options": { "cwd": "${workspaceFolder}" },
         "problemMatcher": [],
-        "group":{
-                    "kind": "test",
-                    "isDefault": true
-                }
+        "group": { "kind": "build", "isDefault": true }
+      },
+      {
+        "label": "Build Tests",
+        "type": "shell",
+        "command": "./scripts/build_tests.sh",
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "Build and Run Catch2 Tests",
+        "type": "shell",
+        "command": [
+          "cmake --build",
+          "${workspaceFolder}/build --target Tests",
+          "--config Debug && ${workspaceFolder}/build/Tests"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        }
       }
     ]
 }

@@ -37,6 +37,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS YES)
 # Create a /Modules directory in the IDE with the JUCE Module code
 option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Show all module sources in IDE projects" ON)
 
+# See juce cmake api.  This should copy the plug-in where we want it.  Call before 'add_subdirectory'
+set(JUCE_COPY_PLUGIN_AFTER_BUILD ON)
+
 # JUCE is setup as a submodule in the /JUCE folder
 add_subdirectory(submodules/JUCE)
 
@@ -64,10 +67,11 @@ juce_add_plugin("${PROJECT_NAME}"
 
 )
 
-add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
-add_compile_definitions(JucePlugin_Enable_ARA=1)
+#add_compile_definitions(JUCE_IS_ARA_EFFECT=1)
+#add_compile_definitions(JucePlugin_Enable_ARA=1)
 
 juce_generate_juce_header(${PROJECT_NAME})
+
 
 # C++20, please
 target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
