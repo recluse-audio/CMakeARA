@@ -63,7 +63,6 @@ juce_add_plugin("${PROJECT_NAME}"
     FORMATS "${FORMATS}"
     PRODUCT_NAME "${PROJECT_NAME}"        # The name of the final executable, which can differ from the target name
     IS_ARA_EFFECT TRUE
-    IS_PLUGIN_ARA_EFFECT TRUE
 
 )
 
