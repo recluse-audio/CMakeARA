@@ -16,5 +16,5 @@ def generate_files_list(root_folder, output_file, variable_name):
     with open(output_file, 'w+') as f:
         f.write(output)
 
-generate_files_list('Source', 'cmake/Source_Files.cmake', 'Source_Files' )
-generate_files_list('Tests', 'cmake/Test_Files.cmake', 'Test_Files')
+generate_files_list('Source', 'cmake/SourceFiles.cmake', 'SourceFiles' )
+generate_files_list('Tests', 'cmake/TestFiles.cmake', 'TestFiles')

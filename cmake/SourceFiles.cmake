@@ -1,8 +1,12 @@
 set(SourceFiles
+    Source/ARA/Objects/ARA_AudioModification.cpp
+    Source/ARA/Objects/ARA_AudioModification.h
     Source/ARA/Objects/ARA_AudioSource.cpp
     Source/ARA/Objects/ARA_AudioSource.h
     Source/ARA/Objects/ARA_DocumentController.cpp
     Source/ARA/Objects/ARA_DocumentController.h
+    Source/ARA/Objects/ARA_EditorRenderer.cpp
+    Source/ARA/Objects/ARA_EditorRenderer.h
     Source/ARA/Objects/ARA_PlaybackRegion.cpp
     Source/ARA/Objects/ARA_PlaybackRegion.h
     Source/ARA/Objects/ARA_PlaybackRenderer.cpp

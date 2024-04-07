@@ -19,7 +19,6 @@ class WaveformCache;
 /**
 	Simple for now, draws the waveform of an ARA Playback Region
 	nada mas
- 
  */
 class PlaybackRegionView : public juce::Component
 {
