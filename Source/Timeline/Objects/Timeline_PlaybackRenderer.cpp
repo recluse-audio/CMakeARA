@@ -14,7 +14,7 @@ PlaybackRenderer::~PlaybackRenderer()
 	
 }
 
-void PlaybackRenderer::processBlock(juce::AudioBuffer<float>& processBlock,
+void PlaybackRenderer::doProcessBlock(juce::AudioBuffer<float>& processBlock,
                                     Int64Range blockRangeInTimeline)
 {
     for(auto region : mPlaybackRegions)

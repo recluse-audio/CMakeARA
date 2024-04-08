@@ -47,9 +47,9 @@ TEST_CASE("Should render processBlock() correctly")
 	juce::AudioBuffer<float> block(1, (int)blockRangeInTimeline.getLength());
 	block.clear();
 
-	SECTION("processBlock() with no regions writes nothing")
+	SECTION("doProcessBlock() with no regions writes nothing")
 	{
-		playbackRenderer.processBlock(block, blockRangeInTimeline);
+		playbackRenderer.doProcessBlock(block, blockRangeInTimeline);
 		for(int i = 0; i < block.getNumSamples(); i++)
 		{
 			CHECK(block.getSample(0, i) == 0.f);
@@ -66,9 +66,9 @@ TEST_CASE("Should render processBlock() correctly")
 
 	playbackRenderer.addPlaybackRegion(&region);
 
-	SECTION("processBlock() catches overlap of single added region")
+	SECTION("doProcessBlock() catches overlap of single added region")
 	{
-		playbackRenderer.processBlock(block, blockRangeInTimeline);
+		playbackRenderer.doProcessBlock(block, blockRangeInTimeline);
 
 		juce::int64 startInProcessBlock = regionRangeInTimeline.getStart() - blockRangeInTimeline.getStart();
 

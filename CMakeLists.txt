@@ -80,7 +80,7 @@ target_include_directories(${PROJECT_NAME}
 
         # files created when you export from modified Projucer
         # todo - is there a way to not directly include this??
-         ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
+        ${CMAKE_CURRENT_LIST_DIR}/submodules/JUCE/modules/juce_audio_plugin_client/ARA
 
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK
         ${CMAKE_CURRENT_LIST_DIR}/submodules/ARA_SDK/ARA_API

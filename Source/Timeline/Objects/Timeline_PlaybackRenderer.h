@@ -27,7 +27,7 @@ public:
 	~PlaybackRenderer();
 	
 	// Simply knowing the start in timeline samples would suffice if necessary to change
-	void processBlock(juce::AudioBuffer<float>& block, Int64Range blockRangeInTimeline);
+	void doProcessBlock(juce::AudioBuffer<float>& block, Int64Range blockRangeInTimeline);
 
 	void addPlaybackRegion(Timeline::PlaybackRegion* pRegion);
 	int getNumRegions();
