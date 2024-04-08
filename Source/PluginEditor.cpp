@@ -27,8 +27,8 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 	addAndMakeVisible(mTestButton.get());
 	
 	setResizable(true, true);
-	mMainView->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
     this->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
+	mMainView->setBounds(0, 0, mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
 
 	this->loadDocumentInTimeline(mProcessor.getDocument());
 }
