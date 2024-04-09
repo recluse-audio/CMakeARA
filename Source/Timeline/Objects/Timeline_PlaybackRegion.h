@@ -42,9 +42,6 @@ public:
 	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
 
 
-
-
-
 	Timeline::AudioSource* getAudioSource() const;
 	Timeline::AudioModification& getAudioModification() const;
 

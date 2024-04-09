@@ -5,7 +5,6 @@
 #include "Timeline/Objects/Timeline_Document.h"
 #include "Timeline/Objects/Timeline_RegionSequence.h"
 
-#include "Test_Timeline/Test_RegionSequence.h"
 #include "Test_Timeline/Test_PlaybackRegion.h"
 #include "Test_Timeline/Test_AudioSource.h"
 
@@ -21,7 +20,7 @@ TEST_CASE("Add sub-class of RegionSequence to Document")
 	size_t numSequences = 4;
 	for(size_t i = 0; i < numSequences; i++)
 	{
-		auto newSequence = new Test::RegionSequence();
+		auto newSequence = new Timeline::RegionSequence();
 		document.addRegionSequence(newSequence);
 	}
 

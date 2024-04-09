@@ -4,6 +4,7 @@
 
 using namespace Timeline;
 
+//=============================
 PlaybackRegion::PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod)
 : mAudioSource(audioSource)
 , mAudioMod(audioMod)
@@ -12,14 +13,14 @@ PlaybackRegion::PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::Aud
 }
 
 
-
+//=============================
 PlaybackRegion::~PlaybackRegion()
 {
 
 }
 
 
-
+//=============================
 PlaybackRegion::RenderRanges PlaybackRegion::getRenderRanges(juce::Range<juce::int64> blockRangeInTimeline)
 {
 	auto regionRangeInTimeline = getRangeInTimeline();
@@ -54,7 +55,6 @@ juce::Range<juce::int64> PlaybackRegion::calculateRangeToRenderInTimeline(juce::
 	rangeToRead = rangeToRead.getIntersectionWith(regionRangeInTimeline);
 	
 	return rangeToRead;
-	
 }
 
 

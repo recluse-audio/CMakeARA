@@ -28,16 +28,8 @@ set(SourceFiles
     Source/Sections/TimelineSection.h
     Source/Test_Timeline/Test_AudioModification.cpp
     Source/Test_Timeline/Test_AudioModification.h
-    Source/Test_Timeline/Test_AudioSource.cpp
     Source/Test_Timeline/Test_AudioSource.h
-    Source/Test_Timeline/Test_Document.h
-    Source/Test_Timeline/Test_DocumentController.cpp
-    Source/Test_Timeline/Test_DocumentController.h
-    Source/Test_Timeline/Test_PlaybackRegion.cpp
     Source/Test_Timeline/Test_PlaybackRegion.h
-    Source/Test_Timeline/Test_PlaybackRenderer.cpp
-    Source/Test_Timeline/Test_PlaybackRenderer.h
-    Source/Test_Timeline/Test_RegionSequence.h
     Source/Test_Utils/DocumentFactory.h
     Source/Test_Utils/ObjectFactory.h
     Source/Test_Utils/TestUtils.cpp
@@ -64,8 +56,6 @@ set(SourceFiles
     Source/Timeline/Objects/Timeline_PlaybackRenderer.h
     Source/Timeline/Objects/Timeline_RegionSequence.cpp
     Source/Timeline/Objects/Timeline_RegionSequence.h
-    Source/Timeline/Objects/Timeline_Renderer.cpp
-    Source/Timeline/Objects/Timeline_Renderer.h
     Source/Timeline/Sections/DocumentSection.cpp
     Source/Timeline/Sections/DocumentSection.h
     Source/Timeline/Sections/SequenceHeadersSection.cpp

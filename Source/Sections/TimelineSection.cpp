@@ -5,7 +5,6 @@
 #include "Timeline/Sections/DocumentSection.h"
 #include "Timeline/Sections/ZoomControlsSection.h"
 
-#include "../Test_Timeline/Test_RegionSequence.h"
 #include "Timeline/Objects/Timeline_Document.h"
 #include "Timeline/Views/DocumentView.h"
 
