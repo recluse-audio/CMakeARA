@@ -7,6 +7,7 @@ namespace Timeline
 	class Document;
 }
 class DocumentFactory;
+class ARA_DocumentController;
 
 #if (MSVC)
 #include "ipps.h"
@@ -47,11 +48,15 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 	
-	Timeline::Document& getDocument();
+	Timeline::Document& getTimelineDocument();
 	
 private:
 	std::unique_ptr<DocumentFactory>	mDocumentFactory;
-	std::unique_ptr<Timeline::Document> mDocument;
+	std::unique_ptr<Timeline::Document> mBlankDocument;
+
+    // function to aid in access to our custom sub-class. cleans up the ARA rigamarole
+    // MAY RETURN NULL!!!
+    ARA_DocumentController* _getCustomDocumentController();
 	
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };

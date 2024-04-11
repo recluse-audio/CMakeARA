@@ -34,14 +34,17 @@ TEST_CASE("Add sub-class of PlaybackRegion to RegionSequence")
 {
 	TestUtils::SetupAndTeardown setupAndTeardown;
 
-	Test::AudioSource audioSource;
 	juce::UndoManager undoManager;
-	Timeline::AudioModification audioMod(undoManager);
+
+	auto audioSource = std::make_unique<Test::AudioSource>();
+	auto audioMod = std::make_unique<Timeline::AudioModification>(undoManager);
+
 	Timeline::RegionSequence sequence;
+
 	size_t numRegions = 4;
 	for(size_t i = 0; i < numRegions; i++)
 	{
-		auto newRegion = new Test::PlaybackRegion(audioSource, audioMod);
+		auto newRegion = new Test::PlaybackRegion(audioSource.release(), audioMod.release());
 		sequence.addPlaybackRegion(newRegion);
 	}
 

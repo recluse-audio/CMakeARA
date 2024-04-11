@@ -239,10 +239,12 @@ TEST_CASE("PlaybackRegionView can size correctly")
 	Timeline::ZoomState zoomState;
 	auto one_second_of_samples = zoomState.getSampleRate();
 
-	Test::AudioSource audioSource;
 	juce::UndoManager undoManager;
-	Timeline::AudioModification audioMod(undoManager);
-	auto testRegion = std::make_unique<Test::PlaybackRegion>(audioSource, audioMod);
+
+	auto audioSource = std::make_unique<Test::AudioSource>();
+	auto audioMod = std::make_unique<Timeline::AudioModification>(undoManager);
+
+	auto testRegion = std::make_unique<Test::PlaybackRegion>(audioSource.get(), audioMod.get());
 	testRegion->setRangeInTimeline(0, one_second_of_samples);
 	testRegion->setRangeInAudioSource(0, one_second_of_samples);
 

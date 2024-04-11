@@ -45,7 +45,7 @@ public:
 			{
 				juce::int64 regionStart = ((int)j * 5 ) * (int)document->getPlaybackSampleRate();
 				juce::int64 regionEnd = regionStart + (int)document->getPlaybackSampleRate();
-				auto region = new Test::PlaybackRegion(*mAudioSource.get(), *mAudioMod.get());
+				auto region = new Test::PlaybackRegion(mAudioSource.get(), mAudioMod.get());
 
 				region->setRangeInTimeline(regionStart, regionEnd);
 

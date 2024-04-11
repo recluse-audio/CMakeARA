@@ -32,7 +32,7 @@ void PlaybackRegionView::paint(juce::Graphics &g)
 void PlaybackRegionView::_updateSize()
 {
 
-	auto lengthInSeconds = mPlaybackRegion.getRangeInTimeline().getLength() / getZoomState().getSampleRate();
+	auto lengthInSeconds = mPlaybackRegion.getRangeInTimelineSeconds().getLength();
 	int regionWidth = (int)(lengthInSeconds * getZoomState().getPixelsPerSecond());
 	int regionHeight = getZoomState().getSequenceHeight() - (getZoomState().getRegionPadding() * 2);
 	this->setSize(regionWidth, regionHeight);

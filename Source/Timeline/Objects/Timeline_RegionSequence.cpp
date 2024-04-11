@@ -28,7 +28,7 @@ double RegionSequence::getEndOfFinalRegion()
 	juce::int64 endSample = 0;
 	for (auto region : mPlaybackRegions)
 	{
-		auto lastSampleInRegion = region->getRangeInTimeline().getEnd();
+		auto lastSampleInRegion = region->getRangeInTimelineSeconds().getEnd();
 		if(lastSampleInRegion > endSample)
 			endSample = lastSampleInRegion;
 	}

@@ -1,19 +1,52 @@
 #include "ARA_DocumentController.h"
 #include "ARA_PlaybackRenderer.h"
 #include "ARA_AudioSource.h"
+#include "ARA_AudioModification.h"
+#include "ARA_PlaybackRegion.h"
+#include "ARA_RegionSequence.h"
 #include "../Timeline/Objects/Timeline_Document.h"
 #include "../Timeline/Objects/Timeline_AudioSource.h"
+#include "../Test_Utils/DocumentFactory.h"
 
+//==============================================================================
+ARA_DocumentController::ARA_DocumentController(const ARA::PlugIn::PlugInEntry* entry,
+                                         	   const ARA::ARADocumentControllerHostInstance* instance)
+: juce::ARADocumentControllerSpecialisation(entry, instance)
+{
+	mTimelineDocument.reset();
+	mTimelineDocument = std::make_unique<Timeline::Document>();
+}
 //==============================================================================
 juce::ARAPlaybackRenderer* ARA_DocumentController::doCreatePlaybackRenderer() noexcept
 {
-	return new juce::ARAPlaybackRenderer (getDocumentController());
+	return new ARA_PlaybackRenderer(getDocumentController());
 }
 
 //==============================================================================
-juce::ARAAudioSource* ARA_DocumentController::doCreateAudioSource(juce::ARADocument* document, ARA::ARAAudioSourceHostRef hostRef)
+juce::ARAAudioSource* ARA_DocumentController::doCreateAudioSource(juce::ARADocument* document, ARA::ARAAudioSourceHostRef hostRef) noexcept
 {
 	return new ARA_AudioSource(document, hostRef);
+}
+
+//==============================================================================
+juce::ARAAudioModification* ARA_DocumentController::doCreateAudioModification (juce::ARAAudioSource* audioSource, ARA::ARAAudioModificationHostRef hostRef, const juce::ARAAudioModification* modToClone) noexcept
+{
+	return new ARA_AudioModification(audioSource, hostRef, modToClone, mUndoManager);
+}
+
+//==============================================================================
+juce::ARARegionSequence* ARA_DocumentController::doCreateRegionSequence(juce::ARADocument* document,  ARA::ARARegionSequenceHostRef hostRef) noexcept
+{
+	return new ARA_RegionSequence(document, hostRef);
+}
+
+//==============================================================================
+juce::ARAPlaybackRegion* ARA_DocumentController::doCreatePlaybackRegion(juce::ARAAudioModification* audioMod,  ARA::ARAPlaybackRegionHostRef hostRef) noexcept
+{
+	ARA_AudioSource* customAudioSource = audioMod->getAudioSource<ARA_AudioSource>();
+	ARA_AudioModification* customAudioMod = dynamic_cast<ARA_AudioModification*>(audioMod);
+	//ARA_AudioSource* audioSource = dynamic_cast<ARA_AudioSource*>(araSource);
+	return new ARA_PlaybackRegion(customAudioSource, customAudioMod, hostRef);
 }
 
 //==============================================================================
@@ -47,11 +80,18 @@ const ARA::ARAFactory* JUCE_CALLTYPE createARAFactory()
 
 Timeline::Document& ARA_DocumentController::getTimelineDocument() const
 {
-	return *mDocument.get();
+	return *mTimelineDocument.get();
 }
 
 void ARA_DocumentController::_updateDocument()
 {
-	mDocument.reset();
-	mDocument = std::make_unique<Timeline::Document>();
+	auto regionSequences = this->getDocument()->getRegionSequences<ARA_RegionSequence>();
+
+	for(auto regionSequence : regionSequences)
+	{
+		mTimelineDocument->addRegionSequence(regionSequence);
+
+	}
+
+
 }

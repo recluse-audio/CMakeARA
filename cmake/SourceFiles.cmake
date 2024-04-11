@@ -11,6 +11,8 @@ set(SourceFiles
     Source/ARA/Objects/ARA_PlaybackRegion.h
     Source/ARA/Objects/ARA_PlaybackRenderer.cpp
     Source/ARA/Objects/ARA_PlaybackRenderer.h
+    Source/ARA/Objects/ARA_RegionSequence.cpp
+    Source/ARA/Objects/ARA_RegionSequence.h
     Source/ARA/Views/PlaybackRegionView.cpp
     Source/ARA/Views/PlaybackRegionView.h
     Source/EditorState.h

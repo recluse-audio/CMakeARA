@@ -13,7 +13,7 @@ namespace Test
 class PlaybackRegion : public Timeline::PlaybackRegion
 {
 public:
-	PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod)
+	PlaybackRegion(Timeline::AudioSource* audioSource, Timeline::AudioModification* audioMod)
 	: Timeline::PlaybackRegion(audioSource, audioMod)
 	{
 		

@@ -62,10 +62,12 @@ TEST_CASE("Retrieving Render Ranges using Test::PlaybackRegion to simulate ARA r
 {
 	TestUtils::SetupAndTeardown setupAndTeardown;
 
-	Test::AudioSource audioSource;
 	juce::UndoManager undoManager;
-	Timeline::AudioModification audioMod(undoManager);
-	Test::PlaybackRegion playbackRegion(audioSource, audioMod);
+
+	auto audioSource = std::make_unique<Test::AudioSource>();
+	auto audioMod = std::make_unique<Timeline::AudioModification>(undoManager);
+
+	Test::PlaybackRegion playbackRegion(audioSource.release(), audioMod.release());
 	
 	SECTION("Test the test class set/get")
 	{
@@ -104,11 +106,13 @@ TEST_CASE("Simulating how the PlaybackRenderer will get the correct render range
 {
 	TestUtils::SetupAndTeardown setupAndTeardown;
 
-
-	Test::AudioSource audioSource;
 	juce::UndoManager undoManager;
-	Timeline::AudioModification audioMod(undoManager);
-	Test::PlaybackRegion playbackRegion(audioSource, audioMod);
+
+	auto audioSource = std::make_unique<Test::AudioSource>();
+	auto audioMod = std::make_unique<Timeline::AudioModification>(undoManager);
+
+	Test::PlaybackRegion playbackRegion(audioSource.release(), audioMod.release());
+
 	playbackRegion.setRangeInTimeline(2, 7);
 	playbackRegion.setRangeInAudioSource(1, 6);
 	

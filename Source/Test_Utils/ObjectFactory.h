@@ -21,7 +21,7 @@ public:
     {
         mAudioSource = std::make_unique<Test::AudioSource>();
         mAudioMod = std::make_unique<Timeline::AudioModification>(mUndoManager);
-        mRegion = std::make_unique<Test::PlaybackRegion>(*mAudioSource.get(), *mAudioMod.get());
+        mRegion = std::make_unique<Test::PlaybackRegion>(mAudioSource.get(), mAudioMod.get());
     }
 
     ~ObjectFactory()

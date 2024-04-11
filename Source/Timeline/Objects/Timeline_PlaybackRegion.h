@@ -31,14 +31,16 @@ public:
 		Int64Range rangeInAudioSource;
 	};
 	
-	PlaybackRegion(Timeline::AudioSource& audioSource, Timeline::AudioModification& audioMod);	
+	// TODO: Probably make this take pointers instead?
+	PlaybackRegion(Timeline::AudioSource* audioSource, Timeline::AudioModification* audioMod);	
 
 
 	virtual ~PlaybackRegion();
 	
 	// In ARA sub-class these will likely simply be the ARA function equivalents formatted as a Range
+
 	virtual juce::Range<double> getRangeInTimelineSeconds() const = 0;
-	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;
+	virtual juce::Range<juce::int64> getRangeInTimeline() const = 0;  // TODO: Ditch this b/c it depends on sample rate
 	virtual juce::Range<juce::int64> getRangeInAudioSource() const = 0;
 
 
@@ -77,8 +79,8 @@ private:
 	juce::Range<juce::int64> mRangeInTimeline;
 	juce::Range<juce::int64> mRangeInAudioSource;
 
-	Timeline::AudioSource& mAudioSource;
-	Timeline::AudioModification& mAudioMod;
+	Timeline::AudioSource* mAudioSource;
+	Timeline::AudioModification* mAudioMod;
 
 	
 	

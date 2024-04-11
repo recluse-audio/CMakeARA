@@ -11,9 +11,14 @@ class ARA_PlaybackRenderer : public juce::ARAPlaybackRenderer
                            , public Timeline::PlaybackRenderer
 {
 public:
+
+    ARA_PlaybackRenderer(ARA::PlugIn::DocumentController* docController);
+
     bool processBlock(juce::AudioBuffer<float>& buffer, 
                       juce::AudioProcessor::Realtime realTime, 
                       const juce::AudioPlayHead::PositionInfo& positionInfo) noexcept override;
+
+
 
 private:
 

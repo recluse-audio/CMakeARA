@@ -30,7 +30,7 @@ PluginEditor::PluginEditor (PluginProcessor& p)
     this->setSize(mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
 	mMainView->setBounds(0, 0, mEditorState->mDefaultWidth, mEditorState->mDefaultHeight);
 
-	this->loadDocumentInTimeline(mProcessor.getDocument());
+	this->loadDocumentInTimeline(mProcessor.getTimelineDocument());
 }
 
 PluginEditor::~PluginEditor()
@@ -84,7 +84,7 @@ void PluginEditor::buttonClicked(juce::Button *b)
 {
 	if(b == mTestButton.get())
 	{
-		auto document = mProcessor.getDocument();
+		auto document = mProcessor.getTimelineDocument();
 		loadDocumentInTimeline(document);
 	}
 }

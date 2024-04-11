@@ -2,6 +2,7 @@
 #include "PluginEditor.h"
 #include "Timeline/Objects/Timeline_Document.h"
 #include "Test_Utils/DocumentFactory.h"
+#include "ARA/Objects/ARA_DocumentController.h"
 
 //==============================================================================
 PluginProcessor::PluginProcessor()
@@ -14,12 +15,16 @@ PluginProcessor::PluginProcessor()
                      #endif
                        )
 {
-	mDocumentFactory = std::make_unique<DocumentFactory>();
-	mDocument = mDocumentFactory->createDocument(3, 4);
+    // auto playbackRenderer = this->getPlaybackRenderer();    
+    // auto araDocSpec = playbackRenderer->getDocumentController();
+    mDocumentFactory = std::make_unique<DocumentFactory>();
+    mBlankDocument = mDocumentFactory->createDocument(3, 4);
 }
 
 PluginProcessor::~PluginProcessor()
 {
+    mBlankDocument.reset();
+    mDocumentFactory.reset();
 }
 
 //==============================================================================
@@ -90,7 +95,7 @@ void PluginProcessor::changeProgramName (int index, const juce::String& newName)
 //==============================================================================
 void PluginProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-	mDocument->setPlaybackSampleRate(sampleRate);
+	// mDocument->setPlaybackSampleRate(sampleRate);
 
     juce::ignoreUnused (sampleRate, samplesPerBlock);
 }
@@ -192,7 +197,24 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 
 
 //=======================
-Timeline::Document& PluginProcessor::getDocument()
+Timeline::Document& PluginProcessor::getTimelineDocument()
 {
-	return *mDocument.get();
+    auto docController = _getCustomDocumentController();
+
+    if(docController != nullptr)
+        return docController->getTimelineDocument();
+
+    return *mBlankDocument.get();
+
+} // TODO: this function seems suspect.  Should I be returning this by reference? Do I need to check for nullptr? but return what then?
+
+
+//==============================================================================
+ARA_DocumentController* PluginProcessor::_getCustomDocumentController()
+{
+    ARA_DocumentController* docController = nullptr;
+    
+    docController = juce::ARADocumentControllerSpecialisation::getSpecialisedDocumentController<ARA_DocumentController>(this->getDocumentController());
+    
+    return docController;
 }

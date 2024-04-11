@@ -10,10 +10,10 @@ ARA_AudioSource::ARA_AudioSource(juce::ARADocument* document, ARA::ARAAudioSourc
 
 bool ARA_AudioSource::readFromAudioSource(juce::AudioBuffer<float>& buffer, Int64Range rangeToRead)
 {
-
+    return true;
 }
 
 juce::int64 ARA_AudioSource::getDurationInSamples() const
 {
-    
+    return 0;
 }

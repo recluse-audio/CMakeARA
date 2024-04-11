@@ -52,14 +52,15 @@ void ViewportSection::removeZoomStateListeners()
 {
 	auto viewedComponent = mViewport->getViewedComponent();
 	
-	// Add viewed component as listener if it is a ZoomStateListener
-	if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(viewedComponent))
-		mZoomState.removeZoomStateListener(zoomListener);
-	
+	// do viewport children first
 	for(int i = 0; i < viewedComponent->getNumChildComponents(); i++)
 	{
 		auto childComponent = viewedComponent->getChildComponent(i);
 		if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(childComponent))
 			mZoomState.removeZoomStateListener(zoomListener);
 	}
+
+		// Add viewed component as listener if it is a ZoomStateListener
+	if(auto zoomListener = dynamic_cast<Timeline::ZoomStateListener*>(viewedComponent))
+		mZoomState.removeZoomStateListener(zoomListener);
 }
